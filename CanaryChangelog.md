@@ -1,3 +1,6 @@
+**canary-399**  
+- A15QPR1B3: basic compatibility  
+  
 **canary-398**  
 - Pytorch AI model: fixed model not working on canary releases  
   
