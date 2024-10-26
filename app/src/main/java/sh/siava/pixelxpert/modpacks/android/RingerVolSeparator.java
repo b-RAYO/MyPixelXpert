@@ -12,7 +12,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
 
-public class RingerVolSeperator extends XposedModPack {
+public class RingerVolSeparator extends XposedModPack {
 	public static final String listenPackage = Constants.SYSTEM_FRAMEWORK_PACKAGE;
 
 	private static final String VOLUME_SEPARATE_NOTIFICATION = "volume_separate_notification";
@@ -20,7 +20,7 @@ public class RingerVolSeperator extends XposedModPack {
 	private static boolean SeparateRingNotifVol = false;
 	private Class<?> DeviceConfigClass;
 
-	public RingerVolSeperator(Context context) {
+	public RingerVolSeparator(Context context) {
 		super(context);
 	}
 

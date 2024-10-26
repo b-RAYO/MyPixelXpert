@@ -12,7 +12,7 @@ import sh.siava.pixelxpert.modpacks.android.BrightnessRange;
 import sh.siava.pixelxpert.modpacks.android.HotSpotController;
 import sh.siava.pixelxpert.modpacks.android.PackageManager;
 import sh.siava.pixelxpert.modpacks.android.PhoneWindowManager;
-import sh.siava.pixelxpert.modpacks.android.RingerVolSeperator;
+import sh.siava.pixelxpert.modpacks.android.RingerVolSeparator;
 import sh.siava.pixelxpert.modpacks.android.ScreenOffKeys;
 import sh.siava.pixelxpert.modpacks.android.ScreenRotation;
 import sh.siava.pixelxpert.modpacks.android.StatusbarSize;
@@ -77,7 +77,7 @@ public class ModPacks {
 				modPacks.add(ScreenRotation.class);
 				modPacks.add(ScreenOffKeys.class);
 				modPacks.add(HotSpotController.class);
-				modPacks.add(RingerVolSeperator.class);
+				modPacks.add(RingerVolSeparator.class);
 				modPacks.add(SystemScreenRecord.class);
 				break;
 

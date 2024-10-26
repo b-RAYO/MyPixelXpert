@@ -39,9 +39,9 @@ public class SystemScreenRecord extends XposedModPack {
 				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 					try
 					{
-						if(InsecureScreenRecord && (boolean) callMethod(param.thisObject, "validatePackageName"
-								, Binder.getCallingUid()
-								, Constants.SYSTEM_UI_PACKAGE))
+						if(InsecureScreenRecord && (boolean) callMethod(param.thisObject, "validatePackageName",
+								Binder.getCallingUid(),
+								Constants.SYSTEM_UI_PACKAGE))
 							param.setResult(true);
 					}
 					catch (Throwable ignored) {}
