@@ -1075,14 +1075,8 @@ public class StatusbarMods extends XposedModPack {
 		parent.removeView(mNotificationIconContainer);
 		mLeftVerticalSplitContainer.addView(mNotificationContainerContainer);
 
-		View ongoingActivityChipView = mStatusBar.findViewById(mContext.getResources().getIdentifier("ongoing_activity_chip", "id", mContext.getPackageName()));
-		if(ongoingActivityChipView == null) //pre 15beta3
-		{
-			ongoingActivityChipView = mStatusBar.findViewById(mContext.getResources().getIdentifier("ongoing_call_chip", "id", mContext.getPackageName()));
-		}
-		((ViewGroup)ongoingActivityChipView.getParent()).removeView(ongoingActivityChipView);
+		repositionOngoingChips();
 
-		mNotificationContainerContainer.addView(ongoingActivityChipView);
 		mNotificationContainerContainer.addView(mNotificationIconContainer);
 
 		((LinearLayout.LayoutParams) mNotificationIconContainer.getLayoutParams()).weight = 100;
@@ -1106,6 +1100,23 @@ public class StatusbarMods extends XposedModPack {
 		((View)mStatusbarStartSide.getParent()).getLayoutParams().height = MATCH_PARENT;
 		mStatusbarStartSide.getLayoutParams().height = MATCH_PARENT;
 		mLeftVerticalSplitContainer.getLayoutParams().height = MATCH_PARENT;
+	}
+
+	private void repositionOngoingChips() {
+		repositionOngoingChip("ongoing_activity_chip"); //A15
+		repositionOngoingChip("ongoing_call_chip"); //Pre A15
+		repositionOngoingChip("ongoing_activity_chip_primary"); //A15 QPR1
+		repositionOngoingChip("ongoing_activity_chip_secondary"); //A15 QPR1
+	}
+
+	private void repositionOngoingChip(String chipName) {
+		@SuppressLint("DiscouragedApi")
+		View ongoingActivityChipView = mStatusBar.findViewById(mContext.getResources().getIdentifier(chipName, "id", mContext.getPackageName()));
+		if(ongoingActivityChipView != null)
+		{
+			((ViewGroup)ongoingActivityChipView.getParent()).removeView(ongoingActivityChipView);
+			mNotificationContainerContainer.addView(ongoingActivityChipView);
+		}
 	}
 
 	private void setHeights() {
