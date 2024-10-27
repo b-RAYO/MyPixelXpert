@@ -242,8 +242,12 @@ public class TaskbarActivator extends XposedModPack {
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				TaskBarView = (ViewGroup) param.thisObject;
 
-				if(taskbarMode == TASKBAR_ON && TaskbarHideAllAppsIcon)
-					setObjectField(TaskBarView, "mAllAppsButton", null);
+				try
+				{ //Since A15QPR1 button is now a container and can't be null anymore. removing it manually only from recents
+					if(taskbarMode == TASKBAR_ON && TaskbarHideAllAppsIcon)
+						setObjectField(TaskBarView, "mAllAppsButton", null);
+				}
+				catch (Throwable ignored){}
 			}
 		});
 
@@ -317,7 +321,7 @@ public class TaskbarActivator extends XposedModPack {
 							for (int i = 0; i < itemInfos.length; i++) {
 								TaskInfo taskInfo = (TaskInfo) ((Object[]) getObjectField(recentTaskList.get(i), mTasksFieldName))[0];
 
-								// noinspection JavaReflectionMemberAccess
+								// noinspection ,RedundantCast,JavaReflectionMemberAccess
 								itemInfos[i] = AppInfoClass.getConstructor(ComponentName.class, CharSequence.class, UserHandle.class, Intent.class)
 										.newInstance(
 												(ComponentName) getObjectField(taskInfo, "realActivity"),
@@ -337,6 +341,15 @@ public class TaskbarActivator extends XposedModPack {
 								callMethod(TaskBarView, "updateHotseatItems", new Object[]{itemInfos});
 							}
 
+							for(int i = 0; i < 2; i++) //A15QPR1Beta3 - They added allapps button as a container plus a divider container
+							{
+								View child = TaskBarView.getChildAt(0);
+								if(child.getClass().getName().endsWith("Container"))
+								{
+									TaskBarView.removeView(child);
+								}
+							}
+
 							for (int i = 0; i < itemInfos.length; i++) {
 								View iconView = TaskBarView.getChildAt(i);
 
@@ -344,8 +357,7 @@ public class TaskbarActivator extends XposedModPack {
 									if (getAdditionalInstanceField(iconView, "taskId")
 											.equals(getAdditionalInstanceField(itemInfos[itemInfos.length - i - 1], "taskId")))
 										continue;
-								} catch (Throwable ignored) {
-								}
+								} catch (Throwable ignored) {}
 
 								setAdditionalInstanceField(iconView, "taskId", getAdditionalInstanceField(itemInfos[itemInfos.length - i - 1], "taskId"));
 								callMethod(iconView, "applyFromApplicationInfo", itemInfos[itemInfos.length - i - 1]);
