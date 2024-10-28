@@ -1,3 +1,6 @@
+**canary-400**  
+- A15QPR1B3: fixed taskbar  
+  
 **canary-399**  
 - A15QPR1B3: basic compatibility  
   
