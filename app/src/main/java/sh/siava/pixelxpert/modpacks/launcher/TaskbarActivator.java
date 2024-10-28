@@ -87,7 +87,7 @@ public class TaskbarActivator extends XposedModPack {
 			SystemUtils.killSelf();
 		}
 
-		taskbarMode = Integer.parseInt(Xprefs.getString("taskBarMode", "0"));
+		taskbarMode = Integer.parseInt(Xprefs.getString("taskBarMode", String.valueOf(TASKBAR_DEFAULT)));
 
 		TaskbarAsRecents = Xprefs.getBoolean("TaskbarAsRecents", false);
 		TaskbarHideAllAppsIcon = true;//Xprefs.getBoolean("TaskbarHideAllAppsIcon", false);
@@ -129,9 +129,7 @@ public class TaskbarActivator extends XposedModPack {
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 				if(taskbarMode == TASKBAR_DEFAULT) return;
 
-				boolean taskbarEnabled = taskbarMode == TASKBAR_ON;
-
-				if(taskbarEnabled) param.setResult(true);
+				param.setResult(taskbarMode == TASKBAR_ON);
 			}
 		});
 
