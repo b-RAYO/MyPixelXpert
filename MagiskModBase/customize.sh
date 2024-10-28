@@ -115,7 +115,7 @@ testKernelSU()
     		ui_print 'Do you wish to continue?'
     		ui_print 'Volume Up: Continue'
     		ui_print 'Volume Down: Abort'
-    		if [[ "$(getevent -l -c 1 /dev/input/event0)" == *"VOLUMEDOWN"* ]]; then
+    		if [[ "$(getevent -l | grep -m 1 KEY_VOLUME)" == *"VOLUMEDOWN"* ]]; then
     			abort 'Installation cancelled'
     		fi;
     	fi;
