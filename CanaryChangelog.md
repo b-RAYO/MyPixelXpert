@@ -1,3 +1,7 @@
+**canary-401**  
+- Fixed taskbar not getting disabled on tablets  
+- Improved installation process on KSU  
+  
 **canary-400**  
 - A15QPR1B3: fixed taskbar  
   
