@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Submodules" />
             <option value="$PROJECT_DIR$/Submodules/RangeSliderPreference" />
             <option value="$PROJECT_DIR$/app" />
           </set>
