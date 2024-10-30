@@ -2,6 +2,7 @@ package sh.siava.pixelxpert.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,11 @@ public class PreferenceHelper {
 		showFonts = moduleType == FULL_VERSION;
 
 		instance = this;
+	}
+
+	public static SharedPreferences getModulePrefs() {
+		if (instance != null) return instance.mPreferences;
+		return null;
 	}
 
 	public static boolean isVisible(String key) {
