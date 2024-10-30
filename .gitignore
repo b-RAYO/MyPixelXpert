@@ -63,3 +63,4 @@ local.properties
 /app/release/
 /crowdin.properties
 /ReleaseKey.properties
+/.kotlin
