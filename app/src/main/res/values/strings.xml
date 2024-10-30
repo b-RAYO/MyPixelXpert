@@ -551,15 +551,22 @@
 	<string name="hooked_packages_title">Connected packages</string>
 	<string name="package_hooked_successful">Package responsive</string>
 	<string name="package_not_hook_enabled">Package not enabled in LSposed</string>
+	<string name="package_hook_bootlooped">Hook failed due to bootloop</string>
 	<string name="package_hook_no_response">Package not responding</string>
 	<string name="package_not_found">Package not found</string>
 	<string name="package_checking">Loading%s</string>
 	<string name="package_activated">Package successfully activated</string>
 	<string name="package_activation_failed">Package activation failed</string>
 	<string name="activate_in_lsposed">Activate in LSPosed</string>
+	<string name="package_not_hook_enabled_info">The app is installed, but LSPosed is not configured to hook into it. Enable it by clicking \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">The hook for the app caused a bootloop, so it has been disabled to prevent further issues.</string>
+	<string name="package_hook_no_response_info">The app is not responding to the hook status. It may not be actively running, or it\'s possible that it\'s not hooked to our connection.</string>
+	<string name="whats_wrong">What\'s wrong?</string>
 	<string name="package_not_launchable">Package is not launch-able</string>
 	<string name="menu_launch_app">Launch app</string>
 	<string name="menu_restart_app">Restart app</string>
+	<string name="why">why?</string>
+	<string name="okay">Okay</string>
 
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">Checking root permissions…</string>

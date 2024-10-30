@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -56,8 +57,27 @@
 			android:textSize="14sp"
 			android:textStyle="normal" />
 
+		<com.google.android.material.textview.MaterialTextView
+			android:id="@+id/reason"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@id/title"
+			android:layout_alignBottom="@id/title"
+			android:layout_marginStart="6dp"
+			android:layout_toEndOf="@id/title"
+			android:background="@drawable/container_mid"
+			android:backgroundTint="?attr/colorPrimaryContainer"
+			android:paddingHorizontal="4dp"
+			android:paddingVertical="2dp"
+			android:text="@string/why"
+			android:textColor="?attr/colorOnPrimaryContainer"
+			android:textSize="12sp"
+			android:textStyle="bold"
+			android:visibility="gone" />
+
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/activate_in_lsposed"
+			style="@style/Widget.Material3.Button.TonalButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/desc"
@@ -66,9 +86,11 @@
 			android:animateLayoutChanges="true"
 			android:minHeight="0dp"
 			android:paddingHorizontal="12dp"
-			android:paddingVertical="6dp"
+			android:paddingTop="5dp"
+			android:paddingBottom="6dp"
 			android:text="@string/activate_in_lsposed"
-			android:visibility="gone" />
+			android:visibility="gone"
+			app:cornerRadius="8dp" />
 
 	</RelativeLayout>
 </LinearLayout>
