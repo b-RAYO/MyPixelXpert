@@ -41,6 +41,11 @@ public class PreferenceHelper {
 		instance = this;
 	}
 
+	public static SharedPreferences getModulePrefs() {
+		if (instance != null) return instance.mPreferences;
+		return null;
+	}
+
 	public static boolean isVisible(String key) {
 		if (instance == null) return true;
 
