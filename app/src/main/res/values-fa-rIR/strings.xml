@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">بسته های متصل</string>
 	<string name="package_hooked_successful">بسته پاسخگو</string>
 	<string name="package_not_hook_enabled">بسته در LSposed فعال نیست</string>
+	<string name="package_hook_bootlooped">Hook failed due to bootloop</string>
 	<string name="package_hook_no_response">بسته پاسخ نمی دهد</string>
 	<string name="package_not_found">بسته پیدا نشد</string>
 	<string name="package_checking">در حال بارگذاری%s</string>
 	<string name="package_activated">بسته با موفقیت فعال شد</string>
 	<string name="package_activation_failed">فعال سازی بسته انجام نشد</string>
 	<string name="activate_in_lsposed">در LSPosed فعال کنید</string>
+	<string name="package_not_hook_enabled_info">The app is installed, but LSPosed is not configured to hook into it. Enable it by clicking \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">The hook for the app caused a bootloop, so it has been disabled to prevent further issues.</string>
+	<string name="package_hook_no_response_info">The app is not responding to the hook status. It may not be actively running, or it\'s possible that it\'s not hooked to our connection.</string>
+	<string name="whats_wrong">What\'s wrong?</string>
 	<string name="package_not_launchable">این برنامه قابل اجرا نیست</string>
 	<string name="menu_launch_app">اجرا</string>
 	<string name="menu_restart_app">راه‌اندازی مجدد</string>
+	<string name="why">why?</string>
+	<string name="okay">Okay</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">بررسی مجوزهای ریشه…</string>
 	<string name="connecting_root_service">اتصال به سرویس ریشه…</string>

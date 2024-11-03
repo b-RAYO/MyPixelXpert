@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">接続されたパッケージ</string>
 	<string name="package_hooked_successful">パッケージレスポンシブ</string>
 	<string name="package_not_hook_enabled">LSposed でパッケージが有効になっていません</string>
+	<string name="package_hook_bootlooped">Hook failed due to bootloop</string>
 	<string name="package_hook_no_response">パッケージが応答しない</string>
 	<string name="package_not_found">パッケージが見つかりません</string>
 	<string name="package_checking">%sを読み込み中</string>
 	<string name="package_activated">パッケージが正常にアクティブ化されました</string>
 	<string name="package_activation_failed">パッケージのアクティベーションに失敗しました</string>
 	<string name="activate_in_lsposed">LSPosed でアクティブ化する</string>
+	<string name="package_not_hook_enabled_info">The app is installed, but LSPosed is not configured to hook into it. Enable it by clicking \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">The hook for the app caused a bootloop, so it has been disabled to prevent further issues.</string>
+	<string name="package_hook_no_response_info">The app is not responding to the hook status. It may not be actively running, or it\'s possible that it\'s not hooked to our connection.</string>
+	<string name="whats_wrong">What\'s wrong?</string>
 	<string name="package_not_launchable">起動可能パッケージではありません</string>
 	<string name="menu_launch_app">アプリを起動</string>
 	<string name="menu_restart_app">アプリを再起動</string>
+	<string name="why">why?</string>
+	<string name="okay">Okay</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">root権限の確認…</string>
 	<string name="connecting_root_service">ルートサービス…への接続</string>

@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">Bağlı paketler</string>
 	<string name="package_hooked_successful">Paket yanıt veriyor</string>
 	<string name="package_not_hook_enabled">Paket LSPosed\'de etkin değil</string>
+	<string name="package_hook_bootlooped">Kanca, bootloop nedeniyle başarısız oldu</string>
 	<string name="package_hook_no_response">Paket yanıt vermiyor</string>
 	<string name="package_not_found">Paket bulunamadı</string>
 	<string name="package_checking">Yükleniyor%s</string>
 	<string name="package_activated">Paket başarıyla etkinleştirildi</string>
 	<string name="package_activation_failed">Paket etkinleştirilemedi</string>
 	<string name="activate_in_lsposed">LSPosed\'de etkinleştir</string>
+	<string name="package_not_hook_enabled_info">Uygulama yüklü, ancak LSPosed ona bağlanacak şekilde yapılandırılmamış. \'%s\' seçeneğine tıklayarak etkinleştirin.</string>
+	<string name="package_hook_bootlooped_info">Uygulamanın kancası bir bootloop\'a neden oldu, bu nedenle daha fazla sorunu önlemek için devre dışı bırakıldı.</string>
+	<string name="package_hook_no_response_info">Uygulama kanca durumuna yanıt vermiyor. Aktif olarak çalışmıyor olabilir veya bağlantımıza bağlanmamış olabilir.</string>
+	<string name="whats_wrong">Sorun nedir?</string>
 	<string name="package_not_launchable">Paket başlatılamıyor</string>
 	<string name="menu_launch_app">Uygulamayı başlat</string>
 	<string name="menu_restart_app">Uygulamayı yeniden başlat</string>
+	<string name="why">neden?</string>
+	<string name="okay">Tamam</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">Root izinleri kontrol ediliyor…</string>
 	<string name="connecting_root_service">Root servisine bağlanılıyor…</string>

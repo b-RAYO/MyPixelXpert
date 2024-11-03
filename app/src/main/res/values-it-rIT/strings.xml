@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">Pacchetti connessi</string>
 	<string name="package_hooked_successful">Pacchetto reattivo</string>
 	<string name="package_not_hook_enabled">Pacchetto non abilitato in LSposed</string>
+	<string name="package_hook_bootlooped">Hook fallito a causa del bootloop</string>
 	<string name="package_hook_no_response">Il pacchetto non risponde</string>
 	<string name="package_not_found">Pacchetto non trovato</string>
 	<string name="package_checking">Caricamento%s</string>
 	<string name="package_activated">Pacchetto attivato con successo</string>
 	<string name="package_activation_failed">Attivazione del pacchetto non riuscita</string>
 	<string name="activate_in_lsposed">Attiva in LSPosed</string>
+	<string name="package_not_hook_enabled_info">L\'app è installata, ma LSPosed non è configurata per collegarla. Abilitalo facendo clic su \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">L\'hook per l\'applicazione ha causato un bootloop, quindi è stato disabilitato per evitare ulteriori problemi.</string>
+	<string name="package_hook_no_response_info">L\'app non risponde allo stato dell\'hook. Potrebbe non essere attiva in esecuzione, o è possibile che non sia agganciata alla nostra connessione.</string>
+	<string name="whats_wrong">Cosa c\'è che non va?</string>
 	<string name="package_not_launchable">Il pacchetto non è avviabile</string>
 	<string name="menu_launch_app">Avvia app</string>
 	<string name="menu_restart_app">Riavvia app</string>
+	<string name="why">perché?</string>
+	<string name="okay">Okay</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">Verifica permessi root…</string>
 	<string name="connecting_root_service">Connessione al servizio root…</string>

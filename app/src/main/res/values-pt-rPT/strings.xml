@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">Aplicações vinculadas</string>
 	<string name="package_hooked_successful">A aplicação responde</string>
 	<string name="package_not_hook_enabled">A aplicação não está ativada na LSposed</string>
+	<string name="package_hook_bootlooped">Hook falhou devido a bootloop</string>
 	<string name="package_hook_no_response">A aplicação não responde</string>
 	<string name="package_not_found">Aplicação não encontrada</string>
 	<string name="package_checking">A carregar%s</string>
 	<string name="package_activated">Aplicação ativada com sucesso</string>
 	<string name="package_activation_failed">A ativação falhou</string>
 	<string name="activate_in_lsposed">Ativar no LSPosed</string>
+	<string name="package_not_hook_enabled_info">A aplicação está instalada mas a LSPosed não está configurada para ligá-la. Habilite clicando em \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">O hook para a aplicação causou um bootloop, assim foi desativado para evitar mais problemas.</string>
+	<string name="package_hook_no_response_info">A app não consegue determinar o estado do hook. Ele pode não estar ativamente em execução, ou pode não estar ligado à nossa ligação.</string>
+	<string name="whats_wrong">O que está errado?</string>
 	<string name="package_not_launchable">O pacote não pode ser lançado</string>
 	<string name="menu_launch_app">Iniciar aplicação</string>
 	<string name="menu_restart_app">Reiniciar aplicação</string>
+	<string name="why">porquê?</string>
+	<string name="okay">Ok</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">A verificar permissões root…</string>
 	<string name="connecting_root_service">A ligar ao serviço root…</string>

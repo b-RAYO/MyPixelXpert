@@ -473,15 +473,22 @@
 	<string name="hooked_packages_title">Các gói được kết nối</string>
 	<string name="package_hooked_successful">Gói đáp ứng</string>
 	<string name="package_not_hook_enabled">Gói không được kích hoạt trong LSpose</string>
+	<string name="package_hook_bootlooped">Móc nối không thành công dẫn tới lỗi vòng lặp khởi động</string>
 	<string name="package_hook_no_response">Gói không phản hồi</string>
 	<string name="package_not_found">Không tìm thấy gói</string>
 	<string name="package_checking">Đang tải%s</string>
 	<string name="package_activated">Gói kích hoạt thành công</string>
 	<string name="package_activation_failed">Kích hoạt gói không thành công</string>
 	<string name="activate_in_lsposed">Kích hoạt trong LSPosed</string>
+	<string name="package_not_hook_enabled_info">Ứng dụng đã được cài đặt nhưng LPosed chưa được định cấu hình để kết nối với ứng dụng. Kích hoạt bằng cách nhấp vào \'%s\'.</string>
+	<string name="package_hook_bootlooped_info">Móc nối của ứng dụng đã gây ra vòng lặp khởi động nên nó đã bị vô hiệu hóa để ngăn chặn các sự cố tiếp theo.</string>
+	<string name="package_hook_no_response_info">Ứng dụng không phản hồi với trạng thái móc nối. Nó có thể đang không hoạt động tích cực hoặc khả năng nó không được móc nối với liên kết của chúng tôi.</string>
+	<string name="whats_wrong">Chuyện gì xảy ra vậy?</string>
 	<string name="package_not_launchable">Gói không thể khởi động</string>
 	<string name="menu_launch_app">Khởi động ứng dụng</string>
 	<string name="menu_restart_app">Khởi động lại ứng dụng</string>
+	<string name="why">tại sao?</string>
+	<string name="okay">Đồng ý</string>
 	<!-- Splash Activity -->
 	<string name="checking_root_permissions">Kiểm tra quyền root…</string>
 	<string name="connecting_root_service">Kết nối với dịch vụ root…</string>
