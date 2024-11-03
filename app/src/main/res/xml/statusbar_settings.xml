@@ -29,19 +29,19 @@
 		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 			android:key="sbc_header"
 			android:title="@string/sbc_header"
-			app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$SBCFragment"
+			app:fragment="sh.siava.pixelxpert.ui.fragments.SBCFragment"
 			app:iconSpaceReserved="false" />
 
 		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 			android:key="sbbb_header"
 			android:title="@string/sbbb_header"
-			app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$SBBBFragment"
+			app:fragment="sh.siava.pixelxpert.ui.fragments.SBBBFragment"
 			app:iconSpaceReserved="false" />
 
 		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 			android:key="sbbIcon_header"
 			android:title="@string/sbbIcon_header"
-			app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$SBBIconFragment"
+			app:fragment="sh.siava.pixelxpert.ui.fragments.SBBIconFragment"
 			app:iconSpaceReserved="false" />
 
 		<!--sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
@@ -201,7 +201,7 @@
 			<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 				android:key="network_settings_header"
 				android:title="@string/network_settings_pref"
-				app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$NetworkFragment"
+				app:fragment="sh.siava.pixelxpert.ui.fragments.NetworkFragment"
 				app:iconSpaceReserved="false" />
 
 		</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>

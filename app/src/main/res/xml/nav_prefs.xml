@@ -4,13 +4,13 @@
 	<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 		android:key="gesturenav_header"
 		android:title="@string/gesturenav_header"
-		app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$GestureNavFragment"
+		app:fragment="sh.siava.pixelxpert.ui.fragments.GestureNavFragment"
 		app:iconSpaceReserved="false" />
 
 	<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 		android:key="threebutton_header"
 		android:title="@string/threebutton_header_title"
-		app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$ThreeButtonNavFragment"
+		app:fragment="sh.siava.pixelxpert.ui.fragments.ThreeButtonNavFragment"
 		app:iconSpaceReserved="false" />
 
 	<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference

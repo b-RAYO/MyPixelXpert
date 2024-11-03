@@ -18,9 +18,6 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.PixelXpert">
 		<activity
-			android:name=".ui.activities.WikiActivity"
-			android:exported="false" />
-		<activity
 			android:name=".ui.activities.FakeSplashActivity"
 			android:exported="true"
 			android:label="@string/title_activity_settings"

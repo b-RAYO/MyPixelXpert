@@ -97,10 +97,9 @@ dependencies {
 	implementation(project(":Submodules:RangeSliderPreference"))
 
 	implementation (libs.androidx.constraintlayout)
-	implementation (libs.navigation.fragment.ktx)
-	implementation (libs.navigation.ui.ktx)
-	implementation (libs.navigation.fragment.ktx)
-	implementation (libs.navigation.ui.ktx)
+	implementation (libs.androidx.navigation.fragment.ktx)
+	implementation (libs.androidx.navigation.ui.ktx)
+	implementation (libs.androidx.fragment.ktx)
 	implementation (libs.androidx.appcompat)
 	implementation (libs.androidx.annotation)
 	implementation (libs.androidx.preference.ktx)
@@ -111,6 +110,7 @@ dependencies {
 	implementation (libs.androidx.activity)
 	implementation (libs.androidx.work.runtime)
 	implementation (libs.androidx.concurrent.futures)
+	implementation (libs.androidx.transition)
 
 	// The core module that provides APIs to a shell
 	implementation (libs.libsuCore)
@@ -152,5 +152,4 @@ dependencies {
 
 	implementation (libs.pytorch.android.lite)
 	implementation (libs.pytorch.android.torchvision.lite)
-
 }

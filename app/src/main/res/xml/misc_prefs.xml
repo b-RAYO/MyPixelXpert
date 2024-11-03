@@ -112,7 +112,7 @@
 		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 			android:key="remap_physical_buttons"
 			android:title="@string/remap_physical_buttons_title"
-			app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$PhysicalButtonRemapFragment"
+			app:fragment="sh.siava.pixelxpert.ui.fragments.PhysicalButtonRemapFragment"
 			app:iconSpaceReserved="false" />
 
 		<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
@@ -312,7 +312,7 @@
 		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
 			android:key="netstat_header"
 			android:title="@string/netstat_header"
-			app:fragment="sh.siava.pixelxpert.ui.activities.SettingsActivity$NetworkStatFragment"
+			app:fragment="sh.siava.pixelxpert.ui.fragments.NetworkStatFragment"
 			app:iconSpaceReserved="false" />
 
 	</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>

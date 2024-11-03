@@ -211,6 +211,7 @@ public class HooksFragment extends BaseFragment {
 
 		for (int i = 0; i < pack.size(); i++) {
 			View list = LayoutInflater.from(requireContext()).inflate(R.layout.view_hooked_package_list, binding.content, false);
+			boolean isAppInstalled = isAppInstalled(pack.get(i));
 
 			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) list.getLayoutParams();
 			if (i == 0) {
@@ -230,7 +231,7 @@ public class HooksFragment extends BaseFragment {
 			title.setText(pack.get(i));
 
 			TextView desc = list.findViewById(R.id.desc);
-			if (isAppInstalled(pack.get(i))) {
+			if (isAppInstalled) {
 				desc.setText(getString(R.string.package_checking, ""));
 			} else {
 				desc.setText(getText(R.string.package_not_found));
@@ -294,12 +295,10 @@ public class HooksFragment extends BaseFragment {
 			});
 
 			list.setOnLongClickListener(v -> {
-				popupMenu.show();
-				return true;
-			});
-
-			list.setOnClickListener(v -> {
-				popupMenu.show();
+				if (isAppInstalled) {
+					popupMenu.show();
+				}
+				return isAppInstalled;
 			});
 
 			binding.content.addView(list);
