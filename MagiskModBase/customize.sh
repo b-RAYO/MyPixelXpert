@@ -107,7 +107,7 @@ testKernelSU()
     		ui_print '*******************************'
     		ui_print 'KernelSU binaries found!'
     		ui_print ''
-    		ui_print '        CAUTION!:      '
+    		ui_print '                CAUTION!:'
     		ui_print 'Before installation, you MUST disable'
     		ui_print '"Unmount modules by default"'
     		ui_print 'Otherwise, your device will fall into BOOTLOOP!'
@@ -144,15 +144,14 @@ if [ $(ls $LSPDDBPATH) = $LSPDDBPATH ]; then
 	ui_print ''
 	ui_print 'Installation Complete!'
 	ui_print 'Please Reboot your device to activate'
-	ui_print '(Activation of additional fonts may take one more reboot)'
 else
 	ui_print 'Lsposed not found!!'
 	ui_print 'This module will not work without Lsposed'
 	ui_print 'Please:'
-	ui_print '- Insall Lsposed'
+	ui_print '- Install Lsposed'
 	ui_print '- Reboot'
-	ui_print '- Manually enable PixelXpert in Lsposed'
-	ui_print '- Reboot'
+#	ui_print '- Manually enable PixelXpert in Lsposed'
+#	ui_print '- Reboot'
 fi
 
 	ui_print ''
