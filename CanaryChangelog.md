@@ -1,3 +1,6 @@
+**canary-402**  
+- A15QPR2b1: Fixed systemUI crash  
+  
 **canary-401**  
 - Fixed taskbar not getting disabled on tablets  
 - Improved installation process on KSU  
