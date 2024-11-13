@@ -26,6 +26,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,6 +68,7 @@ public class ScreenGestures extends XposedModPack {
 	private Object NotificationPanelViewController;
 	private Timer mTimer;
 	private static boolean DisableLockScreenPill = false;
+	private Object mStatusBarKeyguardViewManager;
 
 	public ScreenGestures(Context context) {
 		super(context);
@@ -93,7 +96,7 @@ public class ScreenGestures extends XposedModPack {
 
 		mLockscreenDoubleTapToSleep = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
 			@Override
-			public boolean onDoubleTap(MotionEvent e) {
+			public boolean onDoubleTap(@NonNull MotionEvent e) {
 				sleep();
 				return true;
 			}
@@ -159,6 +162,9 @@ public class ScreenGestures extends XposedModPack {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				NotificationPanelViewController = param.thisObject;
+
+				mStatusBarKeyguardViewManager = getObjectField(param.thisObject, "mStatusBarKeyguardViewManager");
+
 				hookLockScreenCustomizePill();
 				try {
 					hookTouchHandler(getObjectField(param.thisObject, "mStatusBarViewTouchEventHandler").getClass());
@@ -228,8 +234,6 @@ public class ScreenGestures extends XposedModPack {
 		Object mPulsingWakeupGestureHandler = getObjectField(param.thisObject, "mPulsingWakeupGestureHandler");//A13 R18
 
 		Object mListener = getObjectField(mPulsingWakeupGestureHandler, "mListener");
-
-		Object mStatusBarKeyguardViewManager = getObjectField(param.thisObject, "mStatusBarKeyguardViewManager");
 
 		Object mStatusBarStateController = getObjectField(param.thisObject, "mStatusBarStateController");
 
