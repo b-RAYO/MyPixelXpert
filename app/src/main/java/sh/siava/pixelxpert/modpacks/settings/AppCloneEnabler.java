@@ -61,7 +61,9 @@ public class AppCloneEnabler extends XposedModPack {
 				if(getObjectField(param.thisObject, "mListType").equals(LIST_TYPE_CLONED_APPS) && getCloneUserID() > 0)
 				{
 					Menu mOptionsMenu = (Menu) getObjectField(param.thisObject, "mOptionsMenu");
-					mOptionsMenu.findItem(mContext.getResources().getIdentifier("delete_all_app_clones", "id", mContext.getPackageName())).setVisible(true);
+					if(mOptionsMenu != null) {
+						mOptionsMenu.findItem(mContext.getResources().getIdentifier("delete_all_app_clones", "id", mContext.getPackageName())).setVisible(true);
+					}
 				}
 			}
 		});
@@ -100,7 +102,7 @@ public class AppCloneEnabler extends XposedModPack {
 
 				for(PackageInfo installedPackage : packageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES))
 				{
-					if(installedPackage.packageName != null && installedPackage.packageName.length() > 0)
+					if(installedPackage.packageName != null && !installedPackage.packageName.isEmpty())
 					{
 						ApplicationInfo applicationInfo = packageManager.getApplicationInfo(installedPackage.packageName, PackageManager.GET_META_DATA);
 						//Clone user profile is present and many system apps are auto-cloned. We don't need to display them.
