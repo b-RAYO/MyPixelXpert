@@ -14,6 +14,7 @@ import static sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectionTools.tryHook
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.UserManager;
 
 import java.util.Collection;
 import java.util.List;
@@ -60,15 +61,24 @@ public class ScreenshotManager extends XposedModPack {
 			CaptureArgsClass = findClass("android.view.SurfaceControl$DisplayCaptureArgs", lpParam.classLoader); //A13
 		}
 
-		Class<?> ScreenshotPolicyImplClass = findClass("com.android.systemui.screenshot.ScreenshotPolicyImpl", lpParam.classLoader);
-
-		hookAllMethodsMatchPattern(ScreenshotPolicyImplClass, ".*isManagedProfile.*", new XC_MethodHook() {
+		hookAllMethods(UserManager.class, "getUserInfo", new XC_MethodHook() { //A15QPR2b1 - Forcing other profile screenshots to be treated like personal ones
 			@Override
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				if(ScreenshotChordInsecure)
-					param.setResult(false);
+				param.args[0] = 0;
 			}
 		});
+
+		Class<?> ScreenshotPolicyImplClass = findClassIfExists("com.android.systemui.screenshot.ScreenshotPolicyImpl", lpParam.classLoader);
+
+		if(ScreenshotPolicyImplClass != null) {
+			hookAllMethodsMatchPattern(ScreenshotPolicyImplClass, ".*isManagedProfile.*", new XC_MethodHook() {
+				@Override
+				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+					if (ScreenshotChordInsecure)
+						param.setResult(false);
+				}
+			});
+		}
 
 		hookAllConstructors(CaptureArgsClass, new XC_MethodHook() {
 			@Override
@@ -79,7 +89,10 @@ public class ScreenshotManager extends XposedModPack {
 			}
 		});
 
-		if(ScreenshotControllerClass != null) {
+
+		boolean hookedToPlayScreenshotSoundAsync = isHookedToPlayScreenshotSoundAsync(lpParam); //A15QPR2b1
+
+		if(ScreenshotControllerClass != null && !hookedToPlayScreenshotSoundAsync) {
 			//A14 QPR1 and older
 			hookAllConstructors(ScreenshotControllerClass, new XC_MethodHook() {
 				@Override
@@ -114,6 +127,19 @@ public class ScreenshotManager extends XposedModPack {
 					param.setResult(new MediaPlayer(mContext));
 			}
 		});
+	}
+
+	private static boolean isHookedToPlayScreenshotSoundAsync(XC_LoadPackage.LoadPackageParam lpParam) {
+		Class<?> ScreenshotSoundControllerImplClass = findClassIfExists("com.android.systemui.screenshot.ScreenshotSoundControllerImpl", lpParam.classLoader);
+		return ScreenshotSoundControllerImplClass != null
+				&& !hookAllMethods(ScreenshotSoundControllerImplClass, "playScreenshotSoundAsync", new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+				if (disableScreenshotSound) {
+					param.setResult(null);
+				}
+			}
+		}).isEmpty();
 	}
 
 	@Override
