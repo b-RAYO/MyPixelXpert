@@ -1,3 +1,6 @@
+**canary-403**  
+- A15QPR2b1: Fixed screenshot mods  
+  
 **canary-402**  
 - A15QPR2b1: Fixed systemUI crash  
   
