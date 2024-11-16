@@ -1,3 +1,6 @@
+**canary-404**  
+- A15QPR2b1: Fixed navigation bar mods  
+  
 **canary-403**  
 - A15QPR2b1: Fixed screenshot mods  
   
