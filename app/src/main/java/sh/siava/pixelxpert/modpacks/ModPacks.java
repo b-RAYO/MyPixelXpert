@@ -22,6 +22,7 @@ import sh.siava.pixelxpert.modpacks.ksu.KSUInjector;
 import sh.siava.pixelxpert.modpacks.launcher.ClearAllButtonMod;
 import sh.siava.pixelxpert.modpacks.launcher.CustomNavGestures;
 import sh.siava.pixelxpert.modpacks.launcher.FeatureFlags;
+import sh.siava.pixelxpert.modpacks.launcher.LauncherGestureNavbarManager;
 import sh.siava.pixelxpert.modpacks.launcher.PixelXpertIconUpdater;
 import sh.siava.pixelxpert.modpacks.launcher.TaskbarActivator;
 import sh.siava.pixelxpert.modpacks.settings.AppCloneEnabler;
@@ -133,6 +134,7 @@ public class ModPacks {
 				break;
 
 			case Constants.LAUNCHER_PACKAGE:
+				modPacks.add(LauncherGestureNavbarManager.class);
 				modPacks.add(TaskbarActivator.class);
 				modPacks.add(CustomNavGestures.class);
 				modPacks.add(ClearAllButtonMod.class);

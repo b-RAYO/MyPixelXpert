@@ -133,7 +133,7 @@
 			android:key="GesPillWidthModPos"
 			android:title="@string/gesture_nav_pill_width_title"
 			app:iconSpaceReserved="false"
-			app:updatesContinuously="true" />
+			app:updatesContinuously="false" />
 
 		<sh.siava.pixelxpert.ui.preferences.MaterialRangeSliderPreference
 			app:defaultValue="100"
@@ -143,7 +143,7 @@
 			app:iconSpaceReserved="false"
 			app:minVal="50"
 			app:seekBarIncrement="10"
-			app:updatesContinuously="true" />
+			app:updatesContinuously="false" />
 
 	</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
