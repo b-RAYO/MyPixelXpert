@@ -6,6 +6,8 @@ import static sh.siava.pixelxpert.ui.preferences.preferencesearch.SearchPreferen
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,9 +49,18 @@ public abstract class ControlledPreferenceFragmentCompat extends PreferenceFragm
 		return getDefaultThemeResource();
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.main_menu, menu);
+	}
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		navController = NavHostFragment.findNavController(this);
 	}
 

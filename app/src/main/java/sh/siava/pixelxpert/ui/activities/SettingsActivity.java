@@ -3,6 +3,7 @@ package sh.siava.pixelxpert.ui.activities;
 import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 import static sh.siava.pixelxpert.R.string.update_channel_name;
+import static sh.siava.pixelxpert.ui.Constants.PX_ICON_PACK_REPO;
 import static sh.siava.pixelxpert.ui.Constants.UPDATES_CHANNEL_ID;
 import static sh.siava.pixelxpert.utils.AppUtils.isLikelyPixelBuild;
 import static sh.siava.pixelxpert.utils.NavigationExtensionKt.navigateTo;
@@ -15,14 +16,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.LocaleList;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -54,13 +63,6 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 	private SettingsActivityBinding binding;
 	private HeaderFragment headerFragment;
 	private NavController navController;
-
-	@Override
-	public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +110,36 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 	private void setupBottomNavigationView() {
 		NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
 		navController = Objects.requireNonNull(navHostFragment).getNavController();
+
 		NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+
+		binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+			if (item.getItemId() == R.id.headerFragment) {
+				return navController.popBackStack(R.id.headerFragment, false);
+			} else if (item.getItemId() == R.id.updateFragment) {
+				navController.popBackStack(R.id.headerFragment, false);
+				return navigateTo(navController, R.id.updateFragment);
+			} else if (item.getItemId() == R.id.hooksFragment) {
+				navController.popBackStack(R.id.headerFragment, false);
+				return navigateTo(navController, R.id.hooksFragment);
+			} else if (item.getItemId() == R.id.ownPrefsFragment) {
+				navController.popBackStack(R.id.headerFragment, false);
+				return navigateTo(navController, R.id.ownPrefsFragment);
+			}
+			return false;
+		});
+
+		binding.bottomNavigationView.setOnItemReselectedListener(item -> {
+			if (item.getItemId() == R.id.headerFragment) {
+				navController.popBackStack(R.id.headerFragment, false);
+			} else if (item.getItemId() == R.id.updateFragment) {
+				navController.popBackStack(R.id.updateFragment, false);
+			} else if (item.getItemId() == R.id.hooksFragment) {
+				navController.popBackStack(R.id.hooksFragment, false);
+			} else if (item.getItemId() == R.id.ownPrefsFragment) {
+				navController.popBackStack(R.id.ownPrefsFragment, false);
+			}
+		});
 	}
 
 	private void tryMigratePrefs() {
@@ -181,8 +212,44 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 			AppUtils.Restart("systemui");
 		} else if (itemID == R.id.menu_soft_restart) {
 			AppUtils.Restart("zygote");
+		} else if (itemID == R.id.icon_pack_info) {
+			AlertDialog alertDialog = new MaterialAlertDialogBuilder(this, R.style.MaterialComponents_MaterialAlertDialog)
+					.setTitle(getString(R.string.icon_pack_disclaimer_title))
+					.setMessage(getClickableText(getString(R.string.icon_pack_disclaimer_desc, PX_ICON_PACK_REPO), PX_ICON_PACK_REPO))
+					.setPositiveButton(R.string.okay, (dialog, which) -> dialog.dismiss())
+					.show();
+
+			TextView messageTextView = alertDialog.findViewById(android.R.id.message);
+			if (messageTextView != null) {
+				messageTextView.setMovementMethod(LinkMovementMethod.getInstance());
+			}
 		}
+
 		return true;
+	}
+
+	@NonNull
+	private SpannableString getClickableText(String message, String link) {
+		SpannableString spannableMessage = new SpannableString(message);
+
+		int start = message.indexOf(link);
+		int end = start + link.length();
+
+		spannableMessage.setSpan(new ClickableSpan() {
+			@Override
+			public void onClick(@NonNull View widget) {
+				try {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+					startActivity(intent);
+				} catch (Exception exception) {
+					Log.e("IconPackRepo", "Browser not found");
+				}
+			}
+		}, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+		Linkify.addLinks(spannableMessage, Linkify.WEB_URLS);
+
+		return spannableMessage;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -223,70 +290,54 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 		String key = pref.getKey();
 		if (key == null) return false;
 
-		switch (key) {
-			case "quicksettings_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_quickSettingsFragment);
-
-			case "lockscreen_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_lockScreenFragment);
-
-			case "theming_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_themingFragment);
-
-			case "statusbar_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_statusbarFragment);
-
-			case "nav_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_navFragment);
-
-			case "dialer_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_dialerFragment);
-
-			case "hotspot_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_hotSpotFragment);
-
-			case "pm_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_packageManagerFragment);
-
-			case "misc_header":
-				return navigateTo(navController, R.id.action_headerFragment_to_miscFragment);
-
-			case "CheckForUpdate":
+		return switch (key) {
+			case "quicksettings_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_quickSettingsFragment);
+			case "lockscreen_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_lockScreenFragment);
+			case "theming_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_themingFragment);
+			case "statusbar_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_statusbarFragment);
+			case "nav_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_navFragment);
+			case "dialer_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_dialerFragment);
+			case "hotspot_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_hotSpotFragment);
+			case "pm_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_packageManagerFragment);
+			case "misc_header" ->
+					navigateTo(navController, R.id.action_headerFragment_to_miscFragment);
+			case "CheckForUpdate" -> {
 				navController.popBackStack(R.id.headerFragment, false);
-				return navigateTo(navController, R.id.action_headerFragment_to_updateFragment);
+				yield navigateTo(navController, R.id.action_headerFragment_to_updateFragment);
+			}
+			case "qs_tile_qty" ->
+					navigateTo(navController, R.id.action_quickSettingsFragment_to_QSTileQtyFragment);
+			case "network_settings_header_qs" ->
+					navigateTo(navController, R.id.action_quickSettingsFragment_to_networkFragment);
+			case "sbc_header" ->
+					navigateTo(navController, R.id.action_statusbarFragment_to_SBCFragment);
+			case "sbbb_header" ->
+					navigateTo(navController, R.id.action_statusbarFragment_to_SBBBFragment);
+			case "sbbIcon_header" ->
+					navigateTo(navController, R.id.action_statusbarFragment_to_SBBIconFragment);
+			case "network_settings_header" ->
+					navigateTo(navController, R.id.action_statusbarFragment_to_networkFragment);
+			case "threebutton_header" ->
+					navigateTo(navController, R.id.action_navFragment_to_threeButtonNavFragment);
+			case "gesturenav_header" ->
+					navigateTo(navController, R.id.action_navFragment_to_gestureNavFragment);
+			case "remap_physical_buttons" ->
+					navigateTo(navController, R.id.action_miscFragment_to_physicalButtonRemapFragment);
+			case "netstat_header" ->
+					navigateTo(navController, R.id.action_miscFragment_to_networkStatFragment);
+			case "icon_packs" ->
+					navigateTo(navController, R.id.action_themingFragment_to_iconPackFragment);
+			default -> false;
+		};
 
-			case "qs_tile_qty":
-				return navigateTo(navController, R.id.action_quickSettingsFragment_to_QSTileQtyFragment);
-
-			case "network_settings_header_qs":
-				return navigateTo(navController, R.id.action_quickSettingsFragment_to_networkFragment);
-
-			case "sbc_header":
-				return navigateTo(navController, R.id.action_statusbarFragment_to_SBCFragment);
-
-			case "sbbb_header":
-				return navigateTo(navController, R.id.action_statusbarFragment_to_SBBBFragment);
-
-			case "sbbIcon_header":
-				return navigateTo(navController, R.id.action_statusbarFragment_to_SBBIconFragment);
-
-			case "network_settings_header":
-				return navigateTo(navController, R.id.action_statusbarFragment_to_networkFragment);
-
-			case "threebutton_header":
-				return navigateTo(navController, R.id.action_navFragment_to_threeButtonNavFragment);
-
-			case "gesturenav_header":
-				return navigateTo(navController, R.id.action_navFragment_to_gestureNavFragment);
-
-			case "remap_physical_buttons":
-				return navigateTo(navController, R.id.action_miscFragment_to_physicalButtonRemapFragment);
-
-			case "netstat_header":
-				return navigateTo(navController, R.id.action_miscFragment_to_networkStatFragment);
-		}
-
-		return false;
 	}
 
 	@Override

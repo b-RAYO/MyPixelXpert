@@ -83,7 +83,11 @@
 	<fragment
 		android:id="@+id/themingFragment"
 		android:name="sh.siava.pixelxpert.ui.fragments.ThemingFragment"
-		android:label="ThemingFragment" />
+		android:label="ThemingFragment" >
+		<action
+			android:id="@+id/action_themingFragment_to_iconPackFragment"
+			app:destination="@id/iconPackFragment" />
+	</fragment>
 	<fragment
 		android:id="@+id/statusbarFragment"
 		android:name="sh.siava.pixelxpert.ui.fragments.StatusbarFragment"
@@ -239,4 +243,19 @@
 		android:id="@+id/networkStatFragment"
 		android:name="sh.siava.pixelxpert.ui.fragments.NetworkStatFragment"
 		android:label="NetworkStatFragment" />
+	<fragment
+		android:id="@+id/iconPackFragment"
+		android:name="sh.siava.pixelxpert.ui.fragments.iconpack.IconPackFragment"
+		android:label="IconPackFragment" >
+	</fragment>
+	<fragment
+		android:id="@+id/iconPackListFragment"
+		android:name="sh.siava.pixelxpert.ui.fragments.iconpack.IconPackListFragment"
+		android:label="fragment_icon_pack_list"
+		tools:layout="@layout/fragment_icon_pack_list" />
+	<fragment
+		android:id="@+id/iconPackCustomizationFragment"
+		android:name="sh.siava.pixelxpert.ui.fragments.iconpack.IconPackCustomizationFragment"
+		android:label="fragment_icon_pack_customization"
+		tools:layout="@layout/fragment_icon_pack_customization" />
 </navigation>

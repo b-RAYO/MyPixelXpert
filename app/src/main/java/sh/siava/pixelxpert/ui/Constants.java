@@ -9,5 +9,5 @@ public class Constants {
 	public static final String DOWNLOAD_CHANNEL_ID = "Download";
 	public static final String UPDATES_CHANNEL_ID = "Updates";
 
-
+	public static final String PX_ICON_PACK_REPO = "https://github.com/siavash79/PXIconPackTemplate";
 }
