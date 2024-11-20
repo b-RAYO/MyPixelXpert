@@ -1,3 +1,6 @@
+**canary-405**  
+- Added option (theming section) to modify system icons via "Icon Pack"s. Most of the credit goes to @DHD2280 and @Mahmud0808.  
+  
 **canary-404**  
 - A15QPR2b1: Fixed navigation bar mods  
   
