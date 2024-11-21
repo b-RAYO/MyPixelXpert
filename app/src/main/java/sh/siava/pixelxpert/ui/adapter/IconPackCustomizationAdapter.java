@@ -79,7 +79,7 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 		public void bind(String resName, IconPackUtil.ReplacementIcon replacementIcon, List<IconPackUtil.ReplacementIcon> replacementIcons, Drawable drawable) {
 
 			binding.icon.setImageDrawable(drawable);
-			binding.title.setText(resName);
+			binding.title.setText(resName.contains(":") ? resName.split(":")[1] : resName);
 			if (replacementIcon != null && replacementIcon.isEnabled()) {
 				binding.icon.setAlpha(1f);
 				binding.title.setAlpha(1f);
