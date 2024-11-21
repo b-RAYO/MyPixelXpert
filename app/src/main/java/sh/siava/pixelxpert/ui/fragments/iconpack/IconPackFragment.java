@@ -68,8 +68,12 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
     @Override
     public void onIconPacksLoaded(IconPackUtil.ResourceMapping mapping, IconPackUtil.IconPackMapping packMapping) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            binding.noPacksText.setVisibility(packMapping != null && !packMapping.isEmpty() ? View.GONE : View.VISIBLE);
-            binding.noPacksTextDesc.setVisibility(packMapping != null && !packMapping.isEmpty() ? View.GONE : View.VISIBLE);
+            binding.loading.setVisibility(View.GONE);
+
+			boolean iconPackAvailable = packMapping != null && !packMapping.isEmpty();
+            binding.tabLayout.setVisibility(iconPackAvailable ? View.VISIBLE : View.GONE);
+            binding.pager.setVisibility(iconPackAvailable ? View.VISIBLE : View.GONE);
+            binding.noPacksLayout.setVisibility(iconPackAvailable ? View.GONE : View.VISIBLE);
         });
     }
 
