@@ -1,6 +1,8 @@
 package sh.siava.pixelxpert.ui.fragments.iconpack;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +22,7 @@ import sh.siava.pixelxpert.databinding.FragmentIconPackBinding;
 import sh.siava.pixelxpert.ui.fragments.BaseFragment;
 import sh.siava.pixelxpert.utils.IconPackUtil;
 
-public class IconPackFragment extends BaseFragment {
+public class IconPackFragment extends BaseFragment implements IconPackUtil.IconPackQueryListener {
 
     private IconPackUtil mIconPackUtil;
     private FragmentIconPackBinding binding;
@@ -45,6 +47,7 @@ public class IconPackFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mIconPackUtil = IconPackUtil.getInstance(requireContext());
+        mIconPackUtil.addListener(this);
 
 		IconPackCollectionAdapter fragmentCollectionAdapter = new IconPackCollectionAdapter(this);
         binding.pager.setAdapter(fragmentCollectionAdapter);
@@ -61,6 +64,15 @@ public class IconPackFragment extends BaseFragment {
         });
         binding.resetButton.setOnClickListener(v -> resetIconPacks());
     }
+
+    @Override
+    public void onIconPacksLoaded(IconPackUtil.ResourceMapping mapping, IconPackUtil.IconPackMapping packMapping) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            binding.noPacksText.setVisibility(packMapping != null && !packMapping.isEmpty() ? View.GONE : View.VISIBLE);
+            binding.noPacksTextDesc.setVisibility(packMapping != null && !packMapping.isEmpty() ? View.GONE : View.VISIBLE);
+        });
+    }
+
 
     private boolean isFabVisible() {
         Fragment currentFragment = getCurrentFragment();

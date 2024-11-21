@@ -612,6 +612,7 @@
     <string name="icon_pack_unknown_name">Unknown icon pack</string>
     <string name="icon_pack_pack_reset">Reset icons</string>
     <string name="icon_pack_info">Icon pack info</string>
+    <string name="no_icon_packs">No Icon Packs installed</string>
     <string name="icon_pack_disclaimer_title">Disclaimer</string>
     <string name="icon_pack_disclaimer_desc">Icon packs are not developed or distributed by PixelXpert. As such, the PixelXpert team is unable to provide support for icon packs. Support regarding how PixelXpert handles icon packs will only be provided to the respective pack developers.\n\nFor instructions on how to compile an icon pack, please refer to the guide here: %s</string>
 
