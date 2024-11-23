@@ -179,7 +179,7 @@ public class BrightnessSlider extends XposedModPack {
 						Resources res = mContext.getResources();
 
 						slider.post(() -> {
-							FrameLayout parent = (FrameLayout) slider.getParent();
+							//FrameLayout parent = (FrameLayout) slider.getParent();
 							parent.removeView(slider);
 
 							LinearLayout innerLayout = new LinearLayout(mContext);
