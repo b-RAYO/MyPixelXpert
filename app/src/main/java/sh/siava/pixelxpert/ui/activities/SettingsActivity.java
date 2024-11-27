@@ -26,6 +26,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.transition.Slide;
+import androidx.transition.TransitionManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.topjohnwu.superuser.Shell;
@@ -223,6 +226,8 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 			if (messageTextView != null) {
 				messageTextView.setMovementMethod(LinkMovementMethod.getInstance());
 			}
+		} else if (itemID == R.id.icon_pack_search) {
+			TransitionManager.beginDelayedTransition(findViewById(R.id.toolbar), new Slide(Gravity.START));
 		}
 
 		return true;

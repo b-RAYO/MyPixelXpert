@@ -3,15 +3,20 @@ package sh.siava.pixelxpert.ui.fragments.iconpack;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.transition.Slide;
+import androidx.transition.TransitionManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -27,11 +32,54 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
     private IconPackUtil mIconPackUtil;
     private FragmentIconPackBinding binding;
 
+    // Menu Items
+    private MenuItem mSearchItem;
+    private SearchView mSearchView;
+
+    // Search
+    private String mSearchQuery = "";
+
 	@Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.icon_pack_toolbar_menu, menu);
+
+        mSearchItem = menu.findItem(R.id.icon_pack_search);
+        mSearchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(@NonNull MenuItem menuItem) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(@NonNull MenuItem menuItem) {
+                TransitionManager.beginDelayedTransition(requireActivity().findViewById(R.id.toolbar), new Slide(Gravity.END));
+                mSearchQuery = "";
+                submitQuery();
+                return true;
+            }
+        });
+        mSearchView = (SearchView) mSearchItem.getActionView();
+
+
+        assert mSearchView != null;
+        mSearchView.setQueryHint(getString(R.string.searchpreference_search));
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mSearchQuery = query;
+                submitQuery();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mSearchQuery = newText;
+                submitQuery();
+                return false;
+            }
+        });
     }
 
     @Nullable
@@ -77,6 +125,14 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
         });
     }
 
+    private void submitQuery() {
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof IconPackListFragment iconPackListFragment) {
+            iconPackListFragment.query(mSearchQuery);
+        } else if (currentFragment instanceof IconPackCustomizationFragment iconPackCustomizationFragment) {
+            iconPackCustomizationFragment.query(mSearchQuery);
+        }
+    }
 
     private boolean isFabVisible() {
         Fragment currentFragment = getCurrentFragment();

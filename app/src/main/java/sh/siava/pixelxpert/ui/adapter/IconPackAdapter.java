@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -46,12 +47,15 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 
 	private final String TAG = IconPackAdapter.class.getSimpleName();
 	private final List<IconPackUtil.IconPack> mPacks;
+	private final List<IconPackUtil.IconPack> mFilteredPacks;
 	private final IconPackUtil.IconPackMapping mPacksMapping;
 	private final IconPackUtil mPackUtil;
 	private final ItemChangedListener mItemChangedListener;
+	private String filterText = "";
 
 	public IconPackAdapter(IconPackUtil iconPackUtil, List<IconPackUtil.IconPack> packs, IconPackUtil.IconPackMapping packMapping, ItemChangedListener itemChangedListener) {
 		mPacks = packs;
+		mFilteredPacks = new ArrayList<>(packs);
 		mPackUtil = iconPackUtil;
 		mPacksMapping = packMapping;
 		mItemChangedListener = itemChangedListener;
@@ -59,11 +63,11 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 
 	@Override
 	public int getItemViewType(int position) {
-		if (mPacks.size() == 1) {
+		if (mFilteredPacks.size() == 1) {
 			return VIEW_TYPE_SINGLE;
 		} else if (position == 0) {
 			return VIEW_TYPE_TOP;
-		} else if (position == mPacks.size() - 1) {
+		} else if (position == mFilteredPacks.size() - 1) {
 			return VIEW_TYPE_BOTTOM;
 		} else {
 			return VIEW_TYPE_MIDDLE;
@@ -79,7 +83,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-		IconPackUtil.IconPack pack = mPacks.get(position);
+		IconPackUtil.IconPack pack = mFilteredPacks.get(position);
 
 		setLayoutBackground(holder, position, mPackUtil.getEnabledState(pack));
 
@@ -124,8 +128,28 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 
 	@Override
 	public int getItemCount() {
-		return mPacks.size();
+		return mFilteredPacks.size();
 	}
+
+	@SuppressLint("NotifyDataSetChanged")
+    public void filter(String text) {
+		mFilteredPacks.clear();
+		filterText = text != null ? text : "";
+		for (IconPackUtil.IconPack pack : mPacks) {
+			if (pack.mName.toLowerCase().contains(filterText.toLowerCase()) || pack.mAuthor.toLowerCase().contains(filterText.toLowerCase())) {
+				mFilteredPacks.add(pack);
+			}
+		}
+		mFilteredPacks.sort((o1, o2) -> {
+			int nameComparison = o1.mName.compareTo(o2.mName);
+			if (nameComparison == 0) {
+				return o1.mPackageName.compareTo(o2.mPackageName);
+			}
+			return nameComparison;
+		});
+		notifyDataSetChanged();
+	}
+
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -240,8 +264,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 					break;
 			}
 
-			for(int i = 0; i < mPacks.size(); i++)
-			{
+			for(int i = 0; i < mFilteredPacks.size(); i++) {
 				notifyItemChanged(i);
 			}
 
