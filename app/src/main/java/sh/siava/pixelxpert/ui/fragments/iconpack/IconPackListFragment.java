@@ -86,6 +86,7 @@ public class IconPackListFragment extends BaseFragment implements IconPackUtil.I
 	}
 
 	public void query(String mSearchQuery) {
+		if (mAdapter == null) return;
 		mAdapter.filter(mSearchQuery);
 	}
 }

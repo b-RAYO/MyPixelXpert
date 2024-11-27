@@ -108,6 +108,7 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 binding.resetButton.setVisibility(isFabVisible() ? View.VISIBLE : View.GONE);
+                submitQuery();
             }
         });
         binding.resetButton.setOnClickListener(v -> resetIconPacks());
