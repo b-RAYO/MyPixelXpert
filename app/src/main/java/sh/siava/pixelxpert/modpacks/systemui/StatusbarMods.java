@@ -104,7 +104,7 @@ public class StatusbarMods extends XposedModPack {
 	private static boolean mShowSeconds = false;
 	private static String mStringFormatBefore = "", mStringFormatAfter = "";
 	private static boolean mBeforeSmall = true, mAfterSmall = true;
-	private Integer mBeforeClockColor = null, mAfterClockColor = null, mClockColor = null;
+	private Integer mBeforeClockColor = null, mAfterClockColor = null, clockColor = null;
 	//endregion
 
 	//region vibration icon
@@ -159,7 +159,8 @@ public class StatusbarMods extends XposedModPack {
 	private ViewGroup mStatusbarStartSide = null;
 	private View mCenteredIconArea = null;
 	private LinearLayout mSystemIconArea = null;
-	public static int clockColor = 0;
+	private static int currentClockColor = 0;
+	private static final ArrayList<StatusbarTextColorCallback> mTextColorCallbacks = new ArrayList<>();
 	private FrameLayout fullStatusbar;
 	//    private Object STB = null;
 
@@ -213,7 +214,7 @@ public class StatusbarMods extends XposedModPack {
 	private final BroadcastReceiver mAppProfileSwitchReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if(intent.getAction().equals(Constants.ACTION_PROFILE_SWITCH_AVAILABLE))
+			if(Constants.ACTION_PROFILE_SWITCH_AVAILABLE.equals(intent.getAction()))
 			{
 				boolean isAvailable = intent.getBooleanExtra("available", false);
 				if(isAvailable
@@ -410,11 +411,11 @@ public class StatusbarMods extends XposedModPack {
 		mAfterSmall = Xprefs.getBoolean("AfterSBCSmall", true);
 
 		if (Xprefs.getBoolean("SBCClockColorful", false)) {
-			mClockColor = Xprefs.getInt("SBCClockColor", Color.WHITE);
+			clockColor = Xprefs.getInt("SBCClockColor", Color.WHITE);
 			mBeforeClockColor = Xprefs.getInt("SBCBeforeClockColor", Color.WHITE);
 			mAfterClockColor = Xprefs.getInt("SBCAfterClockColor", Color.WHITE);
 		} else {
-			mClockColor
+			clockColor
 					= mBeforeClockColor
 					= mAfterClockColor
 					= null;
@@ -881,10 +882,8 @@ public class StatusbarMods extends XposedModPack {
 
 						try {
 							mClockView = (TextView) getObjectField(param.thisObject, "mClockView");
-						} catch (Throwable t) { //PE Plus
-							Object mClockController = getObjectField(param.thisObject, "mClockController");
-							mClockView = (TextView) callMethod(mClockController, "getClock");
-						}
+							updateClockColor();
+						} catch (Throwable ignored) {}
 
 						mStatusBar = (ViewGroup) getObjectField(mCollapsedStatusBarFragment, "mStatusBar");
 
@@ -958,13 +957,13 @@ public class StatusbarMods extends XposedModPack {
 						SpannableStringBuilder result = new SpannableStringBuilder();
 						result.append(getFormattedString(mStringFormatBefore, mBeforeSmall, mBeforeClockColor)); //before clock
 						SpannableStringBuilder clockText = SpannableStringBuilder.valueOf((CharSequence) param.getResult()); //THE clock
-						if (mClockColor != null) {
-							clockText.setSpan(new NetworkTraffic.TrafficStyle(mClockColor), 0, (clockText).length(),
+						if (clockColor != null) {
+							clockText.setSpan(new NetworkTraffic.TrafficStyle(clockColor), 0, (clockText).length(),
 									Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 						}
 						result.append(clockText);
 						if (mAmPmStyle != AM_PM_STYLE_GONE) {
-							result.append(getFormattedString("$Ga", mAmPmStyle == AM_PM_STYLE_SMALL, mClockColor));
+							result.append(getFormattedString("$Ga", mAmPmStyle == AM_PM_STYLE_SMALL, clockColor));
 						}
 						result.append(getFormattedString(mStringFormatAfter, mAfterSmall, mAfterClockColor)); //after clock
 
@@ -989,8 +988,7 @@ public class StatusbarMods extends XposedModPack {
 						if (param.thisObject != mClockView)
 							return; //We don't want colors of QS header. only statusbar
 
-						clockColor = ((TextView) param.thisObject).getTextColors().getDefaultColor();
-						NetworkTraffic.setTintColor(clockColor, true);
+						updateClockColor();
 						if (BatteryBarView.hasInstance()) {
 							refreshBatteryBar(BatteryBarView.getInstance());
 						}
@@ -1032,6 +1030,26 @@ public class StatusbarMods extends XposedModPack {
 			});
 		} catch (Throwable ignored) {}
 		//endregion
+	}
+
+	private void updateClockColor() {
+		currentClockColor = mClockView.getTextColors().getDefaultColor();
+
+		for(StatusbarTextColorCallback callback : mTextColorCallbacks)
+		{
+			callback.onTextColorChanged(currentClockColor);
+		}
+	}
+
+	public static @ColorInt int getCurrentClockColor()
+	{
+		return currentClockColor;
+	}
+
+	public static int registerTextColorCallback(StatusbarTextColorCallback callback)
+	{
+		mTextColorCallbacks.add(callback);
+		return currentClockColor;
 	}
 
 	private void updateStatusbarHeight() {
@@ -1138,7 +1156,6 @@ public class StatusbarMods extends XposedModPack {
 		instance.setColorful(BBarColorful);
 		instance.setOnlyWhileCharging(BBOnlyWhileCharging);
 		instance.setOnTop(!BBOnBottom);
-		instance.setSingleColorTone(clockColor);
 		instance.setAlphaPct(BBOpacity);
 		instance.setBarHeight(Math.round(BBarHeight / 10f) + 5);
 		instance.setCenterBased(BBSetCentered);
@@ -1527,4 +1544,9 @@ public class StatusbarMods extends XposedModPack {
 		} catch (Throwable ignored) {}
 	}
 	//endregion
+
+	public interface StatusbarTextColorCallback
+	{
+		void onTextColorChanged(int textColor);
+	}
 }

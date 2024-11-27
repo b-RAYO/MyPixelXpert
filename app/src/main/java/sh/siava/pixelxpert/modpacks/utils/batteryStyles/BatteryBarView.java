@@ -45,7 +45,6 @@ public class BatteryBarView extends FrameLayout {
 	private final ImageView chargingIndicatorViewForCenter;
 	private boolean colorful = false;
 	private int alphaPct = 100;
-	private int singleColorTone = Color.WHITE;
 	private boolean isCenterBased = false;
 	private int barHeight = 10;
 	private final ImageView barView;
@@ -199,11 +198,10 @@ public class BatteryBarView extends FrameLayout {
 		chargingIndicatorViewForCenter = new ImageView(context);
 		initChargingAnimationView();
 
-		this.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
 		mDrawable.setShape(new RectShape());
-		this.setSingleColorTone(singleColorTone);
-		this.setAlphaPct(alphaPct);
+		setAlphaPct(alphaPct);
 
 		barView = new ImageView(context);
 		barView.setImageDrawable(mDrawable);
@@ -212,12 +210,14 @@ public class BatteryBarView extends FrameLayout {
 		maskLayout.addView(barView);
 		maskLayout.setClipChildren(true);
 
-		this.addView(maskLayout);
-		this.addView(chargingIndicatorView);
-		this.addView(chargingIndicatorViewForCenter);
-		this.setClipChildren(true);
+		addView(maskLayout);
+		addView(chargingIndicatorView);
+		addView(chargingIndicatorViewForCenter);
+		setClipChildren(true);
 
 		RTL = (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL);
+
+		StatusbarMods.registerTextColorCallback(textColor -> refreshLayout());
 
 		StatusbarMods.registerClockVisibilityCallback(this::setVisible);
 
@@ -233,8 +233,8 @@ public class BatteryBarView extends FrameLayout {
 		chargingIndicatorView.setLayoutParams(lp);
 		chargingIndicatorViewForCenter.setLayoutParams(lp);
 
-		chargingIndicatorView.setBackgroundColor(singleColorTone);
-		chargingIndicatorViewForCenter.setBackgroundColor(singleColorTone);
+		chargingIndicatorView.setBackgroundColor(StatusbarMods.getCurrentClockColor());
+		chargingIndicatorViewForCenter.setBackgroundColor(StatusbarMods.getCurrentClockColor());
 	}
 
 	@Override
@@ -274,11 +274,6 @@ public class BatteryBarView extends FrameLayout {
 		refreshLayout();
 	}
 
-	public void setSingleColorTone(int colorTone) {
-		this.singleColorTone = colorTone;
-		refreshLayout();
-	}
-
 	public void refreshColors(int lenX, int lenY) {
 		if (lenX == 0) return; //we're not ready yet
 		refreshShadeColors();
@@ -313,7 +308,7 @@ public class BatteryBarView extends FrameLayout {
 					return;
 				}
 			}
-			mPaint.setColor(singleColorTone);
+			mPaint.setColor(StatusbarMods.getCurrentClockColor());
 		} else                                    //it's colorful
 		{
 			float cX = isCenterBased ? lenX / 2f : ((RTL) ? lenX : 0);
