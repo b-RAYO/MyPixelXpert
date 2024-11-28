@@ -54,7 +54,7 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
 
             @Override
             public boolean onMenuItemActionCollapse(@NonNull MenuItem menuItem) {
-                TransitionManager.beginDelayedTransition(requireActivity().findViewById(R.id.toolbar), new Slide(Gravity.END));
+                TransitionManager.beginDelayedTransition(requireActivity().findViewById(R.id.toolbar), new Slide(Gravity.START));
                 mSearchQuery = "";
                 submitQuery();
                 return true;
