@@ -24,6 +24,7 @@ public class IconPackListFragment extends BaseFragment implements IconPackUtil.I
 
 	private IconPackUtil mIconPackUtil;
 	private FragmentIconPackListBinding binding;
+	private IconPackAdapter mAdapter;
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +59,8 @@ public class IconPackListFragment extends BaseFragment implements IconPackUtil.I
 			return nameComparison;
 		});
 		new Handler(Looper.getMainLooper()).post(this::requestFabVisibility);
-		binding.recyclerView.post(() -> binding.recyclerView.setAdapter(new IconPackAdapter(mIconPackUtil, iconPacks, packMapping, mItemChangedListener)));
+		mAdapter = new IconPackAdapter(mIconPackUtil, iconPacks, packMapping, mItemChangedListener);
+		binding.recyclerView.post(() -> binding.recyclerView.setAdapter(mAdapter));
 	}
 
 	private final ItemChangedListener mItemChangedListener = () -> new Handler(Looper.getMainLooper()).post(this::requestFabVisibility);
@@ -83,4 +85,8 @@ public class IconPackListFragment extends BaseFragment implements IconPackUtil.I
 		}
 	}
 
+	public void query(String mSearchQuery) {
+		if (mAdapter == null) return;
+		mAdapter.filter(mSearchQuery);
+	}
 }

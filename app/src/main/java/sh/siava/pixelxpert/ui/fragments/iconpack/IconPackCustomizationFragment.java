@@ -23,9 +23,9 @@ import sh.siava.pixelxpert.utils.IconPackUtil;
 
 public class IconPackCustomizationFragment extends BaseFragment implements IconPackUtil.IconPackQueryListener {
 
-	// TODO - add a search bar to search for icons
 	private FragmentIconPackCustomizationBinding binding;
 	private IconPackUtil mIconPackUtil;
+	private IconPackCustomizationAdapter mAdapter;
 
 	@Override
 	public String getTitle() {
@@ -65,7 +65,8 @@ public class IconPackCustomizationFragment extends BaseFragment implements IconP
 			return nameComparison;
 		});
 		new Handler(Looper.getMainLooper()).post(this::requestFabVisibility);
-		binding.recyclerView.post(() -> binding.recyclerView.setAdapter(new IconPackCustomizationAdapter(mIconPackUtil, mapping, mItemChangedListener)));
+		mAdapter = new IconPackCustomizationAdapter(mIconPackUtil, mapping, mItemChangedListener);
+		binding.recyclerView.post(() -> binding.recyclerView.setAdapter(mAdapter));
 	}
 
 	private final ItemChangedListener mItemChangedListener = () -> new Handler(Looper.getMainLooper()).post(this::requestFabVisibility);
@@ -83,6 +84,11 @@ public class IconPackCustomizationFragment extends BaseFragment implements IconP
 		if (getParentFragment() instanceof IconPackFragment iconPackFragment) {
 			iconPackFragment.requestFabVisibility();
 		}
+	}
+
+	public void query(String mSearchQuery) {
+		if (mAdapter == null) return;
+		mAdapter.filter(mSearchQuery);
 	}
 
 }

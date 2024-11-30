@@ -1,5 +1,6 @@
 package sh.siava.pixelxpert.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,15 +26,18 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 
 	private final IconPackUtil.ResourceMapping mResourceMapping;
 	private final List<String> mIconResNames;
+	private final List<String> mFilteredIconResNames;
 	private final IconPackUtil mPackUtils;
 	private final ItemChangedListener mItemChangedListener;
+	private String filterText = "";
 
 	public IconPackCustomizationAdapter(IconPackUtil packUtil, IconPackUtil.ResourceMapping mapping, ItemChangedListener itemChangedListener) {
 		mPackUtils = packUtil;
 		mResourceMapping = mapping;
 		mIconResNames = mResourceMapping.getOriginalResList();
-		mItemChangedListener = itemChangedListener;
 		Collections.sort(mIconResNames);
+		mFilteredIconResNames = new ArrayList<>(mIconResNames);
+		mItemChangedListener = itemChangedListener;
 	}
 
 	@NonNull
@@ -44,7 +49,7 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-		String resName = mIconResNames.get(position);
+		String resName = mFilteredIconResNames.get(position);
 
 		Drawable drawable;
 		List<IconPackUtil.ReplacementIcon> replacementIcons = mResourceMapping.getReplacementIcons(resName);
@@ -64,7 +69,20 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 
 	@Override
 	public int getItemCount() {
-		return mIconResNames.size();
+		return mFilteredIconResNames.size();
+	}
+
+	@SuppressLint("NotifyDataSetChanged")
+	public void filter(String text) {
+		mFilteredIconResNames.clear();
+		filterText = text != null ? text : "";
+		for (String resName : mIconResNames) {
+			if (resName.toLowerCase().contains(filterText.toLowerCase())) {
+				mFilteredIconResNames.add(resName);
+			}
+		}
+		Collections.sort(mFilteredIconResNames);
+		notifyDataSetChanged();
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
