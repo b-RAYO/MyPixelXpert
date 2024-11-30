@@ -2,6 +2,7 @@ package sh.siava.pixelxpert.modpacks.systemui;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static sh.siava.pixelxpert.modpacks.XPrefs.Xprefs;
+import static sh.siava.pixelxpert.utils.ThemePackMapping.DRAWABLE_MAPPING_KEY;
 import static sh.siava.pixelxpert.utils.ThemePackMapping.TYPE_DRAWABLE;
 
 import android.annotation.SuppressLint;
@@ -16,7 +17,9 @@ import java.util.List;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.BuildConfig;
+import sh.siava.pixelxpert.modpacks.XPLauncher;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
+import sh.siava.pixelxpert.modpacks.utils.SystemUtils;
 import sh.siava.pixelxpert.utils.ThemePackMapping.IDMapping;
 import sh.siava.pixelxpert.utils.ThemePackMapping.Mapping;
 import sh.siava.pixelxpert.utils.ThemePackMapping.OverlayID;
@@ -36,7 +39,7 @@ public class IconPacks extends XposedModPack {
 
 	@Override
 	public void updatePrefs(String... Key) {
-		updateMapping();
+		updateMapping(Key.length > 0 && Key[0].equals(DRAWABLE_MAPPING_KEY));
 	}
 
 	private void hookAll() {
@@ -96,7 +99,7 @@ public class IconPacks extends XposedModPack {
 		hooks.clear();
 	}
 
-	private void updateMapping() {
+	private void updateMapping(boolean shallRefresh) {
 		new Thread(() -> {
 			drawableMapping = getIDMapping(TYPE_DRAWABLE, "drawable");
 			if(drawableMapping.isEmpty())
@@ -107,7 +110,13 @@ public class IconPacks extends XposedModPack {
 			{
 				hookAll();
 			}
+			if(shallRefresh)
+				refreshUI();
 		}).start();
+	}
+
+	private void refreshUI() {
+		XPLauncher.enqueueProxyCommand(proxy -> proxy.runCommand("cmd overlay disable com.google.android.systemui.gxoverlay; cmd overlay enable com.google.android.systemui.gxoverlay"));
 	}
 
 	/** @noinspection SameParameterValue*/
