@@ -40,7 +40,7 @@
     <string name="lockscreen_header_title">锁屏</string>
     <string name="lockscreen_header_summary">把屏幕锁改成合你口味的样子</string>
     <string name="statusbar_header">状态栏</string>
-    <string name="statusbar_header_summary">小小一条杠，信息大有用</string>
+    <string name="statusbar_header_summary">小小一条栏，信息大有用</string>
     <string name="nav_header">导航栏</string>
     <string name="nav_header_summary">改变您穿梭于 App 之间的方式</string>
     <string name="dialer_header">电话与拨号</string>
@@ -54,7 +54,7 @@
     <string name="pm_header">包管理器</string>
     <string name="pm_header_summary">跳过 APK 文件的安全检查</string>
     <string name="hotspot_header">热点</string>
-    <string name="hotspot_header_summary">如果您要深挖 WiFi 隐藏的功能</string>
+    <string name="hotspot_header_summary">如果您要深挖 WiFi 热点的隐藏功能</string>
     <!-- Hotspot settings-->
     <string name="hotspot_hide_ssid_title">隐藏 SSID</string>
     <string name="hotspot_inactivity_timeout_title">自动关闭时间</string>
@@ -517,19 +517,19 @@
     <!-- Icon Packs -->
     <string name="icon_packs_title">Icon packs</string>
     <string name="icon_pack_selection_title">Select pack</string>
-    <string name="icon_pack_customization_title">Customize icons</string>
-    <string name="menu_more_info">More info</string>
-    <string name="menu_show_icons">Show icons</string>
-    <string name="select_replacement_icon">Select replacement icon</string>
-    <string name="icon_default">Default</string>
-    <string name="partially_enabled">(Partially enabled)</string>
-    <string name="icon_pack_icon_disabled">Disabled</string>
-    <string name="icon_pack_author">by %s</string>
-    <string name="icon_pack_unknown_author">by unknown author</string>
-    <string name="icon_pack_unknown_name">Unknown icon pack</string>
-    <string name="icon_pack_pack_reset">Reset icons</string>
-    <string name="icon_pack_info">Icon pack info</string>
-    <string name="no_icon_pack_installed">No icon pack installed</string>
-    <string name="icon_pack_disclaimer_title">Disclaimer</string>
-    <string name="icon_pack_disclaimer_desc">Icon packs are not developed or distributed by PixelXpert. As such, the PixelXpert team is unable to provide support for icon packs. Support regarding how PixelXpert handles icon packs will only be provided to the respective pack developers.\n\nFor instructions on how to compile an icon pack, please refer to the guide here: %s</string>
+    <string name="icon_pack_customization_title">自定义图标</string>
+    <string name="menu_more_info">更多信息</string>
+    <string name="menu_show_icons">显示图标</string>
+    <string name="select_replacement_icon">选择替换图标</string>
+    <string name="icon_default">默认</string>
+    <string name="partially_enabled">(部分启用)</string>
+    <string name="icon_pack_icon_disabled">已禁用</string>
+    <string name="icon_pack_author">作者：%s</string>
+    <string name="icon_pack_unknown_author">未知作者</string>
+    <string name="icon_pack_unknown_name">未知图标包</string>
+    <string name="icon_pack_pack_reset">重置图标</string>
+    <string name="icon_pack_info">图标包信息</string>
+    <string name="no_icon_pack_installed">没有已安装的图标包</string>
+    <string name="icon_pack_disclaimer_title">免责声明</string>
+    <string name="icon_pack_disclaimer_desc">图标包不是由 PixelXpert 开发或分发的。因此，PixelXpert 团队无法为图标包提供支持。有关 PixelXpert 如何处理图标包的支持将仅提供给相应的包开发人员。\n\n关于如何编译图标包的说明，请参阅这里的指南： %s</string>
 </resources>
