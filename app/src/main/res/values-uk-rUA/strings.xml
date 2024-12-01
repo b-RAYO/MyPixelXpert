@@ -38,23 +38,23 @@
     <string name="crowdin_summary">Допоможіть нам перекласти %s на вашу рідну мову</string>
     <!--Category titles-->
     <string name="lockscreen_header_title">Екран блокування</string>
-    <string name="lockscreen_header_summary">Change your keyguard to match your taste</string>
+    <string name="lockscreen_header_summary">Змінюйте клавіатуру на свій смак</string>
     <string name="statusbar_header">Рядок стану</string>
-    <string name="statusbar_header_summary">That thin bar that shows useful data</string>
+    <string name="statusbar_header_summary">Тонка смужка, яка показує корисні дані</string>
     <string name="nav_header">Панель навігації</string>
-    <string name="nav_header_summary">Change the way you navigate through apps</string>
+    <string name="nav_header_summary">Змінюйте спосіб навігації в застосунках</string>
     <string name="dialer_header">Номеронабирач телефону &amp;</string>
-    <string name="dialer_header_summary">A bit of aid for your phone calls</string>
+    <string name="dialer_header_summary">Трохи допомоги для телефонних дзвінків</string>
     <string name="misc_header">Різне</string>
-    <string name="misc_header_summary">Whatever else offered by PixelXpert</string>
+    <string name="misc_header_summary">Що ще пропонує PixelXpert</string>
     <string name="qs_panel_category_title">Панель швидких налаштувань</string>
-    <string name="qs_panel_category_summary">Brightness slider, flashlight level and more</string>
+    <string name="qs_panel_category_summary">Повзунок яскравості, рівень ліхтарика тощо</string>
     <string name="theme_customization_category">Пофарбування</string>
-    <string name="theme_customization_summary">Customize visual style and iconography</string>
+    <string name="theme_customization_summary">Налаштуйте візуальний стиль та значкографію</string>
     <string name="pm_header">Менеджер пакетів</string>
-    <string name="pm_header_summary">Bypass security checks for apk files</string>
+    <string name="pm_header_summary">Обхід перевірок безпеки для apk-файлів</string>
     <string name="hotspot_header">Портативна точка доступу</string>
-    <string name="hotspot_header_summary">If you\'re into hidden WiFi stuff</string>
+    <string name="hotspot_header_summary">Якщо ви любите прихований Wi-Fi</string>
     <!-- Hotspot settings-->
     <string name="hotspot_hide_ssid_title">Приховати SSID</string>
     <string name="hotspot_inactivity_timeout_title">Тайм-аут бездіяльності</string>
@@ -64,7 +64,7 @@
     <!--Lock screen related-->
     <string name="depth_wallpaper_title">Шпалери з ефектом глибини</string>
     <string name="depth_wallpaper_summary">Динамічна інтеграція переднього плану шпалер із годинником</string>
-    <string name="depth_wallpaper_ai_model_title">Preferred AI model</string>
+    <string name="depth_wallpaper_ai_model_title">Бажана модель ШІ</string>
     <string name="depth_wallpaper_opacity_title">Непрозорість переднього плану шпалер</string>
     <string name="depth_wallpaper_aod_title">Також на \"always on display\"</string>
     <string name="depth_wallpaper_model_ready">ШІ-модель завантажена на пристрій</string>
@@ -180,7 +180,7 @@
     <string name="BB_Opacity_title">Прозорість рядку</string>
     <string name="BB_center_align_title">Вирівняно по центру</string>
     <string name="BB_Thickness_title">Товщина рядку</string>
-    <string name="BB_animate_charging">Animate charging</string>
+    <string name="BB_animate_charging">Анімація зарядки</string>
     <string name="BB_indicate_charging">Позначати заряджання</string>
     <string name="BB_indicate_fast_charging">Позначати швидке заряджання</string>
     <string name="BB_indicate_power_save">Показати режим енергоощадження</string>
@@ -421,9 +421,9 @@
     <string name="netstat_header">Налаштування мережевої статистики</string>
     <string name="string_formatter_manual_body_v3">Окрім звичайного тексту, також доступні динамічні змінні, як-от дата, використання даних і температура:\n\n$G\&lt;format\&gt; : григоріанська дата на основі формату*\n$P&lt;format&gt; : перська дата на основі формату*\n$Nrx : загальна кількість завантажень за вказаний період ** ***\n$Ntx: Загальна кількість завантажень за вказаний період ** ***\n$Nall : Загальний трафік за вказаний період ** ***\n$Nssid : Назва SSID WiFi (якщо застосовно)\n\n$T\&lt;format\&gt;[interval] : Температура; \nформат може бути b (для батареї), c (для процесора), g (для графічного процесора) і s (для оболонки) \nНарешті, є НЕОБОВ’ЯЗКОВО кількість інтервалу оновлення в секундах (за замовчуванням: 60 секунд)\n\n*для формату документація, знайдіть «Формат дати Java»\n**Ви можете вказати період статистики в меню PixelXpert/Різне/Налаштування статистики мережі\n***Якщо ви заміните $N на $Nc , ви отримаєте статистику мобільних даних (наприклад, $Ncrx замість Nrx )</string>
     <string name="update_channel_name">Оновлення</string>
-    <string name="download_channel_name">Downloads</string>
-    <string name="assets_download_title">Downloading Files</string>
-    <string name="assets_download_body">Downloading companion files</string>
+    <string name="download_channel_name">Завантаження</string>
+    <string name="assets_download_title">Завантаження файлів</string>
+    <string name="assets_download_body">Завантаження супутніх файлів</string>
     <string name="update_notification_title">Оновлення завантажено</string>
     <string name="update_notification_text">Тицьніть сюди, щоб встановити</string>
     <string name="download_failed">Не вдалося завантажити оновлення</string>
@@ -462,7 +462,7 @@
     <string name="toggle_one_handed">Увімкнути режим однієї руки</string>
     <string name="sleep">сон</string>
     <!-- Search Preference -->
-    <string name="searchpreference_title">Search</string>
+    <string name="searchpreference_title">Пошук</string>
     <string name="searchpreference_search">Пошук…</string>
     <string name="searchpreference_clear">ясно</string>
     <string name="searchpreference_history_entry">Запис історії</string>
@@ -473,22 +473,22 @@
     <string name="hooked_packages_title">Підключені пакети</string>
     <string name="package_hooked_successful">Пакет чуйний</string>
     <string name="package_not_hook_enabled">Пакет не ввімкнено в LSposed</string>
-    <string name="package_hook_bootlooped">Hook failed due to bootloop</string>
+    <string name="package_hook_bootlooped">Не вдалося виконати перехоплення через циклічне перезавантаження</string>
     <string name="package_hook_no_response">Пакет не відповідає</string>
     <string name="package_not_found">Пакет не знайдено</string>
     <string name="package_checking">Завантаження%s</string>
     <string name="package_activated">Пакет успішно активований</string>
     <string name="package_activation_failed">Не вдалося активувати пакет</string>
     <string name="activate_in_lsposed">Активувати в ЛСПосед</string>
-    <string name="package_not_hook_enabled_info">The app is installed, but LSPosed is not configured to hook into it. Enable it by clicking \'%s\'.</string>
-    <string name="package_hook_bootlooped_info">The hook for the app caused a bootloop, so it has been disabled to prevent further issues.</string>
-    <string name="package_hook_no_response_info">The app is not responding to the hook status. It may not be actively running, or it\'s possible that it\'s not hooked to our connection.</string>
-    <string name="whats_wrong">What\'s wrong?</string>
+    <string name="package_not_hook_enabled_info">Застосунок встановлено, але LSPosed не налаштовано на його перехоплення. Увімкніть його, натиснувши «%s».</string>
+    <string name="package_hook_bootlooped_info">Перехоплення для застосунку спричиняло зациклення, тому його було вимкнено, щоб запобігти подальшим проблемам.</string>
+    <string name="package_hook_no_response_info">Застосунок не реагує на стан перехоплення. Можливо, він не запущений або не перехоплений до нашого з\'єднання.</string>
+    <string name="whats_wrong">Що сталося?</string>
     <string name="package_not_launchable">Пакунок не запускається</string>
     <string name="menu_launch_app">Запустити додаток</string>
     <string name="menu_restart_app">Перезапустити додаток</string>
-    <string name="why">why?</string>
-    <string name="okay">Okay</string>
+    <string name="why">Як?</string>
+    <string name="okay">Гаразд</string>
     <!-- Splash Activity -->
     <string name="checking_root_permissions">Перевірка прав root…</string>
     <string name="connecting_root_service">Підключення до кореневої служби…</string>
@@ -515,21 +515,21 @@
     <string name="skip_media_next">Управління медіа - Пропустити</string>
     <string name="skip_media_prev">Управління медіа - Попереднє</string>
     <!-- Icon Packs -->
-    <string name="icon_packs_title">Icon packs</string>
-    <string name="icon_pack_selection_title">Select pack</string>
-    <string name="icon_pack_customization_title">Customize icons</string>
-    <string name="menu_more_info">More info</string>
-    <string name="menu_show_icons">Show icons</string>
-    <string name="select_replacement_icon">Select replacement icon</string>
-    <string name="icon_default">Default</string>
-    <string name="partially_enabled">(Partially enabled)</string>
-    <string name="icon_pack_icon_disabled">Disabled</string>
-    <string name="icon_pack_author">by %s</string>
-    <string name="icon_pack_unknown_author">by unknown author</string>
-    <string name="icon_pack_unknown_name">Unknown icon pack</string>
-    <string name="icon_pack_pack_reset">Reset icons</string>
-    <string name="icon_pack_info">Icon pack info</string>
-    <string name="no_icon_pack_installed">No icon pack installed</string>
-    <string name="icon_pack_disclaimer_title">Disclaimer</string>
-    <string name="icon_pack_disclaimer_desc">Icon packs are not developed or distributed by PixelXpert. As such, the PixelXpert team is unable to provide support for icon packs. Support regarding how PixelXpert handles icon packs will only be provided to the respective pack developers.\n\nFor instructions on how to compile an icon pack, please refer to the guide here: %s</string>
+    <string name="icon_packs_title">Набори значків</string>
+    <string name="icon_pack_selection_title">Виберіть набір</string>
+    <string name="icon_pack_customization_title">Персоналізація значків</string>
+    <string name="menu_more_info">Детальніше</string>
+    <string name="menu_show_icons">Показати значки</string>
+    <string name="select_replacement_icon">Виберіть значок для заміни</string>
+    <string name="icon_default">Типово</string>
+    <string name="partially_enabled">(Частково ввімкнено)</string>
+    <string name="icon_pack_icon_disabled">Вимкнено</string>
+    <string name="icon_pack_author">%s</string>
+    <string name="icon_pack_unknown_author">невідомий автор</string>
+    <string name="icon_pack_unknown_name">Невідомий набір значків</string>
+    <string name="icon_pack_pack_reset">Скинути значки</string>
+    <string name="icon_pack_info">Інформація про набір значків</string>
+    <string name="no_icon_pack_installed">Пакет значків не встановлено</string>
+    <string name="icon_pack_disclaimer_title">Відмова від відповідальності</string>
+    <string name="icon_pack_disclaimer_desc">PixelXpert не розробляє і не розповсюджує наборів значків. Таким чином, команда PixelXpert не може надавати підтримку щодо цих наборів. Підтримка щодо того, як PixelXpert працює з пакетами значків, надається лише розробникам відповідних пакетів.\n\nДля отримання інструкцій щодо компіляції пакета значків, зверніться до посібника тут: %s</string>
 </resources>

@@ -1,3 +1,7 @@
+**canary-406**  
+- Added search to icons page  
+- Improved the iconpack apply logic  
+  
 **canary-405**  
 - Added option (theming section) to modify system icons via "Icon Pack"s. Most of the credit goes to @DHD2280 and @Mahmud0808.  
   
