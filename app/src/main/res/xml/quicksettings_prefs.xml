@@ -50,14 +50,6 @@
 
 		<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
 			android:defaultValue="false"
-			android:key="QRTileInactiveColor"
-			android:summaryOff="@string/general_off"
-			android:summaryOn="@string/general_on"
-			android:title="@string/qs_qr_tile_inactive_title"
-			app:iconSpaceReserved="false" />
-
-		<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
-			android:defaultValue="false"
 			android:key="VerticalQSTile"
 			android:summaryOff="@string/general_off"
 			android:summaryOn="@string/general_on"

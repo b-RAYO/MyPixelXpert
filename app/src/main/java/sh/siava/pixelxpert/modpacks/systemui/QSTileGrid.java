@@ -1,7 +1,5 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static android.service.quicksettings.Tile.STATE_ACTIVE;
-import static android.service.quicksettings.Tile.STATE_INACTIVE;
 import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
@@ -53,8 +51,6 @@ public class QSTileGrid extends XposedModPack {
 	private static int labelSizeUnit = -1, secondaryLabelSizeUnit = -1;
 
 	private static float QSLabelScaleFactor = 1, QSSecondaryLabelScaleFactor = 1;
-	private static boolean QRTileInactiveColor = false;
-
 	protected static boolean QSHapticEnabled = false;
 	private static boolean VerticalQSTile = false;
 
@@ -86,8 +82,6 @@ public class QSTileGrid extends XposedModPack {
 		QSColQtyL = Xprefs.getSliderInt( "QSColQtyL", QS_COL_NOT_SET);
 		if(QSColQtyL < QS_COL_NOT_SET) QSColQtyL = QS_COL_NOT_SET;
 		QQSTileQtyL = Xprefs.getSliderInt( "QQSTileQtyL", QQS_NOT_SET);
-
-		QRTileInactiveColor = Xprefs.getBoolean("QRTileInactiveColor", false);
 
 		QSLabelScaleFactor = (Xprefs.getSliderFloat( "QSLabelScaleFactor", 0) + 100) / 100f;
 		QSSecondaryLabelScaleFactor = (Xprefs.getSliderFloat( "QSSecondaryLabelScaleFactor", 0) + 100) / 100f;
@@ -230,21 +224,6 @@ public class QSTileGrid extends XposedModPack {
 				setLabelSizes(param);
 			}
 		});
-
-		Class<?> QRCodeScannerTileClass = findClassIfExists("com.android.systemui.qs.tiles.QRCodeScannerTile", lpParam.classLoader);
-
-		if (QRCodeScannerTileClass != null) {
-			hookAllMethods(QRCodeScannerTileClass, "handleUpdateState", new XC_MethodHook() {
-				@Override
-				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-					if (!QRTileInactiveColor) return;
-
-					if (getObjectField(param.args[0], "state").equals(STATE_ACTIVE)) {
-						setObjectField(param.args[0], "state", STATE_INACTIVE);
-					}
-				}
-			});
-		}
 
 		hookAllMethods(QSTileViewImplClass, "onConfigurationChanged", new XC_MethodHook() {
 			@Override
