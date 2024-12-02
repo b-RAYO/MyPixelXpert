@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -51,7 +50,6 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 	private final IconPackUtil.IconPackMapping mPacksMapping;
 	private final IconPackUtil mPackUtil;
 	private final ItemChangedListener mItemChangedListener;
-	private String filterText = "";
 
 	public IconPackAdapter(IconPackUtil iconPackUtil, List<IconPackUtil.IconPack> packs, IconPackUtil.IconPackMapping packMapping, ItemChangedListener itemChangedListener) {
 		mPacks = packs;
@@ -91,7 +89,6 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 	}
 
 	private void setLayoutBackground(ViewHolder holder, int position, int enabledState) {
-		Log.d(TAG, "setLayoutBackground: " + position + " | " + enabledState);
 		LayerDrawable cardBackground = switch (getItemViewType(position)) {
 			case VIEW_TYPE_TOP ->
 					(LayerDrawable) ResourcesCompat.getDrawable(holder.itemView.getResources(), R.drawable.container_top_selected, null);
@@ -103,21 +100,23 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 					(LayerDrawable) ResourcesCompat.getDrawable(holder.itemView.getResources(), R.drawable.container_single_selected, null);
 		};
 
-		Drawable drawable = cardBackground.getDrawable(1);
-		switch (enabledState) {
-			case IconPackUtil.ENABLED_FULL:
-				drawable.setTint(getColorFromAttribute(holder.itemView.getContext(), R.attr.colorPrimary));
-				break;
-			case IconPackUtil.ENABLED_PARTIAL:
-				drawable.setTint(getColorWithHalfOpacity(getColorFromAttribute(holder.itemView.getContext(), R.attr.colorPrimary)));
-				break;
-			default:
-				drawable.setTint(getColorFromAttribute(holder.itemView.getContext(), isNightMode(holder.itemView.getContext()) ? R.attr.colorSurfaceBright : R.attr.colorSurface));
-				break;
-		}
-		drawable.mutate();
+		if (cardBackground != null) {
+			Drawable drawable = cardBackground.getDrawable(1);
+			switch (enabledState) {
+				case IconPackUtil.ENABLED_FULL:
+					drawable.setTint(getColorFromAttribute(holder.itemView.getContext(), R.attr.colorPrimary));
+					break;
+				case IconPackUtil.ENABLED_PARTIAL:
+					drawable.setTint(getColorWithHalfOpacity(getColorFromAttribute(holder.itemView.getContext(), R.attr.colorPrimary)));
+					break;
+				default:
+					drawable.setTint(getColorFromAttribute(holder.itemView.getContext(), isNightMode(holder.itemView.getContext()) ? R.attr.colorSurfaceBright : R.attr.colorSurface));
+					break;
+			}
+			drawable.mutate();
 
-		holder.itemView.setBackground(cardBackground);
+			holder.itemView.setBackground(cardBackground);
+		}
 	}
 
 	private boolean isNightMode(Context context) {
@@ -134,7 +133,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconPackAdapter.ViewHo
 	@SuppressLint("NotifyDataSetChanged")
     public void filter(String text) {
 		mFilteredPacks.clear();
-		filterText = text != null ? text : "";
+		String filterText = text != null ? text : "";
 		for (IconPackUtil.IconPack pack : mPacks) {
 			if (pack.mName.toLowerCase().contains(filterText.toLowerCase()) || pack.mAuthor.toLowerCase().contains(filterText.toLowerCase())) {
 				mFilteredPacks.add(pack);
