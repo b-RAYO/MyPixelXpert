@@ -59,7 +59,7 @@
     </sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
     <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
-        android:key="overlay_dependent"
+        android:key="icon_style_header"
         android:title="@string/icons_style_title"
         app:iconSpaceReserved="false"
         search:ignore="true">
@@ -76,7 +76,7 @@
     </sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
     <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
-        android:key="overlay_dependent"
+        android:key="icon_shape_header"
         android:title="@string/icon_shapes_title"
         app:iconSpaceReserved="false"
         search:ignore="true">
@@ -93,7 +93,7 @@
     </sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
     <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
-        android:key="overlay_dependent"
+        android:key="signal_icon_theme_header"
         android:title="@string/signal_icons_theme_title"
         app:iconSpaceReserved="false"
         search:ignore="true">
@@ -110,7 +110,7 @@
     </sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
     <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
-        android:key="overlay_dependent"
+        android:key="dark_theme_styles_header"
         android:title="@string/dt_styles_category"
         app:iconSpaceReserved="false"
         search:ignore="true">

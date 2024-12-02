@@ -51,7 +51,10 @@ public class PreferenceHelper {
 
 		switch (key) {
 			case "nav_keyboard_height_cat":
-			case "overlay_dependent":
+			case "icon_style_header":
+			case "icon_shape_header":
+			case "signal_icon_theme_header":
+			case "dark_theme_styles_header":
 			case "HideNavbarOverlay":
 			case "CustomThemedIconsOverlay":
 			case "UnreadMessagesNumberOverlay":
