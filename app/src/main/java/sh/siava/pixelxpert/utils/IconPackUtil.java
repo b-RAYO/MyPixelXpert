@@ -50,6 +50,7 @@ public class IconPackUtil implements Serializable {
 	private final Set<IconPackQueryListener> listeners = ConcurrentHashMap.newKeySet();
 	private final ExecutorService executorService = Executors.newCachedThreadPool();
 	private boolean hasLoaded = false;
+	private boolean isQuerying = false;
 
 	public interface IconPackQueryListener {
 		default void onIconPacksLoaded(ResourceMapping resourceMapping, IconPackMapping iconPackMapping) {}
@@ -65,6 +66,15 @@ public class IconPackUtil implements Serializable {
 
 	public IconPackUtil(@NonNull Context context) {
 		mPackageManager = context.getPackageManager();
+	}
+
+	public boolean isAnythingEnabled()
+	{
+		if(isQuerying || mResourceMapping == null) return false;
+
+		return mResourceMapping.values().stream()
+				.flatMap(List::stream)
+				.anyMatch(IconPackUtil.ReplacementIcon::isEnabled);
 	}
 
 	public static synchronized IconPackUtil getInstance(Context context) {
@@ -83,6 +93,7 @@ public class IconPackUtil implements Serializable {
 	}
 
 	private void queryMappingInternal() {
+		isQuerying = true;
 		hasLoaded = false;
 		instance.mResourceMapping = new ResourceMapping();
 		instance.mIconPackMapping = new IconPackMapping();
@@ -132,6 +143,7 @@ public class IconPackUtil implements Serializable {
 
 		listeners.forEach(listener -> listener.onIconPacksLoaded(mResourceMapping, mIconPackMapping));
 		hasLoaded = true;
+		isQuerying = false;
 	}
 
 	public void enable(IconPack iconPack)
@@ -141,7 +153,6 @@ public class IconPackUtil implements Serializable {
 	private void setEnabled(IconPack iconPack, boolean enabled)
 	{
 		HashMap<String, ArrayList<ReplacementIcon>> thisPack = mIconPackMapping.get(iconPack);
-		//noinspection SequencedCollectionMethodCanBeUsed
 		thisPack.forEach((resName, replacementIcons) ->
 			mResourceMapping.setEnabled(resName, replacementIcons.get(0), enabled));
 		savePrefs();
@@ -240,7 +251,6 @@ public class IconPackUtil implements Serializable {
 						Set<String> keySet = packMapping.keySet();
 						resName = (String) keySet.toArray()[ThreadLocalRandom.current().nextInt(0, keySet.size() - 1)];
 					}
-					//noinspection SequencedCollectionMethodCanBeUsed
 					packDrawables.add(packMapping.get(resName).get(0).getDrawable());
 				}
 			}

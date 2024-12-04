@@ -72,11 +72,7 @@ public class IconPackListFragment extends BaseFragment implements IconPackUtil.I
 	}
 
 	public boolean isFabVisible() {
-		if (mIconPackUtil.mIconPackMapping == null) {
-			return false;
-		}
-		return mIconPackUtil.mIconPackMapping.getIconPacks().stream()
-				.anyMatch(iconPack -> mIconPackUtil.getEnabledState(iconPack) != IconPackUtil.DISABLED);
+		return mIconPackUtil.isAnythingEnabled();
 	}
 
 	private void requestFabVisibility() {

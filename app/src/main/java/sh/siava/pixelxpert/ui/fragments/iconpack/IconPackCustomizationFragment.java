@@ -72,12 +72,7 @@ public class IconPackCustomizationFragment extends BaseFragment implements IconP
 	private final ItemChangedListener mItemChangedListener = () -> new Handler(Looper.getMainLooper()).post(this::requestFabVisibility);
 
 	public boolean isFabVisible() {
-		if (mIconPackUtil.mResourceMapping == null) {
-			return false;
-		}
-        return mIconPackUtil.mResourceMapping.values().stream()
-                .flatMap(List::stream)
-                .anyMatch(IconPackUtil.ReplacementIcon::isEnabled);
+		return mIconPackUtil.isAnythingEnabled();
 	}
 
 	private void requestFabVisibility() {

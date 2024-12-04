@@ -29,7 +29,6 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 	private final List<String> mFilteredIconResNames;
 	private final IconPackUtil mPackUtils;
 	private final ItemChangedListener mItemChangedListener;
-	private String filterText = "";
 
 	public IconPackCustomizationAdapter(IconPackUtil packUtil, IconPackUtil.ResourceMapping mapping, ItemChangedListener itemChangedListener) {
 		mPackUtils = packUtil;
@@ -75,7 +74,10 @@ public class IconPackCustomizationAdapter extends RecyclerView.Adapter<IconPackC
 	@SuppressLint("NotifyDataSetChanged")
 	public void filter(String text) {
 		mFilteredIconResNames.clear();
-		filterText = text != null ? text : "";
+		String filterText = text != null
+				? text
+				: "";
+
 		for (String resName : mIconResNames) {
 			if (resName.toLowerCase().contains(filterText.toLowerCase())) {
 				mFilteredIconResNames.add(resName);
