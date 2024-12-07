@@ -26,12 +26,14 @@ import android.os.UserHandle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
@@ -42,16 +44,18 @@ import sh.siava.pixelxpert.modpacks.XposedModPack;
 import sh.siava.pixelxpert.modpacks.utils.SystemUtils;
 import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectionTools;
 
+/** @noinspection RedundantCast, JavaReflectionMemberAccess */
 @SuppressWarnings("RedundantThrows")
 public class TaskbarActivator extends XposedModPack {
 	private static final String listenPackage = Constants.LAUNCHER_PACKAGE;
 
 	public static final int TASKBAR_DEFAULT = 0;
 	public static final int TASKBAR_ON = 1;
+	/** @noinspection unused*/
 	public static final int TASKBAR_OFF = 2;
 
 	private static int taskbarMode = 0;
-	private ViewGroup TaskBarView = null;
+	private final TaskbarViews mTaskBarViews = new TaskbarViews();
 	private static int numShownHotseatIcons = 0;
 	private int UID = 0;
 	private Object recentTasksList;
@@ -238,12 +242,14 @@ public class TaskbarActivator extends XposedModPack {
 		hookAllConstructors(TaskbarViewClass, new XC_MethodHook() {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				TaskBarView = (ViewGroup) param.thisObject;
+				mTaskBarViews.add((ViewGroup) param.thisObject);
 
 				try
 				{ //Since A15QPR1 button is now a container and can't be null anymore. removing it manually only from recents
 					if(taskbarMode == TASKBAR_ON && TaskbarHideAllAppsIcon)
-						setObjectField(TaskBarView, "mAllAppsButton", null);
+					{
+						mTaskBarViews.forEach(view -> setObjectField(view, "mAllAppsButton", null));
+					}
 				}
 				catch (Throwable ignored){}
 			}
@@ -263,13 +269,13 @@ public class TaskbarActivator extends XposedModPack {
 				if (taskbarMode != TASKBAR_ON
 						|| !TaskbarAsRecents
 						|| refreshing
-						|| TaskBarView == null)
+						|| mTaskBarViews.isEmpty())
 					return;
 				new Thread(() -> {
 					refreshing = true;
 					SystemUtils.threadSleep(100);
 
-					TaskBarView.post(() -> {
+					mTaskBarViews.forEach(taskBarView -> taskBarView.post(() -> {
 						try {
 							Object mSysUiProxy = getObjectField(param.thisObject, "mSysUiProxy");
 
@@ -279,12 +285,9 @@ public class TaskbarActivator extends XposedModPack {
 									numShownHotseatIcons + 1,
 									UID);
 
-							if(mTasksFieldName == null)
-							{
-								for(Field f : recentTaskList.get(0).getClass().getDeclaredFields())
-								{
-									if(f.getType().getName().contains("RecentTaskInfo"))
-									{
+							if (mTasksFieldName == null) {
+								for (Field f : recentTaskList.get(0).getClass().getDeclaredFields()) {
+									if (f.getType().getName().contains("RecentTaskInfo")) {
 										mTasksFieldName = f.getName();
 									}
 								}
@@ -306,20 +309,17 @@ public class TaskbarActivator extends XposedModPack {
 
 							int prevItemsLength = mItemsLength;
 							mItemsLength = itemInfos.length;
-							if(mItemsLength == 0)
-							{
-								invokeOriginalMethod(commitItemsToUIMethod, TaskbarModelCallbacks,null);
+							if (mItemsLength == 0) {
+								invokeOriginalMethod(commitItemsToUIMethod, TaskbarModelCallbacks, null);
 								return;
-							}
-							else if(prevItemsLength == 0 && mItemsLength == 1)
-							{
-								TaskBarView.removeAllViews(); //moving from suggested apps to recent apps. old ones are not valid anymore
+							} else if (prevItemsLength == 0 && mItemsLength == 1) {
+								taskBarView.removeAllViews(); //moving from suggested apps to recent apps. old ones are not valid anymore
 							}
 
 							for (int i = 0; i < itemInfos.length; i++) {
 								TaskInfo taskInfo = (TaskInfo) ((Object[]) getObjectField(recentTaskList.get(i), mTasksFieldName))[0];
 
-								// noinspection ,RedundantCast,JavaReflectionMemberAccess
+								// noinspection ,JavaReflectionMemberAccess
 								itemInfos[i] = AppInfoClass.getConstructor(ComponentName.class, CharSequence.class, UserHandle.class, Intent.class)
 										.newInstance(
 												(ComponentName) getObjectField(taskInfo, "realActivity"),
@@ -330,38 +330,38 @@ public class TaskbarActivator extends XposedModPack {
 								setAdditionalInstanceField(itemInfos[i], "taskId", taskInfo.taskId);
 							}
 
-							if(mUpdateHotseatParams == 2) //A15QPR1
+							if (mUpdateHotseatParams == 2) //A15QPR1
 							{
-								callMethod(TaskBarView, "updateHotseatItems", itemInfos, new ArrayList<>());
-							}
-							else
-							{ //Older
-								callMethod(TaskBarView, "updateHotseatItems", new Object[]{itemInfos});
+								callMethod(taskBarView, "updateHotseatItems", itemInfos, new ArrayList<>());
+							} else { //Older
+								callMethod(taskBarView, "updateHotseatItems", new Object[]{itemInfos});
 							}
 
-							for(int i = 0; i < 2; i++) //A15QPR1Beta3 - They added allapps button as a container plus a divider container
+							for (int i = 0; i < 3; i++) //A15QPR1Beta3 - They added allapps button as a container plus a divider container
 							{
-								View child = TaskBarView.getChildAt(0);
-								if(child.getClass().getName().endsWith("Container"))
-								{
-									TaskBarView.removeView(child);
+								View child = taskBarView.getChildAt(0);
+								String className = child.getClass().getName();
+								if (className.endsWith("Container") || className.endsWith("SearchDelegateView")) {
+									taskBarView.removeView(child);
 								}
 							}
 
 							for (int i = 0; i < itemInfos.length; i++) {
-								View iconView = TaskBarView.getChildAt(i);
+								View iconView = taskBarView.getChildAt(i);
 
 								try {
 									if (getAdditionalInstanceField(iconView, "taskId")
 											.equals(getAdditionalInstanceField(itemInfos[itemInfos.length - i - 1], "taskId")))
 										continue;
-								} catch (Throwable ignored) {}
+								} catch (Throwable ignored) {
+								}
 
 								setAdditionalInstanceField(iconView, "taskId", getAdditionalInstanceField(itemInfos[itemInfos.length - i - 1], "taskId"));
 								callMethod(iconView, "applyFromApplicationInfo", itemInfos[itemInfos.length - i - 1]);
 							}
-						} catch (Throwable ignored) {}
-					});
+						} catch (Throwable ignored) {
+						}
+					}));
 					refreshing = false;
 				}).start();
 			}
@@ -378,13 +378,59 @@ public class TaskbarActivator extends XposedModPack {
 			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 				if (taskbarMode != TASKBAR_ON || !TaskbarAsRecents) return;
 
-				if (TaskBarView.getChildCount() == 0 && recentTasksList != null) {
-					callMethod(recentTasksList, "onRecentTasksChanged");
-				}
+				mTaskBarViews.forEach(taskBarView -> {
+					if (taskBarView.getChildCount() == 0 && recentTasksList != null) {
+						callMethod(recentTasksList, "onRecentTasksChanged");
+					}
+				});
 				param.setResult(null);
 			}
 		});
 		//endregion
 	}
 
+	static class TaskbarViews
+	{
+		public List<WeakReference<ViewGroup>> mViews = new ArrayList<>();
+
+		public void add(ViewGroup view)
+		{
+			cleanup();
+			mViews.add(new WeakReference<>(view));
+		}
+
+		private void cleanup()
+		{
+			List<WeakReference<ViewGroup>> clean = new ArrayList<>();
+
+			for(WeakReference<ViewGroup> ref : mViews)
+			{
+				if(ref.get() != null)
+				{
+					clean.add(ref);
+				}
+			}
+			mViews = clean;
+		}
+
+		public void forEach(Consumer<ViewGroup> action)
+		{
+			for(WeakReference<ViewGroup> ref : mViews)
+			{
+				ViewGroup thisOne = ref.get();
+				if(thisOne != null)
+				{
+					try {
+						action.accept(thisOne);
+					}
+					catch (Throwable ignored){}
+				}
+			}
+		}
+
+		public boolean isEmpty() {
+			cleanup();
+			return mViews.isEmpty();
+		}
+	}
 }
