@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Schalte das Display Ein/Aus um zu aktivieren</string>
     <string name="qs_leveled_flashlight_title">Graduelle Taschenlampenplättchen</string>
     <string name="qs_flashlight_level_global_title">Wenden die Taschenlampenstufe global an</string>
-    <string name="qs_qr_tile_inactive_title">QR-Scan-Kachelfarbe umkehren</string>
     <string name="qs_tile_vertical_title">Kachelsymbole nach oben verschieben</string>
     <string name="qs_tile_qty_title">Schnelleinstellungen Kachelanzahl Einstellungen</string>
     <string name="qs_leveled_flashlight_summary">Erfordert unterstützte Hardware</string>

@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Tắt/Bật màn hình để áp dụng</string>
     <string name="qs_leveled_flashlight_title">Ô chỉnh mức đèn pin</string>
     <string name="qs_flashlight_level_global_title">Áp dụng mức đèn pin mặc định</string>
-    <string name="qs_qr_tile_inactive_title">Đảo ngược màu ô quét QR</string>
     <string name="qs_tile_vertical_title">Di chuyển các biểu tượng ô lên đầu</string>
     <string name="qs_tile_qty_title">Cài đặt nhanh số lượng ô cài đặt</string>
     <string name="qs_leveled_flashlight_summary">Yêu cầu phần cứng được hỗ trợ</string>

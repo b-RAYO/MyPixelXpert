@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Az alkalmazáshoz kapcsolja ki/be a kijelzőt</string>
     <string name="qs_leveled_flashlight_title">Fényerőszintű zseblámpa csempe</string>
     <string name="qs_flashlight_level_global_title">Alkalmazza a zseblámpa szintet globálisan</string>
-    <string name="qs_qr_tile_inactive_title">Fordítsa meg a QR-Scan csempe színét</string>
     <string name="qs_tile_vertical_title">Helyezze a csempe ikonokat a tetejére</string>
     <string name="qs_tile_qty_title">Gyorsbeállítások csempék száma beállításai</string>
     <string name="qs_leveled_flashlight_summary">Támogatott hardvert igényel</string>

@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Wyłącz/włącz wyświetlacz, aby zastosować</string>
     <string name="qs_leveled_flashlight_title">Płytka latarki o poziomie jasności</string>
     <string name="qs_flashlight_level_global_title">Zastosuj poziom latarki globalnie</string>
-    <string name="qs_qr_tile_inactive_title">Odwróć kolor płytki QR-Scan</string>
     <string name="qs_tile_vertical_title">Przesuń ikony kafelków na górę</string>
     <string name="qs_tile_qty_title">Szybkie ustawienia Ustawienia liczby płytek</string>
     <string name="qs_leveled_flashlight_summary">Wymaga obsługiwanego sprzętu</string>

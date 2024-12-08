@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">화면을 껐다 켜서 설정 적용</string>
     <string name="qs_leveled_flashlight_title">손전등 밝기 조절 타일 활성화</string>
     <string name="qs_flashlight_level_global_title">손전등 밝기 전역 설정</string>
-    <string name="qs_qr_tile_inactive_title">QR코드 스캔 타일 색상 반전하기</string>
     <string name="qs_tile_vertical_title">타일 아이콘 상단으로 옮기기</string>
     <string name="qs_tile_qty_title">빠른 설정 타일 배치 설정</string>
     <string name="qs_leveled_flashlight_summary">지원되는 하드웨어가 필요합니다</string>

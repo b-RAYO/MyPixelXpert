@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Uygulamak için ekranı kapatıp açın</string>
     <string name="qs_leveled_flashlight_title">Parlaklık seviyeli El Feneri karosu</string>
     <string name="qs_flashlight_level_global_title">El feneri seviyesini tüm cihazda uygula</string>
-    <string name="qs_qr_tile_inactive_title">QR-Tarama karosu rengini ters çevir</string>
     <string name="qs_tile_vertical_title">Karo simgelerini üste taşı</string>
     <string name="qs_tile_qty_title">Hızlı ayarlar karo sayısı ayarları</string>
     <string name="qs_leveled_flashlight_summary">Desteklenen donanım gerektirir</string>

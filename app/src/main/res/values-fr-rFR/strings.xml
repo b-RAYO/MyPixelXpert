@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">Éteindre et rallumer l’écran pour appliquer</string>
     <string name="qs_leveled_flashlight_title">Choisir le niveau d’intensité de la lampe torche depuis son bloc</string>
     <string name="qs_flashlight_level_global_title">Change le niveau pour tout l’appareil</string>
-    <string name="qs_qr_tile_inactive_title">Intervertir la couleur du bloc de scan de QR code</string>
     <string name="qs_tile_vertical_title">Bouger les icônes en haut des blocs</string>
     <string name="qs_tile_qty_title">Préférences du nombre de blocs</string>
     <string name="qs_leveled_flashlight_summary">Nécessite un appareil compatible</string>

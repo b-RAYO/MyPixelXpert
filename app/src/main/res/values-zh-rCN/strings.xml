@@ -211,7 +211,6 @@
     <string name="qs_footer_text_desc">关闭并打开屏幕后生效</string>
     <string name="qs_leveled_flashlight_title">手电筒磁贴亮度可调</string>
     <string name="qs_flashlight_level_global_title">全局应用手电筒亮度</string>
-    <string name="qs_qr_tile_inactive_title">默认关闭的扫码磁贴</string>
     <string name="qs_tile_vertical_title">将磁贴图标移至顶部</string>
     <string name="qs_tile_qty_title">磁贴面板数量设定</string>
     <string name="qs_leveled_flashlight_summary">需要硬件支持</string>
