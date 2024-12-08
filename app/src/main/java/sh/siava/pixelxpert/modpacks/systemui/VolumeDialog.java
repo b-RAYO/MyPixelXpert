@@ -1,9 +1,13 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getBooleanField;
+import static de.robv.android.xposed.XposedHelpers.getFloatField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import static sh.siava.pixelxpert.modpacks.XPrefs.Xprefs;
@@ -42,7 +46,7 @@ public class VolumeDialog extends XposedModPack {
 
 	private static int VolumeDialogTimeout = 3000;
 
-	private boolean mShowVolumeLevel = false;
+	private static boolean VolumeDialogLevel = false;
 	private final List<TextView> volumeTextViews = new ArrayList<>();
 
 	public VolumeDialog(Context context) {
@@ -52,16 +56,18 @@ public class VolumeDialog extends XposedModPack {
 	@Override
 	public void updatePrefs(String... Key) {
 		VolumeDialogTimeout = Xprefs.getSliderInt( "VolumeDialogTimeout", 3000);
-		mShowVolumeLevel = Xprefs.getBoolean("VolumeDialogLevel", false);
+		VolumeDialogLevel = Xprefs.getBoolean("VolumeDialogLevel", false);
 
 		if (Key.length > 0 && Key[0].equals("VolumeDialogLevel")) {
-			setVolumeTextViewsVisibility(mShowVolumeLevel ? View.VISIBLE : View.GONE);
+			setVolumeTextViewsVisibility(VolumeDialogLevel ? VISIBLE : GONE);
 		}
 	}
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		Class<?> VolumeDialogImplClass = findClass("com.android.systemui.volume.VolumeDialogImpl", lpParam.classLoader);
+		Class<?> AudioStreamStateClass = findClass("com.android.systemui.volume.panel.component.volume.slider.ui.viewmodel.AudioStreamSliderViewModel$State", lpParam.classLoader);
+
 		hookAllMethods(VolumeDialogImplClass, "rescheduleTimeoutH", new XC_MethodHook() {
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -89,13 +95,13 @@ public class VolumeDialog extends XposedModPack {
 					if (!volumeTextViews.contains(existingVolumeNumber)) {
 						volumeTextViews.add(existingVolumeNumber);
 					}
-					existingVolumeNumber.setVisibility(mShowVolumeLevel ? View.VISIBLE : View.GONE);
+					existingVolumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
 					return;
 				}
 
 				TextView volumeNumber = createVolumeTextView(volumeNumberId);
 				((ViewGroup) rowHeader.getParent()).addView(volumeNumber, 0);
-				volumeNumber.setVisibility(mShowVolumeLevel ? View.VISIBLE : View.GONE);
+				volumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
 				volumeTextViews.add(volumeNumber);
 
 				setObjectField(param.args[0], "number", ((View) getObjectField(param.args[0], "view")).findViewById(volumeNumberId));
@@ -138,6 +144,27 @@ public class VolumeDialog extends XposedModPack {
 				}
 
 				volumeNumber.setText(String.format(Locale.getDefault(), "%d%%", level));
+			}
+		});
+
+		hookAllConstructors(AudioStreamStateClass, new XC_MethodHook() { //Only applicable to compose implementation of the volume panel
+			@SuppressLint("DefaultLocale")
+			@Override
+			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+				if(!VolumeDialogLevel) return;
+
+				float currentValue = getFloatField(param.thisObject, "value");
+				float maxValue = getFloatField(
+						getObjectField(
+								param.thisObject,
+								"valueRange"),
+						"_endInclusive");
+
+				float percentage = 100 * currentValue / maxValue;
+
+				String label = (String) getObjectField(param.thisObject, "label");
+				label = String.format("%s - %d%%", label, Math.round(percentage));
+				setObjectField(param.thisObject, "label", label);
 			}
 		});
 	}
