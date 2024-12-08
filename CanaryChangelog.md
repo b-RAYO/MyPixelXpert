@@ -1,3 +1,7 @@
+**canary-407**  
+- Added option to show volume level percentage while adjusting them  
+- A15: Fixed taskbar in landscape mode  
+  
 **canary-406**  
 - Added search to icons page  
 - Improved the iconpack apply logic  
