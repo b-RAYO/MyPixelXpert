@@ -188,6 +188,14 @@
 			app:tickInterval="500"
 			app:valueCount="1" />
 
+		<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
+			android:defaultValue="false"
+			android:key="VolumeDialogLevel"
+            android:summaryOff="@string/general_off"
+            android:summaryOn="@string/general_on"
+			android:title="@string/show_vol_level_title"
+			app:iconSpaceReserved="false" />
+
 	</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
 	<sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory

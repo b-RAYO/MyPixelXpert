@@ -329,6 +329,7 @@
     <string name="brightness_range_title">Display brightness limits</string>
     <string name="brightness_range_not_linear">This range is NOT linear: Sometimes a small difference leads to considerable changes</string>
     <string name="separate_ring_notif_vol_title">Individual volume for Ringer and Notification</string>
+	<string name="show_vol_level_title">Volume percentage on volume panel</string>
 
     <string name="so_power_longpress_torch_title">Long press Power button for torch</string>
     <string name="so_taptaptorch_title">Enable double-tap for lockscreen torch</string>
