@@ -305,6 +305,9 @@ public class PreferenceHelper {
 			case "DWOpacity":
 			case "DWonAOD":
 				return instance.mPreferences.getBoolean("DWallpaperEnabled", false);
+
+			case "FlatStandbyTime":
+				return instance.mPreferences.getBoolean("SleepOnFlatScreen", false);
 		}
 		return true;
 	}
@@ -474,8 +477,8 @@ public class PreferenceHelper {
 			case "CheckForUpdate":
 				return fragmentCompat.getString(R.string.current_version, BuildConfig.VERSION_NAME);
 
-
-
+			case "FlatStandbyTime":
+				return String.format(fragmentCompat.getString(R.string.duration_seconds), instance.mPreferences.getSliderInt("FlatStandbyTime", 5));
 		}
 		return null;
 	}

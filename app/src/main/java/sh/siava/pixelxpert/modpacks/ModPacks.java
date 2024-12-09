@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import sh.siava.pixelxpert.modpacks.allApps.HookTester;
 import sh.siava.pixelxpert.modpacks.allApps.OverScrollDisabler;
 import sh.siava.pixelxpert.modpacks.android.BrightnessRange;
+import sh.siava.pixelxpert.modpacks.android.FaceUpScreenSleep;
 import sh.siava.pixelxpert.modpacks.android.HotSpotController;
 import sh.siava.pixelxpert.modpacks.android.PackageManager;
 import sh.siava.pixelxpert.modpacks.android.PhoneWindowManager;
@@ -81,6 +82,7 @@ public class ModPacks {
 				modPacks.add(HotSpotController.class);
 				modPacks.add(RingerVolSeparator.class);
 				modPacks.add(SystemScreenRecord.class);
+				modPacks.add(FaceUpScreenSleep.class);
 				break;
 
 			case Constants.SYSTEM_UI_PACKAGE:
