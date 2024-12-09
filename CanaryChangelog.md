@@ -1,3 +1,6 @@
+**canary-408**  
+- Added option to sleep when put on flat surface (Misc)  
+  
 **canary-407**  
 - Added option to show volume level percentage while adjusting them  
 - A15: Fixed taskbar in landscape mode  
