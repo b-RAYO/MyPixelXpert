@@ -85,6 +85,17 @@
 			</intent-filter>
 		</service>
 		<service
+			android:name=".service.tileServices.SleepOnSurfaceTileService"
+			android:exported="true"
+			android:icon="@drawable/ic_sleep_surface_off"
+			android:label="@string/app_switch_tile_title"
+			android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+			<intent-filter>
+				<action android:name="android.service.quicksettings.action.QS_TILE" />
+			</intent-filter>
+		</service>
+
+		<service
 			android:name=".service.RootProviderProxy"
 			android:exported="true"
 			tools:ignore="ExportedService" />

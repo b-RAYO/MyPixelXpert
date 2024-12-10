@@ -306,7 +306,7 @@ public class PreferenceHelper {
 			case "DWonAOD":
 				return instance.mPreferences.getBoolean("DWallpaperEnabled", false);
 
-			case "FlatStandbyTime":
+			case "sleep_on_surface_category":
 				return instance.mPreferences.getBoolean("SleepOnFlatScreen", false);
 		}
 		return true;

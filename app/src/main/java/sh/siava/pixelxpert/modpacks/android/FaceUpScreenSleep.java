@@ -28,12 +28,14 @@ public class FaceUpScreenSleep extends XposedModPack {
 	public static final float FACE_UP_Z_THRESHOLD = 9f;
 	public static final int DEFAULT_DISPLAY_GROUP = 0;
 	public static final int GO_TO_SLEEP_REASON_TIMEOUT = 2;
+	static final int WAKE_LOCK_STAY_AWAKE = 1 << 5;
 	long mFirstStableMillis = 0;
 	boolean mIsMoving = true;
 	private Object mPowerManagerServiceInstance;
 	long mLastSleepOrderMillis = 0;
 	private static boolean SleepOnFlatScreen = false;
 	public static long FlatStandbyTimeMillis = 5000;
+	private static boolean SleepOnFlatRespectWakeLock = true;
 
 	public FaceUpScreenSleep(Context context) {
 		super(context);
@@ -43,6 +45,7 @@ public class FaceUpScreenSleep extends XposedModPack {
 	public void updatePrefs(String... Key) {
 		SleepOnFlatScreen = Xprefs.getBoolean("SleepOnFlatScreen", false);
 		FlatStandbyTimeMillis = Xprefs.getSliderInt("FlatStandbyTime", 5) * 1000L;
+		SleepOnFlatRespectWakeLock = Xprefs.getBoolean("SleepOnFlatRespectWakeLock", true);
 	}
 
 	@Override
@@ -66,15 +69,22 @@ public class FaceUpScreenSleep extends XposedModPack {
 				if(!SleepOnFlatScreen || getBooleanField(param.thisObject, "mFaceDown")) return; //device is already facing down or feature not enabled
 
 				SensorEvent event = (SensorEvent) param.args[0];
+				Object mPowerGroups = getObjectField(mPowerManagerServiceInstance, "mPowerGroups");
+				Object defaultPowerGroup = callMethod(mPowerGroups, "get", DEFAULT_DISPLAY_GROUP);
+
+				if(SleepOnFlatRespectWakeLock)
+				{
+					int wakeLockSummary = (int) callMethod(defaultPowerGroup, "getWakeLockSummaryLocked");
+					if((wakeLockSummary & WAKE_LOCK_STAY_AWAKE) != 0)
+						return;
+				}
 
 				if(!(event.values[2] > FACE_UP_Z_THRESHOLD)) return; //not facing up
 
 				long currentTimeNanos = event.timestamp;
-				long currentTimeMillis = currentTimeNanos / 1000000;
+				long currentTimeMillis = currentTimeNanos / 1_000_000L;
 
 				Duration mTimeThreshold = (Duration) getObjectField(param.thisObject, "mTimeThreshold");
-
-				long sleepDurationMillis = FlatStandbyTimeMillis - mTimeThreshold.toMillis();
 
 				boolean moving = currentTimeNanos - getLongField(param.thisObject, "mPrevAccelerationTime") <= mTimeThreshold.toNanos();
 
@@ -85,18 +95,15 @@ public class FaceUpScreenSleep extends XposedModPack {
 				else if(!mIsMoving && moving) {
 					mIsMoving = true;
 				}
-				if(mIsMoving) return; //not stationary
-
-				Object mPowerGroups = getObjectField(mPowerManagerServiceInstance, "mPowerGroups");
-				Object defaultPowerGroup = callMethod(mPowerGroups, "get", DEFAULT_DISPLAY_GROUP);
+				if(mIsMoving || currentTimeMillis - mFirstStableMillis < FlatStandbyTimeMillis) return; //not stationary enough
 
 				long lastUserActivityMillis = (long) callMethod(defaultPowerGroup, "getLastUserActivityTimeLocked");
 
-				if(currentTimeMillis - lastUserActivityMillis < sleepDurationMillis) {
+				if(currentTimeMillis - lastUserActivityMillis < FlatStandbyTimeMillis) {
 					return; //user is touching the screen
 				}
 
-				if(currentTimeMillis - mFirstStableMillis > sleepDurationMillis && (currentTimeMillis - mLastSleepOrderMillis) > 5000) {
+				if((currentTimeMillis - mLastSleepOrderMillis) > 5000) {
 					mLastSleepOrderMillis = currentTimeMillis;
 					callMethod(mPowerManagerServiceInstance, "goToSleepInternal", getObjectField(mPowerManagerServiceInstance, "DEFAULT_DISPLAY_GROUP_IDS"), SystemClock.uptimeMillis(), GO_TO_SLEEP_REASON_TIMEOUT, 0 /* flag */);
 				}
