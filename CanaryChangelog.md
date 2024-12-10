@@ -1,3 +1,6 @@
+**canary-409**  
+- Improved the 'sleep on flat surface' feature  
+  
 **canary-408**  
 - Added option to sleep when put on flat surface (Misc)  
   
