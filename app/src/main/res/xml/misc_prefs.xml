@@ -121,41 +121,17 @@
 			android:summaryOff="@string/general_off"
 			android:summaryOn="@string/general_on"
 			android:title="@string/control_flashlight_with_volume_keys"
+			android:fragment="sh.siava.pixelxpert.ui.fragments.GestureNavFragment"
 			app:iconSpaceReserved="false" />
 
-		<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
+		<sh.siava.pixelxpert.ui.preferences.MaterialPrimarySwitchPreference
 			android:defaultValue="false"
 			android:key="SleepOnFlatScreen"
 			android:summaryOff="@string/general_off"
 			android:summaryOn="@string/general_on"
+			android:fragment="sh.siava.pixelxpert.ui.fragments.SleepOnFlatFragment"
 			android:title="@string/sleep_on_flat_screen_title"
 			app:iconSpaceReserved="false" />
-
-		<sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
-			android:title="@string/sleep_on_flat_screen_title"
-			app:iconSpaceReserved="false"
-			android:key="sleep_on_surface_category"
-			search:ignore="true">
-
-			<sh.siava.pixelxpert.ui.preferences.MaterialRangeSliderPreference
-				android:key="FlatStandbyTime"
-				android:title="@string/flat_screen_timeout_title"
-				app:defaultValue="5"
-				app:iconSpaceReserved="false"
-				app:maxVal="100"
-				app:minVal="5"
-				app:tickInterval="5"
-				app:valueCount="1" />
-
-			<sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
-				android:defaultValue="true"
-				android:key="SleepOnFlatRespectWakeLock"
-				android:summaryOff="@string/general_off"
-				android:summaryOn="@string/general_on"
-				android:title="@string/flat_screen_timeout_respect_wakelock_title"
-				app:iconSpaceReserved="false" />
-
-		</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 
 	</sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory>
 

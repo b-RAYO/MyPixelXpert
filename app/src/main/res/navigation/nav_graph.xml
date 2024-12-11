@@ -138,6 +138,9 @@
 		<action
 			android:id="@+id/action_miscFragment_to_networkStatFragment"
 			app:destination="@id/networkStatFragment" />
+		<action
+			android:id="@+id/action_miscFragment_to_sleepOnFlatFragment"
+			app:destination="@id/sleepOnFlatFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/searchPreferenceFragment"
@@ -243,6 +246,10 @@
 		android:id="@+id/networkStatFragment"
 		android:name="sh.siava.pixelxpert.ui.fragments.NetworkStatFragment"
 		android:label="NetworkStatFragment" />
+	<fragment
+		android:id="@+id/sleepOnFlatFragment"
+		android:name="sh.siava.pixelxpert.ui.fragments.SleepOnFlatFragment"
+		android:label="SleepOnFlat" />
 	<fragment
 		android:id="@+id/iconPackFragment"
 		android:name="sh.siava.pixelxpert.ui.fragments.iconpack.IconPackFragment"
