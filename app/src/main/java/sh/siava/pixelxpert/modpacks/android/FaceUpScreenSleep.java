@@ -36,10 +36,10 @@ public class FaceUpScreenSleep extends XposedModPack {
 	boolean mIsMoving = true;
 	private Object mPowerManagerServiceInstance;
 	long mLastSleepOrderMillis = 0;
+	public long minimumSleepTime = 0;
 	private static boolean SleepOnFlatScreen = false;
 	public static long FlatStandbyTimeMillis = 5000;
 	private static boolean SleepOnFlatRespectWakeLock = true;
-	public long minimumSleepTime = 0;
 
 	public FaceUpScreenSleep(Context context) {
 		super(context);
@@ -88,14 +88,11 @@ public class FaceUpScreenSleep extends XposedModPack {
 					return; //not facing up
 				}
 
-				if(SleepOnFlatRespectWakeLock)
-				{
-					callMethod(mPowerManagerServiceInstance, "updatePowerStateLocked");
-					int wakeLockSummary = getIntField(mPowerManagerServiceInstance, "mWakeLockSummary");
-					if((wakeLockSummary & WAKE_LOCK_STAY_AWAKE) != 0) {
-						resetTime("wake lock");
-						return; //wake lock detected
-					}
+				long lastUserActivityMillis = (long) callMethod(defaultPowerGroup, "getLastUserActivityTimeLocked");
+
+				if(SystemClock.uptimeMillis() - lastUserActivityMillis < FlatStandbyTimeMillis) {
+					resetTime("user activity");
+					return; //user is touching the screen
 				}
 
 				Duration mTimeThreshold = (Duration) getObjectField(param.thisObject, "mTimeThreshold");
@@ -109,17 +106,21 @@ public class FaceUpScreenSleep extends XposedModPack {
 				else if(!mIsMoving && moving) {
 					mIsMoving = true;
 				}
+
 				if(mIsMoving || currentTimeMillis < minimumSleepTime)
 				{
 					resetTime("movement");
 					return; //not stationary enough
 				}
 
-				long lastUserActivityMillis = (long) callMethod(defaultPowerGroup, "getLastUserActivityTimeLocked");
-
-				if(SystemClock.uptimeMillis() - lastUserActivityMillis < FlatStandbyTimeMillis) {
-					resetTime("user activity");
-					return; //user is touching the screen
+				if(SleepOnFlatRespectWakeLock)
+				{
+					callMethod(mPowerManagerServiceInstance, "updatePowerStateLocked");
+					int wakeLockSummary = getIntField(mPowerManagerServiceInstance, "mWakeLockSummary");
+					if((wakeLockSummary & WAKE_LOCK_STAY_AWAKE) != 0) {
+						resetTime("wake lock");
+						return; //wake lock detected
+					}
 				}
 
 				if((currentTimeMillis - mLastSleepOrderMillis) > 5000) { //avoid multiple sleep orders
