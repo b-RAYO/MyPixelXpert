@@ -1,3 +1,6 @@
+**canary-410**  
+- Fixed 'sleep on flat surface' unintentional sleeps  
+  
 **canary-409**  
 - Improved the 'sleep on flat surface' feature  
   
