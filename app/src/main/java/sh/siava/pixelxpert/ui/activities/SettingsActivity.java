@@ -338,6 +338,8 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 					navigateTo(navController, R.id.action_miscFragment_to_physicalButtonRemapFragment);
 			case "netstat_header" ->
 					navigateTo(navController, R.id.action_miscFragment_to_networkStatFragment);
+			case "SleepOnFlatScreen" ->
+					navigateTo(navController, R.id.action_miscFragment_to_sleepOnFlatFragment);
 			case "icon_packs" ->
 					navigateTo(navController, R.id.action_themingFragment_to_iconPackFragment);
 			default -> false;
