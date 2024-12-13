@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:search="http://schemas.android.com/apk/sh.siava.pixelxpert.ui.preferencesearch">
 
-    <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
+    <sh.siava.pixelxpert.ui.preferences.MaterialMainSwitchPreference
+        android:key="SleepOnFlatScreen"
         android:title="@string/sleep_on_flat_screen_title"
-        app:iconSpaceReserved="false"
+        app:iconSpaceReserved="false" />
+
+    <sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
         android:key="sleep_on_surface_category"
+        android:title="@string/sleep_on_flat_screen_tile_title"
+        app:iconSpaceReserved="false"
         search:ignore="true">
 
         <sh.siava.pixelxpert.ui.preferences.MaterialRangeSliderPreference
+            android:dependency="SleepOnFlatScreen"
             android:key="FlatStandbyTime"
             android:title="@string/flat_screen_timeout_title"
             app:defaultValue="5"
@@ -22,6 +27,7 @@
 
         <sh.siava.pixelxpert.ui.preferences.MaterialSwitchPreference
             android:defaultValue="true"
+            android:dependency="SleepOnFlatScreen"
             android:key="SleepOnFlatRespectWakeLock"
             android:summaryOff="@string/general_off"
             android:summaryOn="@string/general_on"
