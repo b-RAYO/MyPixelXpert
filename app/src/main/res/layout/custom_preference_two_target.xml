@@ -22,8 +22,8 @@
     android:clipToPadding="false"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:paddingHorizontal="32dp"
-    android:paddingVertical="12dp">
+    android:paddingHorizontal="@dimen/preference_padding_horizontal"
+    android:paddingVertical="@dimen/preference_padding_vertical">
 
     <LinearLayout
         android:layout_width="0dp"
