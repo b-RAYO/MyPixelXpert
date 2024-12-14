@@ -10,6 +10,7 @@ import android.util.ArraySet;
 import java.util.Set;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedHelpers;
 
 /** @noinspection unused*/
 public class ReflectedClass
@@ -57,6 +58,11 @@ public class ReflectedClass
 	public AfterMethodData afterConstruction()
 	{
 		return new AfterMethodData(clazz, null, true);
+	}
+
+	public Object callStaticMethod(String methodName, Object... args)
+	{
+		return XposedHelpers.callStaticMethod(clazz, methodName, args);
 	}
 
 	private static class MethodData

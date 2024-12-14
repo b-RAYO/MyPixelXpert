@@ -58,4 +58,8 @@ public class ReflectedMethod {
 		return null;
 	}
 
+	public Object invoke(Object object, Object... args) throws Throwable
+	{
+		return method.invoke(object, args);
+	}
 }

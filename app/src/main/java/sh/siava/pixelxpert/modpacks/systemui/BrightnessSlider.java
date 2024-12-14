@@ -593,7 +593,7 @@ public class BrightnessSlider extends XposedModPack {
 		// Send the first state.
 		Runnable runnable = () -> callStaticMethod(Settings.Secure.class,
 				"getStringForUser", getObjectField(service, "mContentResolver"), key, getObjectField(service, "mCurrentUser"));
-		String value = (String) callStaticMethod(DejankUtilsClass.getClazz(), "whitelistIpcs", runnable);
+		String value = (String) DejankUtilsClass.callStaticMethod("whitelistIpcs", runnable);
 		callMethod(tunable, "onTuningChanged", key, value);
 	}
 
