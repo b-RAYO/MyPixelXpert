@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import sh.siava.pixelxpert.R;
+import sh.siava.pixelxpert.ui.preferences.MaterialPrimarySwitchPreference;
 import sh.siava.pixelxpert.utils.ControlledPreferenceFragmentCompat;
 import sh.siava.pixelxpert.utils.NTPTimeSyncer;
 import sh.siava.pixelxpert.utils.TimeSyncScheduler;
@@ -54,4 +55,12 @@ public class MiscFragment extends ControlledPreferenceFragmentCompat {
 
 		Toast.makeText(getContext(), toastResource, Toast.LENGTH_SHORT).show();
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		MaterialPrimarySwitchPreference sleepOnFlat = findPreference("SleepOnFlatScreen");
+		sleepOnFlat.setChecked(mPreferences.getBoolean("SleepOnFlatScreen", false));
+	}
+
 }
