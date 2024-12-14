@@ -15,6 +15,7 @@ import java.util.List;
 
 import sh.siava.pixelxpert.BuildConfig;
 import sh.siava.pixelxpert.R;
+import sh.siava.pixelxpert.ui.preferences.MaterialPrimarySwitchPreference;
 import sh.siava.rangesliderpreference.RangeSliderPreference;
 
 public class PreferenceHelper {
@@ -513,6 +514,25 @@ public class PreferenceHelper {
 	}
 
 	public static void setupAllPreferences(PreferenceGroup group) {
+		for (int i = 0; ; i++) {
+			try {
+				Preference thisPreference = group.getPreference(i);
+
+				if (thisPreference instanceof MaterialPrimarySwitchPreference) {
+					MaterialPrimarySwitchPreference switchPreference = (MaterialPrimarySwitchPreference) thisPreference;
+					switchPreference.setChecked(instance.mPreferences.getBoolean(switchPreference.getKey(), false));
+				}
+
+				if (thisPreference instanceof PreferenceGroup) {
+					setupAllPreferences((PreferenceGroup) thisPreference);
+				}
+			} catch (Throwable ignored) {
+				break;
+			}
+		}
+	}
+
+	public static void setupMainSwitches(PreferenceGroup group) {
 		for (int i = 0; ; i++) {
 			try {
 				Preference thisPreference = group.getPreference(i);

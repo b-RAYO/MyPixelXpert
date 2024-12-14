@@ -125,4 +125,10 @@ public abstract class ControlledPreferenceFragmentCompat extends PreferenceFragm
 	public void updateScreen(String key) {
 		PreferenceHelper.setupAllPreferences(this.getPreferenceScreen());
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		PreferenceHelper.setupMainSwitches(this.getPreferenceScreen());
+	}
 }
