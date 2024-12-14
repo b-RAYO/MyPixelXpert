@@ -3,6 +3,9 @@ package sh.siava.pixelxpert.modpacks.utils.toolkit;
 import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.findClass;
+import static de.robv.android.xposed.XposedHelpers.findClassIfExists;
+
+import android.util.ArraySet;
 
 import java.util.Set;
 
@@ -24,6 +27,16 @@ public class ReflectedClass
 	public static ReflectedClass of(String name, ClassLoader loader)
 	{
 		return new ReflectedClass(findClass(name, loader));
+	}
+
+	public Class<?> getClazz()
+	{
+		return clazz;
+	}
+
+	public static ReflectedClass ofIfPossible(String name, ClassLoader loader)
+	{
+		return new ReflectedClass(findClassIfExists(name, loader));
 	}
 
 	public BeforeMethodData before(String methodName)
@@ -60,6 +73,8 @@ public class ReflectedClass
 
 		protected Set<XC_MethodHook.Unhook> runBefore(ReflectionConsumer consumer)
 		{
+			if(clazz == null) return new ArraySet<>();
+
 			if(isConstructor)
 			{
 				return hookAllConstructors(clazz, new XC_MethodHook() {
@@ -82,6 +97,8 @@ public class ReflectedClass
 
 		protected Set<XC_MethodHook.Unhook> runAfter(ReflectionConsumer consumer)
 		{
+			if(clazz == null) return new ArraySet<>();
+
 			if(isConstructor)
 			{
 				return hookAllConstructors(clazz, new XC_MethodHook() {
@@ -110,7 +127,7 @@ public class ReflectedClass
 			super(clazz, name, isConstructor);
 		}
 
-		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer) throws Throwable
+		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer)
 		{
 			return runBefore(consumer);
 		}
@@ -123,7 +140,7 @@ public class ReflectedClass
 			super(clazz, name, isConstructor);
 		}
 
-		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer) throws Throwable
+		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer)
 		{
 			return runAfter(consumer);
 		}
