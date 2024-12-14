@@ -146,20 +146,6 @@ public class PreferenceHelper {
 						return (!critZero || transitColors) && bBarEnabled && !warnZero;
 				}
 
-			case "BBarTransitColors":
-			case "BBarColorful":
-			case "BBOnlyWhileCharging":
-			case "BBOnBottom":
-			case "BBOpacity":
-			case "BBarHeight":
-			case "BBSetCentered":
-			case "BBAnimateCharging":
-			case "indicateCharging":
-			case "indicateFastCharging":
-			case "indicatePowerSave":
-			case "batteryWarningRange":
-				return instance.mPreferences.getBoolean("BBarEnabled", false);
-
 			case "networkTrafficRXTop":
 				return (instance.mPreferences.getBoolean("networkOnQSEnabled", false) || instance.mPreferences.getBoolean("networkOnSBEnabled", false)) && instance.mPreferences.getString("networkTrafficMode", "0").equals("0");
 
@@ -311,11 +297,25 @@ public class PreferenceHelper {
 
 	public static boolean isEnabled(String key) {
 		switch (key) {
+			case "BBOnlyWhileCharging":
+			case "BBOnBottom":
+			case "BBOpacity":
+			case "BBarHeight":
+			case "BBSetCentered":
+			case "BBAnimateCharging":
+			case "indicateCharging":
+			case "indicateFastCharging":
+			case "indicatePowerSave":
+			case "batteryWarningRange":
+				return instance.mPreferences.getBoolean("BBarEnabled", false);
+
 			case "BBarTransitColors":
-				return !instance.mPreferences.getBoolean("BBarColorful", false);
+				return instance.mPreferences.getBoolean("BBarEnabled", false) &&
+						!instance.mPreferences.getBoolean("BBarColorful", false);
 
 			case "BBarColorful":
-				return !instance.mPreferences.getBoolean("BBarTransitColors", false);
+				return instance.mPreferences.getBoolean("BBarEnabled", false) &&
+						!instance.mPreferences.getBoolean("BBarTransitColors", false);
 
 			case "BIconColorful":
 				return !instance.mPreferences.getBoolean("BIconTransitColors", false);

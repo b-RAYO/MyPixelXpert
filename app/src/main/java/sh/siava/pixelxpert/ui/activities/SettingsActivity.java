@@ -324,7 +324,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 					navigateTo(navController, R.id.action_quickSettingsFragment_to_networkFragment);
 			case "sbc_header" ->
 					navigateTo(navController, R.id.action_statusbarFragment_to_SBCFragment);
-			case "sbbb_header" ->
+			case "BBarEnabled" ->
 					navigateTo(navController, R.id.action_statusbarFragment_to_SBBBFragment);
 			case "sbbIcon_header" ->
 					navigateTo(navController, R.id.action_statusbarFragment_to_SBBIconFragment);
