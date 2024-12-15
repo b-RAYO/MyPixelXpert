@@ -171,6 +171,7 @@
     <string name="status_bar_height">ارتفاع شريط الحالة (تدوير الشاشة لتطبيق)</string>
     <string name="sb_padding_title">حشو شريط الحالة</string>
     <string name="sb_padding_summary">تعيين القيم إلى الحد الأدنى/الحد الأقصى مكافئ للجهاز الافتراضي</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">إعدادات شريط البطارية</string>
     <string name="sbbIcon_header">إعدادات أيقونة البطارية</string>
     <string name="BB_enable_title">تمكين شريط البطارية</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">حدود سطوع العرض</string>
     <string name="brightness_range_not_linear">هذا النطاق ليس خطياً: في بعض الأحيان يؤدي اختلاف صغير إلى تغييرات كبيرة</string>
     <string name="separate_ring_notif_vol_title">مستوى الصوت الفردي للرنين والإشعارات</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">الضغط مطولاً على زر الطاقة للكشاف</string>
     <string name="so_taptaptorch_title">تمكين النقر المزدوج لفلاش قفل الشاشة</string>
     <string name="so_taptaptorch_summary">انقر نقرًا مزدوجًا مع الاستمرار على شاشة القفل للوصول إلى الشعلة السريعة</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">أثناء إيقاف الشاشة…</string>
     <string name="custom_themed_icons_title">الأيقونات المخصصة للموضوع</string>
     <string name="px_in_settings_title">إضافة PixelXpert إلى عناصر الإعدادات</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">الرموز المخصصة معطلة</string>
     <string name="custom_themed_icons_on">تم تمكين الأيقونات المخصصة</string>
     <string name="so_vol_longpress_skip">اضغط مطولاً على أزرار الصوت لتخطي الموسيقى</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">هام: يمكنك تمكين التطبيقات التي تريد تعطيل التمرير الزائد داخل LSPosed</string>
     <string name="control_flashlight_with_volume_keys">تحكم في الكشاف باستخدام أزرار الصوت</string>
     <string name="milliseconds">المللي ثانية</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">ساعات</string>
     <string name="system_time_title">وقت النظام</string>
     <string name="sync_ntp_time_title">استخدم NTP لمزامنة الوقت</string>

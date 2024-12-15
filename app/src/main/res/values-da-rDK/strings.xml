@@ -171,6 +171,7 @@
     <string name="status_bar_height">Statuslinjehøjde (drej skærmen for at anvende)</string>
     <string name="sb_padding_title">Statuslinje Polstring</string>
     <string name="sb_padding_summary">Indstilling af værdierne til min/maks. svarer til enhedsstandard</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Indstillinger for batterilinje</string>
     <string name="sbbIcon_header">Indstillinger for batteriikon</string>
     <string name="BB_enable_title">Aktiver batterilinje</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Displayets lysstyrkegrænser</string>
     <string name="brightness_range_not_linear">Dette interval er IKKE lineært: Nogle gange fører en lille forskel til betydelige ændringer</string>
     <string name="separate_ring_notif_vol_title">Individuel lydstyrke for ringetone og meddelelse</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Tryk længe på tænd/sluk-knappen til lommelygten</string>
     <string name="so_taptaptorch_title">Aktiver dobbelttryk for lommelygte med låseskærm</string>
     <string name="so_taptaptorch_summary">Dobbelttryk og hold låseskærmen nede for hurtig lommelygteadgang</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Mens skærmen er slukket…</string>
     <string name="custom_themed_icons_title">Brugerdefinerede temaikoner</string>
     <string name="px_in_settings_title">Add PixelXpert to settings items</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Brugerdefinerede ikoner deaktiveret</string>
     <string name="custom_themed_icons_on">Brugerdefinerede ikoner aktiveret</string>
     <string name="so_vol_longpress_skip">Tryk længe på lydstyrkeknapperne for at springe musik over</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Vigtigt: du SKAL aktivere de apps, du vil deaktivere overscroll for i LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">Millisekunder</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Hours</string>
     <string name="system_time_title">System time</string>
     <string name="sync_ntp_time_title">Use NTP to sync time</string>

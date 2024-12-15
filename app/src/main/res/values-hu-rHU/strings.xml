@@ -171,6 +171,7 @@
     <string name="status_bar_height">Állapotsor magassága (az alkalmazáshoz forgassa el a képernyőt)</string>
     <string name="sb_padding_title">Állapotsor Kitöltés</string>
     <string name="sb_padding_summary">Az értékek min/max beállítása megegyezik az eszköz alapértelmezett értékével</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Akkumulátor sáv beállításai</string>
     <string name="sbbIcon_header">Az akkumulátor ikon beállításai</string>
     <string name="BB_enable_title">Az akkumulátorsáv engedélyezése</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">A kijelző fényerejének korlátai</string>
     <string name="brightness_range_not_linear">Ez a tartomány NEM lineáris: Néha egy kis eltérés jelentős változásokhoz vezet</string>
     <string name="separate_ring_notif_vol_title">Egyedi hangerő a csengetéshez és az értesítéshez</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Nyomja meg hosszan a bekapcsológombot a zseblámpához</string>
     <string name="so_taptaptorch_title">Dupla koppintás engedélyezése a zárképernyős zseblámpához</string>
     <string name="so_taptaptorch_summary">Koppintson duplán és tartsa lenyomva a zárképernyőt a zseblámpa gyors eléréséhez</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Amíg a képernyő ki van kapcsolva,…</string>
     <string name="custom_themed_icons_title">Egyedi témájú ikonok</string>
     <string name="px_in_settings_title">PixelXpert hozzáadása a beállításokhoz</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Egyéni ikonok letiltva</string>
     <string name="custom_themed_icons_on">Egyéni ikonok engedélyezve</string>
     <string name="so_vol_longpress_skip">A zene kihagyásához nyomja meg hosszan a hangerő gombokat</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Fontos: engedélyeznie KELL azokat az alkalmazásokat, amelyeknél letiltani szeretné a túlgörgetést az LSPoseden belül</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">Ezredmásodperc</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Órák</string>
     <string name="system_time_title">Rendszer idő</string>
     <string name="sync_ntp_time_title">NTP használata az idő szinkronizálásához</string>

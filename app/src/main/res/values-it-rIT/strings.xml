@@ -171,6 +171,7 @@
     <string name="status_bar_height">Altezza Status Bar (ruota lo schermo per applicare)</string>
     <string name="sb_padding_title">Spaziatura Status Bar</string>
     <string name="sb_padding_summary">Impostare i valori al min/max equivale a impostare quelli di default</string>
+    <string name="sbbb_header_title">Barra della batteria</string>
     <string name="sbbb_header">Impostazioni barra batteria</string>
     <string name="sbbIcon_header">Impostazioni icona batteria</string>
     <string name="BB_enable_title">Abilita barra batteria</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Limiti luminosità display</string>
     <string name="brightness_range_not_linear">Questo range NON è lineare: a volte una piccola differenza porta a notevoli cambiamenti</string>
     <string name="separate_ring_notif_vol_title">Volume individuale per suoneria e notifiche</string>
+    <string name="show_vol_level_title">Percentuale del volume sul pannello del volume</string>
     <string name="so_power_longpress_torch_title">Premi a lungo il pulsante di accensione per attivare la torcia</string>
     <string name="so_taptaptorch_title">Abilita il doppio tap per la torcia nella schermata di blocco</string>
     <string name="so_taptaptorch_summary">Doppio tap e tieni premuto nella schermata di blocco per accesso rapido torcia</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Mentre lo schermo è spento…</string>
     <string name="custom_themed_icons_title">Icone a tema personalizzate</string>
     <string name="px_in_settings_title">Aggiungi PixelXpert agli elementi delle impostazioni</string>
+    <string name="sleep_on_flat_screen_title">Spegni lo schermo su una superficie piana</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep sulla superficie</string>
+    <string name="flat_screen_timeout_title">Timeout schermo su superficie piana</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Rispetta i blocchi di risveglio</string>
     <string name="custom_themed_icons_off">Icone personalizzate disabilitate</string>
     <string name="custom_themed_icons_on">Icone personalizzate abilitate</string>
     <string name="so_vol_longpress_skip">Premi a lungo i pulsanti volume per saltare traccia</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Importante: DEVI abilitare le app per le quali desideri disabilitare l\'overscroll all\'interno di LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Controllo torcia con pulsanti volume</string>
     <string name="milliseconds">Milliseconds</string>
+    <string name="duration_seconds">%d Secondi</string>
     <string name="hours">Ore</string>
     <string name="system_time_title">Ora di sistema</string>
     <string name="sync_ntp_time_title">Usa NTP per sincronizzare l\'orario</string>

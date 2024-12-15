@@ -171,6 +171,7 @@
     <string name="status_bar_height">Hoogte statusbalk</string>
     <string name="sb_padding_title">Statusbalk opvulling</string>
     <string name="sb_padding_summary">Het instellen van de waarden op min/max is gelijk aan apparaat Standaard</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Instellingen batterijbalk</string>
     <string name="sbbIcon_header">Instellingen batterijpictogram</string>
     <string name="BB_enable_title">Batterijbalk inschakelen</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Helderheidslimieten weergeven</string>
     <string name="brightness_range_not_linear">Dit bereik is NIET lineair: soms leidt een klein verschil tot aanzienlijke veranderingen</string>
     <string name="separate_ring_notif_vol_title">Individueel volume voor belsignaal en melding</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Druk lang op Power naar zaklamp*</string>
     <string name="so_taptaptorch_title">Dubbeltik op Torch inschakelen</string>
     <string name="so_taptaptorch_summary">Dubbeltik en houd vervolgens lockscreen vast voor een snelle zaklamp</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Terwijl het scherm is uitgeschakeld…</string>
     <string name="custom_themed_icons_title">Aangepaste thema-pictogrammen</string>
     <string name="px_in_settings_title">Add PixelXpert to settings items</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Aangepaste pictogrammen uitgeschakeld</string>
     <string name="custom_themed_icons_on">Aangepaste pictogrammen ingeschakeld</string>
     <string name="so_vol_longpress_skip">Druk lang op Volume om muziek over te slaan*</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Belangrijk: je MOET de apps inschakelen waarvoor je overscroll wilt uitschakelen, in LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">Milliseconden</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Hours</string>
     <string name="system_time_title">System time</string>
     <string name="sync_ntp_time_title">Use NTP to sync time</string>

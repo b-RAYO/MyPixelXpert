@@ -171,6 +171,7 @@
     <string name="status_bar_height">Chiều cao thanh trạng thái (xoay màn hình để áp dụng)</string>
     <string name="sb_padding_title">Phần đệm thanh trạng thái</string>
     <string name="sb_padding_summary">Tuỳ chỉnh giá trị tương ứng với thiết bị của bạn</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Cài đặt thanh pin</string>
     <string name="sbbIcon_header">Cài đặt biểu tượng pin</string>
     <string name="BB_enable_title">Bật thanh pin</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Giới hạn độ sáng màn hình</string>
     <string name="brightness_range_not_linear">CHÚ Ý: Một sự thay đổi nhỏ dẫn đến những thay đổi khác biệt đáng kể</string>
     <string name="separate_ring_notif_vol_title">Âm lượng riêng cho chuông và thông báo</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Nhấn và giữ nút nguồn để sử dụng đèn pin khi màn hình tắt</string>
     <string name="so_taptaptorch_title">Bật nhấn đúp để sử dụng đèn pin trên màn hình khóa</string>
     <string name="so_taptaptorch_summary">Nhấn đúp và giữ trên màn hình khóa để sử dụng đèn pin nhanh</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Khi màn hình tắt…</string>
     <string name="custom_themed_icons_title">Biểu tượng theo chủ đề tùy chỉnh</string>
     <string name="px_in_settings_title">Thêm PixelXpert tới menu Cài Đặt</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Các biểu tượng tùy chỉnh đã bị vô hiệu hóa</string>
     <string name="custom_themed_icons_on">Các biểu tượng tùy chỉnh đã được bật</string>
     <string name="so_vol_longpress_skip">Nhấn và giữ phím âm lượng để \"+Chuyển tiếp/-Phát lại\" bài hát</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Quan trọng: bạn PHẢI bật các ứng dụng bạn muốn tắt hiệu ứng cuộn trong LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Điều khiển đèn pin bằng các nút âm lượng</string>
     <string name="milliseconds">Mili giây</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Giờ</string>
     <string name="system_time_title">Thời gian hệ thống</string>
     <string name="sync_ntp_time_title">Dùng NTP để đồng bộ thời gian</string>
@@ -516,19 +523,19 @@
     <!-- Icon Packs -->
     <string name="icon_packs_title">Icon packs</string>
     <string name="icon_pack_selection_title">Select pack</string>
-    <string name="icon_pack_customization_title">Customize icons</string>
-    <string name="menu_more_info">More info</string>
-    <string name="menu_show_icons">Show icons</string>
-    <string name="select_replacement_icon">Select replacement icon</string>
-    <string name="icon_default">Default</string>
-    <string name="partially_enabled">(Partially enabled)</string>
-    <string name="icon_pack_icon_disabled">Disabled</string>
-    <string name="icon_pack_author">by %s</string>
-    <string name="icon_pack_unknown_author">by unknown author</string>
-    <string name="icon_pack_unknown_name">Unknown icon pack</string>
-    <string name="icon_pack_pack_reset">Reset icons</string>
-    <string name="icon_pack_info">Icon pack info</string>
-    <string name="no_icon_pack_installed">No icon pack installed</string>
-    <string name="icon_pack_disclaimer_title">Disclaimer</string>
-    <string name="icon_pack_disclaimer_desc">Icon packs are not developed or distributed by PixelXpert. As such, the PixelXpert team is unable to provide support for icon packs. Support regarding how PixelXpert handles icon packs will only be provided to the respective pack developers.\n\nFor instructions on how to compile an icon pack, please refer to the guide here: %s</string>
+    <string name="icon_pack_customization_title">Tùy chỉnh biểu tượng</string>
+    <string name="menu_more_info">Thông tin chi tiết</string>
+    <string name="menu_show_icons">Hiện biểu tượng</string>
+    <string name="select_replacement_icon">Chọn biểu tượng thay thế</string>
+    <string name="icon_default">Mặc định</string>
+    <string name="partially_enabled">(Đã bật một phần)</string>
+    <string name="icon_pack_icon_disabled">Đã vô hiệu hóa</string>
+    <string name="icon_pack_author">bởi %s</string>
+    <string name="icon_pack_unknown_author">của tác giả không rõ</string>
+    <string name="icon_pack_unknown_name">Gói biểu tượng không xác định</string>
+    <string name="icon_pack_pack_reset">Đặt lại biểu tượng</string>
+    <string name="icon_pack_info">Thông tin gói biểu tượng</string>
+    <string name="no_icon_pack_installed">Không có gói biểu tượng nào được cài đặt</string>
+    <string name="icon_pack_disclaimer_title">Tuyên bố miễn trừ trách nhiệm</string>
+    <string name="icon_pack_disclaimer_desc">Gói biểu tượng không được PixelXpert phát triển hoặc phân phối. Do đó, nhóm PixelXpert không thể cung cấp hỗ trợ cho gói biểu tượng. Hỗ trợ về cách PixelXpert xử lý các gói biểu tượng sẽ chỉ được cung cấp cho các nhà phát triển gói tương ứng.\n\nĐể biết hướng dẫn về cách biên dịch gói biểu tượng, vui lòng tham khảo hướng dẫn tại đây: %s</string>
 </resources>

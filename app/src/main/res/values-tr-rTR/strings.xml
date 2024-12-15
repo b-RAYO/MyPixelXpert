@@ -171,6 +171,7 @@
     <string name="status_bar_height">Durum çubuğu yüksekliği (uygulamak için ekranı döndürün)</string>
     <string name="sb_padding_title">Durum çubuğu Dolgusu</string>
     <string name="sb_padding_summary">Değerleri min/maks ayarlamak, cihaz Varsayılanına eşdeğerdir</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Pil çubuğu ayarları</string>
     <string name="sbbIcon_header">Pil simgesi ayarları</string>
     <string name="BB_enable_title">Pil Çubuğunu Etkinleştir</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Ekran parlaklık sınırları</string>
     <string name="brightness_range_not_linear">Bu aralık doğrusal DEĞİLDİR: Bazen küçük bir fark büyük değişikliklere yol açabilir</string>
     <string name="separate_ring_notif_vol_title">Zil sesi ve Bildirim için ayrı ses düzeyi</string>
+    <string name="show_vol_level_title">Ses panelindeki hacim yüzdesi</string>
     <string name="so_power_longpress_torch_title">El feneri için Güç düğmesine uzun basın</string>
     <string name="so_taptaptorch_title">Kilit ekranı el feneri için çift dokunmayı etkinleştir</string>
     <string name="so_taptaptorch_summary">Hızlı el feneri erişimi için kilit ekranına çift dokunun ve basılı tutun</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Ekran kapalıyken…</string>
     <string name="custom_themed_icons_title">Özel temalı simgeler</string>
     <string name="px_in_settings_title">Ayarlar öğelerine PixelXpert ekle</string>
+    <string name="sleep_on_flat_screen_title">Ekranı düz bir yüzeyde kapatın</string>
+    <string name="sleep_on_flat_screen_tile_title">Yüzeyde uyu</string>
+    <string name="flat_screen_timeout_title">Düz yüzeyde ekran zaman aşımı</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Uyanma kilitlerine saygı göster</string>
     <string name="custom_themed_icons_off">Özel simgeler devre dışı</string>
     <string name="custom_themed_icons_on">Özel simgeler etkin</string>
     <string name="so_vol_longpress_skip">Müziği atlamak için Ses düğmelerine uzun basın</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Önemli: Aşırı kaydırmayı devre dışı bırakmak istediğiniz uygulamaları LSPosed içinde etkinleştirmeniz GEREKİYOR</string>
     <string name="control_flashlight_with_volume_keys">El fenerini ses düğmeleriyle kontrol et</string>
     <string name="milliseconds">Milisaniye</string>
+    <string name="duration_seconds">%d Saniye</string>
     <string name="hours">Saat</string>
     <string name="system_time_title">Sistem saati</string>
     <string name="sync_ntp_time_title">Saati NTP ile senkronize et</string>

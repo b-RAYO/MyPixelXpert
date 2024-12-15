@@ -171,6 +171,7 @@
     <string name="status_bar_height">Ύψος γραμμής κατάστασης (περιστρέψτε την οθόνη για εφαρμογή)</string>
     <string name="sb_padding_title">Γέμισμα γραμμής κατάστασης</string>
     <string name="sb_padding_summary">Η ρύθμιση των τιμών στο min/max ισοδυναμεί με την προεπιλογή συσκευής</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Ρυθμίσεις μπάρα μπαταρίας</string>
     <string name="sbbIcon_header">Ρυθμίσεις εικονιδίου μπαταρίας</string>
     <string name="BB_enable_title">Ενεργοποιήστε τη γραμμή μπαταρίας</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Όρια φωτεινότητας οθόνης</string>
     <string name="brightness_range_not_linear">Αυτό το εύρος ΔΕΝ είναι γραμμικό: Μερικές φορές μια μικρή διαφορά οδηγεί σε σημαντικές αλλαγές</string>
     <string name="separate_ring_notif_vol_title">Ατομική ένταση ήχου για κουδούνισμα και ειδοποίηση</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Πατήστε παρατεταμένα το κουμπί λειτουργίας για φακό</string>
     <string name="so_taptaptorch_title">Ενεργοποιήστε το διπλό πάτημα για φακό οθόνης κλειδώματος</string>
     <string name="so_taptaptorch_summary">Πατήστε δύο φορές παρατεταμένα την οθόνη κλειδώματος για γρήγορη πρόσβαση με φακό</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Ενώ η οθόνη είναι απενεργοποιημένη…</string>
     <string name="custom_themed_icons_title">Εικονίδια με προσαρμοσμένο θέμα</string>
     <string name="px_in_settings_title">Add PixelXpert to settings items</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Τα προσαρμοσμένα εικονίδια είναι απενεργοποιημένα</string>
     <string name="custom_themed_icons_on">Προσαρμοσμένα εικονίδια ενεργοποιημένα</string>
     <string name="so_vol_longpress_skip">Πατήστε παρατεταμένα τα κουμπιά έντασης ήχου για να παραλείψετε μουσική</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Σημαντικό: ΠΡΕΠΕΙ να ενεργοποιήσετε τις εφαρμογές για τις οποίες θέλετε να απενεργοποιήσετε την υπερκύλιση εντός LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">χιλιοστά του δευτερολέπτου</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Hours</string>
     <string name="system_time_title">System time</string>
     <string name="sync_ntp_time_title">Use NTP to sync time</string>
