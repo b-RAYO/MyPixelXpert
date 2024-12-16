@@ -1,3 +1,6 @@
+**canary-411**  
+- UI updates  
+  
 **canary-410**  
 - Fixed 'sleep on flat surface' unintentional sleeps  
   
