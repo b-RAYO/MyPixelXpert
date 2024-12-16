@@ -2,10 +2,7 @@ package sh.siava.pixelxpert.modpacks.systemui;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
-import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getBooleanField;
 import static de.robv.android.xposed.XposedHelpers.getFloatField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -30,11 +27,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
+import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedClass;
 
 /** @noinspection RedundantThrows*/
 @SuppressLint({"deprecation", "DiscouragedApi"})
@@ -63,109 +60,104 @@ public class VolumeDialog extends XposedModPack {
 		}
 	}
 
+	@SuppressLint("DefaultLocale")
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		Class<?> VolumeDialogImplClass = findClass("com.android.systemui.volume.VolumeDialogImpl", lpParam.classLoader);
-		Class<?> AudioStreamStateClass = findClass("com.android.systemui.volume.panel.component.volume.slider.ui.viewmodel.AudioStreamSliderViewModel$State", lpParam.classLoader);
+		ReflectedClass VolumeDialogImplClass = ReflectedClass.of("com.android.systemui.volume.VolumeDialogImpl", lpParam.classLoader);
+		ReflectedClass AudioStreamStateClass = ReflectedClass.of("com.android.systemui.volume.panel.component.volume.slider.ui.viewmodel.AudioStreamSliderViewModel$State", lpParam.classLoader);
 
-		hookAllMethods(VolumeDialogImplClass, "rescheduleTimeoutH", new XC_MethodHook() {
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				if(VolumeDialogTimeout != 3000
-						&& !getBooleanField(param.thisObject, "mHovering")
-						&& getObjectField(param.thisObject, "mSafetyWarning") == null
-						&& getObjectField(param.thisObject, "mODICaptionsTooltipView") == null)
-				{
-					Handler mHandler = (Handler) getObjectField(param.thisObject, "mHandler");
-					mHandler.removeMessages(DISMISS);
-					mHandler.sendMessageDelayed(mHandler.obtainMessage(DISMISS,DISMISS_REASON_TIMEOUT,0),VolumeDialogTimeout);
-				}
-			}
-		});
-
-		hookAllMethods(VolumeDialogImplClass, "initRow", new XC_MethodHook() {
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				Resources res = mContext.getResources();
-				TextView rowHeader = (TextView) getObjectField(param.args[0], "header");
-				int volumeNumberId = res.getIdentifier("volume_number", "id", mContext.getPackageName());
-				TextView existingVolumeNumber = ((ViewGroup) rowHeader.getParent()).findViewById(volumeNumberId);
-
-				if (existingVolumeNumber != null) {
-					if (!volumeTextViews.contains(existingVolumeNumber)) {
-						volumeTextViews.add(existingVolumeNumber);
+		VolumeDialogImplClass
+				.after("rescheduleTimeoutH")
+				.run(param -> {
+					if(VolumeDialogTimeout != 3000
+							&& !getBooleanField(param.thisObject, "mHovering")
+							&& getObjectField(param.thisObject, "mSafetyWarning") == null
+							&& getObjectField(param.thisObject, "mODICaptionsTooltipView") == null)
+					{
+						Handler mHandler = (Handler) getObjectField(param.thisObject, "mHandler");
+						mHandler.removeMessages(DISMISS);
+						mHandler.sendMessageDelayed(mHandler.obtainMessage(DISMISS,DISMISS_REASON_TIMEOUT,0),VolumeDialogTimeout);
 					}
-					existingVolumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
-					return;
-				}
+				});
 
-				TextView volumeNumber = createVolumeTextView(volumeNumberId);
-				((ViewGroup) rowHeader.getParent()).addView(volumeNumber, 0);
-				volumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
-				volumeTextViews.add(volumeNumber);
+		VolumeDialogImplClass
+				.after("initRow")
+				.run(param -> {
+					Resources res = mContext.getResources();
+					TextView rowHeader = (TextView) getObjectField(param.args[0], "header");
+					int volumeNumberId = res.getIdentifier("volume_number", "id", mContext.getPackageName());
+					TextView existingVolumeNumber = ((ViewGroup) rowHeader.getParent()).findViewById(volumeNumberId);
 
-				setObjectField(param.args[0], "number", ((View) getObjectField(param.args[0], "view")).findViewById(volumeNumberId));
-			}
-		});
+					if (existingVolumeNumber != null) {
+						if (!volumeTextViews.contains(existingVolumeNumber)) {
+							volumeTextViews.add(existingVolumeNumber);
+						}
+						existingVolumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
+						return;
+					}
 
-		hookAllMethods(VolumeDialogImplClass, "updateVolumeRowH", new XC_MethodHook() {
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				Resources res = mContext.getResources();
-				int volumeNumberId = res.getIdentifier("volume_number", "id", mContext.getPackageName());
-				TextView volumeNumber = ((View) getObjectField(param.args[0], "view")).findViewById(volumeNumberId);
-				Object mState = getObjectField(param.thisObject, "mState");
+					TextView volumeNumber = createVolumeTextView(volumeNumberId);
+					((ViewGroup) rowHeader.getParent()).addView(volumeNumber, 0);
+					volumeNumber.setVisibility(VolumeDialogLevel ? VISIBLE : GONE);
+					volumeTextViews.add(volumeNumber);
 
-				if (volumeNumber == null || mState == null) {
-					return;
-				}
+					setObjectField(param.args[0], "number", ((View) getObjectField(param.args[0], "view")).findViewById(volumeNumberId));
+				});
 
-				Object ss = callMethod(getObjectField(mState, "states"), "get", getObjectField(param.args[0], "stream"));
 
-				if (ss == null) {
-					return;
-				}
+		VolumeDialogImplClass
+				.after("updateVolumeRowH")
+				.run(param -> {
+					Resources res = mContext.getResources();
+					int volumeNumberId = res.getIdentifier("volume_number", "id", mContext.getPackageName());
+					TextView volumeNumber = ((View) getObjectField(param.args[0], "view")).findViewById(volumeNumberId);
+					Object mState = getObjectField(param.thisObject, "mState");
 
-				if (volumeNumber.getText().toString().isEmpty()) {
-					volumeNumber.setText("0");
-				}
+					if (volumeNumber == null || mState == null) {
+						return;
+					}
 
-				if (volumeNumber.getText().toString().endsWith("%")) {
-					volumeNumber.setText(volumeNumber.getText().toString().subSequence(0, volumeNumber.getText().toString().length() - 1));
-				}
+					Object ss = callMethod(getObjectField(mState, "states"), "get", getObjectField(param.args[0], "stream"));
 
-				int levelMax = (int) getObjectField(ss, "levelMax");
-				int level = (int) Math.ceil(Float.parseFloat(volumeNumber.getText().toString()) / levelMax * 100f);
+					if (ss == null) {
+						return;
+					}
 
-				if (level > 100) {
-					level = 100;
-				} else if (level < 0) {
-					level = 0;
-				}
+					if (volumeNumber.getText().toString().isEmpty()) {
+						volumeNumber.setText("0");
+					}
 
-				volumeNumber.setText(String.format(Locale.getDefault(), "%d%%", level));
-			}
-		});
+					if (volumeNumber.getText().toString().endsWith("%")) {
+						volumeNumber.setText(volumeNumber.getText().toString().subSequence(0, volumeNumber.getText().toString().length() - 1));
+					}
 
-		hookAllConstructors(AudioStreamStateClass, new XC_MethodHook() { //Only applicable to compose implementation of the volume panel
-			@SuppressLint("DefaultLocale")
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				if(!VolumeDialogLevel) return;
+					int levelMax = (int) getObjectField(ss, "levelMax");
+					int level = (int) Math.ceil(Float.parseFloat(volumeNumber.getText().toString()) / levelMax * 100f);
 
-				float currentValue = getFloatField(param.thisObject, "value");
-				float maxValue = getFloatField(
-						getObjectField(
-								param.thisObject,
-								"valueRange"),
-						"_endInclusive");
+					if (level > 100) {
+						level = 100;
+					} else if (level < 0) {
+						level = 0;
+					}
 
-				float percentage = 100 * currentValue / maxValue;
+					volumeNumber.setText(String.format(Locale.getDefault(), "%d%%", level));
+				});
 
-				String label = (String) getObjectField(param.thisObject, "label");
-				label = String.format("%s - %d%%", label, Math.round(percentage));
-				setObjectField(param.thisObject, "label", label);
-			}
+		AudioStreamStateClass.afterConstruction().run(param -> {
+			if(!VolumeDialogLevel) return;
+
+			float currentValue = getFloatField(param.thisObject, "value");
+			float maxValue = getFloatField(
+					getObjectField(
+							param.thisObject,
+							"valueRange"),
+					"_endInclusive");
+
+			float percentage = 100 * currentValue / maxValue;
+
+			String label = (String) getObjectField(param.thisObject, "label");
+			label = String.format("%s - %d%%", label, Math.round(percentage));
+			setObjectField(param.thisObject, "label", label);
 		});
 	}
 

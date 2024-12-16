@@ -1,8 +1,6 @@
 package sh.siava.pixelxpert.modpacks.settings;
 
 import static de.robv.android.xposed.XposedHelpers.callMethod;
-import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
-import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 
@@ -29,7 +27,7 @@ public class AppCloneEnabler extends XposedModPack {
 	private static final String listenPackage = Constants.SETTINGS_PACKAGE;
 	private static final int AVAILABLE = 0;
 	private static final int LIST_TYPE_CLONED_APPS = 17;
-	private Class<?> UtilsClass;
+	private ReflectedClass UtilsClass;
 
 	public AppCloneEnabler(Context context) {
 		super(context);
@@ -51,7 +49,7 @@ public class AppCloneEnabler extends XposedModPack {
 		ReflectedClass ClonedAppsPreferenceControllerClass = ReflectedClass.of("com.android.settings.applications.ClonedAppsPreferenceController", lpParam.classLoader);
 		ReflectedClass AppStateClonedAppsBridgeClass = ReflectedClass.of("com.android.settings.applications.AppStateClonedAppsBridge", lpParam.classLoader);
 		ReflectedClass ManageApplicationsClass = ReflectedClass.of("com.android.settings.applications.manageapplications.ManageApplications", lpParam.classLoader);
-		UtilsClass = findClass("com.android.settings.Utils", lpParam.classLoader);
+		UtilsClass = ReflectedClass.of("com.android.settings.Utils", lpParam.classLoader);
 
 		ManageApplicationsClass
 				.after("updateOptionsMenu")
@@ -65,7 +63,7 @@ public class AppCloneEnabler extends XposedModPack {
 				});
 
 		/* Private Space
-		Class<?> FlagsClass = findClass("android.os.Flags", lpParam.classLoader);
+		ReflectedClass FlagsClass = ReflectedClass.of("android.os.Flags", lpParam.classLoader);
 
 		hookAllMethods(FlagsClass, "allowPrivateProfile", new XC_MethodHook() {
 			@Override
@@ -110,7 +108,7 @@ public class AppCloneEnabler extends XposedModPack {
 				});
 
 		//the way to manually clone the app
-/*		Class<?> CloneBackendClass = findClass("com.android.settings.applications.manageapplications.CloneBackend", lpParam.classLoader);
+/*		ReflectedClass CloneBackendClass = ReflectedClass.of("com.android.settings.applications.manageapplications.CloneBackend", lpParam.classLoader);
 
 		Object cb = callStaticMethod(CloneBackendClass, "getInstance", mContext);
 		callMethod(cb, "installCloneApp", "com.whatsapp");*/
@@ -133,6 +131,6 @@ public class AppCloneEnabler extends XposedModPack {
 	}
 
 	private int getCloneUserID() {
-		return (int) callStaticMethod(UtilsClass, "getCloneUserId", mContext);
+		return (int) UtilsClass.callStaticMethod("getCloneUserId", mContext);
 	}
 }

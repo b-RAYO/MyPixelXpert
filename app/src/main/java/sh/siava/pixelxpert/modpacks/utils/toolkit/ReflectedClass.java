@@ -2,12 +2,16 @@ package sh.siava.pixelxpert.modpacks.utils.toolkit;
 
 import static de.robv.android.xposed.XposedBridge.hookAllConstructors;
 import static de.robv.android.xposed.XposedBridge.hookAllMethods;
+import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.findClass;
 import static de.robv.android.xposed.XposedHelpers.findClassIfExists;
 
+import android.annotation.SuppressLint;
 import android.util.ArraySet;
 
+import java.lang.reflect.Method;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
@@ -45,6 +49,11 @@ public class ReflectedClass
 		return new BeforeMethodData(clazz, methodName, false);
 	}
 
+	public BeforeMethodDatas before(Pattern pattern)
+	{
+		return new BeforeMethodDatas(clazz, pattern);
+	}
+
 	public BeforeMethodData beforeConstruction()
 	{
 		return new BeforeMethodData(clazz, null, true);
@@ -53,6 +62,11 @@ public class ReflectedClass
 	public AfterMethodData after(String methodName)
 	{
 		return new AfterMethodData(clazz, methodName, false);
+	}
+
+	public AfterMethodDatas after(Pattern pattern)
+	{
+		return new AfterMethodDatas(clazz, pattern);
 	}
 
 	public AfterMethodData afterConstruction()
@@ -70,6 +84,8 @@ public class ReflectedClass
 		String methodName;
 		Class<?> clazz;
 		boolean isConstructor;
+		private static boolean FLAG_DEBUG_HOOKS = true;
+
 		private MethodData(Class<?> clazz, String name, boolean isConstructor)
 		{
 			this.clazz = clazz;
@@ -77,51 +93,91 @@ public class ReflectedClass
 			this.isConstructor = isConstructor;
 		}
 
+		@SuppressLint("DefaultLocale")
 		protected Set<XC_MethodHook.Unhook> runBefore(ReflectionConsumer consumer)
 		{
 			if(clazz == null) return new ArraySet<>();
 
 			if(isConstructor)
 			{
-				return hookAllConstructors(clazz, new XC_MethodHook() {
+				Set<XC_MethodHook.Unhook> unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
 					@Override
 					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
 					}
 				});
+
+				if(FLAG_DEBUG_HOOKS)
+				{
+					Throwable throwable = new Throwable();
+					String callingClassName = throwable.getStackTrace()[2].getClassName();
+					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
+					log(String.format("%s line %d: Hook to before constructor of %s size = %d", callingClassName,lineNumber, clazz.getName(), unhooks.size()));
+				}
+				return unhooks;
 			}
 			else
 			{
-				return hookAllMethods(clazz, methodName, new XC_MethodHook() {
+				Set<XC_MethodHook.Unhook> unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
 					@Override
 					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
 					}
 				});
+
+				if(FLAG_DEBUG_HOOKS)
+				{
+					Throwable throwable = new Throwable();
+					String callingClassName = throwable.getStackTrace()[2].getClassName();
+					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
+					log(String.format("%s line %d: Hook to %s before method %s size = %d", callingClassName,lineNumber, clazz.getName(), methodName, unhooks.size()));
+				}
+				return unhooks;
 			}
 		}
 
+		@SuppressLint("DefaultLocale")
 		protected Set<XC_MethodHook.Unhook> runAfter(ReflectionConsumer consumer)
 		{
 			if(clazz == null) return new ArraySet<>();
 
 			if(isConstructor)
 			{
-				return hookAllConstructors(clazz, new XC_MethodHook() {
+				Set<XC_MethodHook.Unhook> unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
 					@Override
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
 					}
 				});
+
+				if(FLAG_DEBUG_HOOKS)
+				{
+					Throwable throwable = new Throwable();
+					String callingClassName = throwable.getStackTrace()[2].getClassName();
+					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
+					log(String.format("%s line %d: Hook to after constructor of %s size = %d", callingClassName,lineNumber, clazz.getName(), unhooks.size()));
+				}
+
+				return unhooks;
 			}
 			else
 			{
-				return hookAllMethods(clazz, methodName, new XC_MethodHook() {
+				Set<XC_MethodHook.Unhook> unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
 					@Override
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
 					}
 				});
+
+				if(FLAG_DEBUG_HOOKS)
+				{
+					Throwable throwable = new Throwable();
+					String callingClassName = throwable.getStackTrace()[2].getClassName();
+					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
+					log(String.format("%s line %d: Hook to %s after method %s size = %d", callingClassName,lineNumber, clazz.getName(), methodName, unhooks.size()));
+				}
+				return unhooks;
+
 			}
 		}
 	}
@@ -137,6 +193,54 @@ public class ReflectedClass
 		{
 			return runBefore(consumer);
 		}
+	}
+
+	public class BeforeMethodDatas
+	{
+		Set<BeforeMethodData> datas = new ArraySet<>();
+		public BeforeMethodDatas(Class<?> clazz, Pattern namePattern)
+		{
+			findMethods(clazz, namePattern).forEach(method -> datas.add(new BeforeMethodData(clazz, method.getName(), false)));
+		}
+
+		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer)
+		{
+			Set<XC_MethodHook.Unhook> unhooks = new ArraySet<>();
+			datas.forEach(data -> unhooks.addAll(data.run(consumer)));
+			return unhooks;
+		}
+	}
+
+	public class AfterMethodDatas
+	{
+		Set<AfterMethodData> datas = new ArraySet<>();
+		public AfterMethodDatas(Class<?> clazz, Pattern namePattern)
+		{
+			findMethods(clazz, namePattern).forEach(method -> datas.add(new AfterMethodData(clazz, method.getName(), false)));
+		}
+
+		public Set<XC_MethodHook.Unhook> run(ReflectionConsumer consumer)
+		{
+			Set<XC_MethodHook.Unhook> unhooks = new ArraySet<>();
+			datas.forEach(data -> unhooks.addAll(data.run(consumer)));
+			return unhooks;
+		}
+	}
+
+	private static Set<Method> findMethods(Class<?> clazz, Pattern namePattern)
+	{
+		Set<Method> result = new ArraySet<>();
+
+		Method[] methods = clazz.getMethods();
+
+		for(Method method : methods)
+		{
+			if(namePattern.matcher(method.getName()).matches())
+			{
+				result.add(method);
+			}
+		}
+		return result;
 	}
 
 	public class AfterMethodData extends MethodData
