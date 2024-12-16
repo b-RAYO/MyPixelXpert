@@ -19,6 +19,7 @@ import de.robv.android.xposed.XposedHelpers;
 /** @noinspection unused*/
 public class ReflectedClass
 {
+	private static final boolean FLAG_DEBUG_HOOKS = false;
 	Class<?> clazz;
 	public ReflectedClass(Class<?> clazz)
 	{
@@ -84,8 +85,6 @@ public class ReflectedClass
 		String methodName;
 		Class<?> clazz;
 		boolean isConstructor;
-		private static boolean FLAG_DEBUG_HOOKS = true;
-
 		private MethodData(Class<?> clazz, String name, boolean isConstructor)
 		{
 			this.clazz = clazz;
@@ -98,9 +97,10 @@ public class ReflectedClass
 		{
 			if(clazz == null) return new ArraySet<>();
 
+			Set<XC_MethodHook.Unhook> unhooks;
 			if(isConstructor)
 			{
-				Set<XC_MethodHook.Unhook> unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
+				unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
 					@Override
 					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
@@ -114,11 +114,10 @@ public class ReflectedClass
 					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
 					log(String.format("%s line %d: Hook to before constructor of %s size = %d", callingClassName,lineNumber, clazz.getName(), unhooks.size()));
 				}
-				return unhooks;
 			}
 			else
 			{
-				Set<XC_MethodHook.Unhook> unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
+				unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
 					@Override
 					protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
@@ -132,8 +131,8 @@ public class ReflectedClass
 					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
 					log(String.format("%s line %d: Hook to %s before method %s size = %d", callingClassName,lineNumber, clazz.getName(), methodName, unhooks.size()));
 				}
-				return unhooks;
 			}
+			return unhooks;
 		}
 
 		@SuppressLint("DefaultLocale")
@@ -141,9 +140,10 @@ public class ReflectedClass
 		{
 			if(clazz == null) return new ArraySet<>();
 
+			Set<XC_MethodHook.Unhook> unhooks;
 			if(isConstructor)
 			{
-				Set<XC_MethodHook.Unhook> unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
+				unhooks = hookAllConstructors(clazz, new XC_MethodHook() {
 					@Override
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
@@ -158,11 +158,10 @@ public class ReflectedClass
 					log(String.format("%s line %d: Hook to after constructor of %s size = %d", callingClassName,lineNumber, clazz.getName(), unhooks.size()));
 				}
 
-				return unhooks;
 			}
 			else
 			{
-				Set<XC_MethodHook.Unhook> unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
+				unhooks = hookAllMethods(clazz, methodName, new XC_MethodHook() {
 					@Override
 					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 						consumer.run(param);
@@ -176,9 +175,9 @@ public class ReflectedClass
 					int lineNumber = throwable.getStackTrace()[2].getLineNumber();
 					log(String.format("%s line %d: Hook to %s after method %s size = %d", callingClassName,lineNumber, clazz.getName(), methodName, unhooks.size()));
 				}
-				return unhooks;
 
 			}
+			return unhooks;
 		}
 	}
 
