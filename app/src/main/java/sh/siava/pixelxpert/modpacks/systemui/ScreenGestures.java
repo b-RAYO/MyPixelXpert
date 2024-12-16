@@ -8,7 +8,6 @@ import static android.os.VibrationEffect.EFFECT_TICK;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.getBooleanField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -36,6 +35,7 @@ import sh.siava.pixelxpert.modpacks.XPLauncher;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
 import sh.siava.pixelxpert.modpacks.utils.SystemUtils;
 import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedClass;
+import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedClass.ReflectionConsumer;
 
 @SuppressWarnings("RedundantThrows")
 public class ScreenGestures extends XposedModPack {
@@ -181,15 +181,14 @@ public class ScreenGestures extends XposedModPack {
 
 			@SuppressLint("DiscouragedApi")
 			View longPressReceiver = mView.findViewById(mContext.getResources().getIdentifier("keyguard_long_press", "id", mContext.getPackageName()));
-			hookAllMethods(longPressReceiver.getClass(), "onTouchEvent", new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					if(param.thisObject == longPressReceiver && (turnedByTTT || DisableLockScreenPill))
-					{
-						param.setResult(false);
-					}
-				}
-			});
+			ReflectedClass.of(longPressReceiver.getClass())
+					.before("onTouchEvent")
+					.run(param -> {
+						if(param.thisObject == longPressReceiver && (turnedByTTT || DisableLockScreenPill))
+						{
+							param.setResult(false);
+						}
+					});
 		} catch (Throwable ignored){}
 
 	}
@@ -203,7 +202,7 @@ public class ScreenGestures extends XposedModPack {
 
 	private void hookTouchHandler(Class<?> touchHanlderClass) {
 		ReflectedClass TouchHandlerClass = ReflectedClass.of(touchHanlderClass);
-		ReflectedClass.ReflectionConsumer touchConsumer = param -> {
+		ReflectionConsumer touchConsumer = param -> {
 			if (!doubleTapToSleepStatusbarEnabled) return;
 
 			//double tap to sleep, statusbar only
@@ -227,85 +226,83 @@ public class ScreenGestures extends XposedModPack {
 		Object mStatusBarStateController = getObjectField(param.thisObject, "mStatusBarStateController");
 
 		//used in double tap to wake in AOD plan
-		XC_MethodHook singleTapHook = new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param1) throws Throwable {
-				if (doubleTapToWake)
-					param1.setResult(false);
-			}
+		ReflectionConsumer singleTapConsumer = param1 -> {
+			if (doubleTapToWake)
+				param1.setResult(false);
 		};
-		hookAllMethods(mListener.getClass(), "onSingleTapUp", singleTapHook); //A13 R18
-		hookAllMethods(mListener.getClass(), "onSingleTapConfirmed", singleTapHook); //older
 
+		ReflectedClass listenerClass = ReflectedClass.of(mListener.getClass());
+
+		listenerClass.before("onSingleTapUp").run(singleTapConsumer); //A13 R18
+		listenerClass.before("onSingleTapConfirmed").run(singleTapConsumer); //older
 
 		//used in double tap detection in AOD
-		XC_MethodHook doubleTapHook = new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param1) throws Throwable {
-				if (isQSExpanded() || getBooleanField(NotificationPanelViewController, "mBouncerShowing")) {
-					return;
-				}
-				doubleTap = true;
-				new Timer().schedule(new TimerTask() {
-					@Override
-					public void run() {
-						doubleTap = false;
-					}
-				}, HOLD_DURATION * 2);
-
-				isDozing = (boolean) callMethod(mStatusBarStateController, "isDozing");
+		ReflectionConsumer doubleTapHook = param1 -> {
+			if (isQSExpanded() || getBooleanField(NotificationPanelViewController, "mBouncerShowing")) {
+				return;
 			}
-		};
-		hookAllMethods(mListener.getClass(), "onDoubleTapEvent", doubleTapHook); //A13 R18
-		hookAllMethods(mListener.getClass(), "onDoubleTap", doubleTapHook); //older
-
-		//detect hold event for TTT and DTS on lockscreen
-		hookAllMethods(mPulsingWakeupGestureHandler.getClass(), "onTouchEvent", new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param1) throws Throwable {
-				if (keyguardNotShowing(mStatusBarKeyguardViewManager)) {
-					return;
-				}
-				MotionEvent ev = (MotionEvent) param1.args[0];
-
-				int action = ev.getActionMasked();
-
-				if (doubleTap && action == ACTION_UP) {
-					if (doubleTapToSleepLockscreenEnabled && !isDozing)
-						sleep();
+			doubleTap = true;
+			new Timer().schedule(new TimerTask() {
+				@Override
+				public void run() {
 					doubleTap = false;
 				}
+			}, HOLD_DURATION * 2);
 
-				if (!holdScreenTorchEnabled) return;
+			isDozing = (boolean) callMethod(mStatusBarStateController, "isDozing");
+		};
 
-				if ((action == ACTION_DOWN || action == ACTION_MOVE)) {
-					if(doubleTap || turnedByTTT) //we really don't want to see swipe gestures during TTT
-					{
-						ev.setAction(ACTION_DOWN);
+		ReflectedClass listenerClass2 = ReflectedClass.of(mListener.getClass());
+
+		listenerClass2.before("onDoubleTapEvent").run(doubleTapHook); //A13 R18
+		listenerClass2.before("onDoubleTap").run(doubleTapHook); //older
+
+		//detect hold event for TTT and DTS on lockscreen
+		ReflectedClass.of(mPulsingWakeupGestureHandler.getClass())
+				.before("onTouchEvent")
+				.run(param1 -> {
+					if (keyguardNotShowing(mStatusBarKeyguardViewManager)) {
+						return;
 					}
-					if (doubleTap && !SystemUtils.isFlashOn() && uptimeMillis() - ev.getDownTime() > HOLD_DURATION) {
-						turnedByTTT = true;
+					MotionEvent ev = (MotionEvent) param1.args[0];
 
-						callMethod(SystemUtils.PowerManager(), "wakeUp", uptimeMillis());
-						SystemUtils.setFlash(true);
-						SystemUtils.vibrate(EFFECT_TICK, USAGE_ACCESSIBILITY);
+					int action = ev.getActionMasked();
 
-						new Thread(() -> { //if keyguard is dismissed for any reason (face or udfps touch), then:
-							while (turnedByTTT) {
-								try {
-									SystemUtils.threadSleep(200);
-									if (keyguardNotShowing(mStatusBarKeyguardViewManager)) {
-										turnOffTTT();
-									}
-								} catch (Throwable ignored) {}
-							}
-						}).start();
+					if (doubleTap && action == ACTION_UP) {
+						if (doubleTapToSleepLockscreenEnabled && !isDozing)
+							sleep();
+						doubleTap = false;
 					}
-				} else if (turnedByTTT) {
-					turnOffTTT();
-				}
-			}
-		});
+
+					if (!holdScreenTorchEnabled) return;
+
+					if ((action == ACTION_DOWN || action == ACTION_MOVE)) {
+						if(doubleTap || turnedByTTT) //we really don't want to see swipe gestures during TTT
+						{
+							ev.setAction(ACTION_DOWN);
+						}
+						if (doubleTap && !SystemUtils.isFlashOn() && uptimeMillis() - ev.getDownTime() > HOLD_DURATION) {
+							turnedByTTT = true;
+
+							callMethod(SystemUtils.PowerManager(), "wakeUp", uptimeMillis());
+							SystemUtils.setFlash(true);
+							SystemUtils.vibrate(EFFECT_TICK, USAGE_ACCESSIBILITY);
+
+							new Thread(() -> { //if keyguard is dismissed for any reason (face or udfps touch), then:
+								while (turnedByTTT) {
+									try {
+										SystemUtils.threadSleep(200);
+										if (keyguardNotShowing(mStatusBarKeyguardViewManager)) {
+											turnOffTTT();
+										}
+									} catch (Throwable ignored) {}
+								}
+							}).start();
+						}
+					} else if (turnedByTTT) {
+						turnOffTTT();
+					}
+				});
 	}
 
 	private boolean isQSExpanded() {

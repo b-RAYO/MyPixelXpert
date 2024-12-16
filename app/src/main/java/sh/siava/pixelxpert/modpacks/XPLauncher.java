@@ -2,7 +2,6 @@ package sh.siava.pixelxpert.modpacks;
 
 import static android.content.Context.CONTEXT_IGNORE_SECURITY;
 import static de.robv.android.xposed.XposedBridge.log;
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static sh.siava.pixelxpert.BuildConfig.APPLICATION_ID;
 import static sh.siava.pixelxpert.modpacks.Constants.SYSTEM_UI_PACKAGE;
 import static sh.siava.pixelxpert.modpacks.XPrefs.Xprefs;
@@ -27,7 +26,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.BuildConfig;
 import sh.siava.pixelxpert.IRootProviderProxy;
@@ -109,25 +107,25 @@ public class XPLauncher implements ServiceConnection {
 						}
 					});
 		} else {
-			findAndHookMethod(Instrumentation.class, "newApplication", ClassLoader.class, String.class, Context.class, new XC_MethodHook() {
-				@Override
-				protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-					try {
-						if (mContext == null || lpParam.packageName.equals(Constants.TELECOM_SERVER_PACKAGE)) { //telecom service launches as a secondary process in framework, but has its own package name. context is not null when it loads
-							mContext = (Context) param.args[2];
+			ReflectedClass.of(Instrumentation.class)
+					.after("newApplication")
+					.run(param -> {
+						try {
+							if (mContext == null || lpParam.packageName.equals(Constants.TELECOM_SERVER_PACKAGE)) { //telecom service launches as a secondary process in framework, but has its own package name. context is not null when it loads
+								mContext = (Context) param.args[param.args.length - 1];
 
-							ResourceManager.modRes = mContext.createPackageContext(APPLICATION_ID, CONTEXT_IGNORE_SECURITY)
-									.getResources();
+								ResourceManager.modRes = mContext.createPackageContext(APPLICATION_ID, CONTEXT_IGNORE_SECURITY)
+										.getResources();
 
-							XPrefs.init(mContext);
+								XPrefs.init(mContext);
 
-							waitForXprefsLoad(lpParam);
+								waitForXprefsLoad(lpParam);
+							}
+						} catch (Throwable t) {
+							log(t);
 						}
-					} catch (Throwable t) {
-						log(t);
-					}
-				}
-			});
+
+					});
 		}
 	}
 

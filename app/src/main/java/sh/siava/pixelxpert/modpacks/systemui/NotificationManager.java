@@ -1,13 +1,11 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
 import static sh.siava.pixelxpert.modpacks.XPrefs.Xprefs;
 
 import android.content.Context;
 import android.service.notification.StatusBarNotification;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
@@ -55,14 +53,13 @@ public class NotificationManager extends XposedModPack {
 		}
 		catch (Throwable ignored){}
 
-		hookAllMethods(StatusBarNotification.class, "isNonDismissable", new XC_MethodHook() {
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				if(DisableOngoingNotifDismiss) {
-					param.setResult((boolean) param.getResult() || ((StatusBarNotification) param.thisObject).isOngoing());
-				}
-			}
-		});
+		ReflectedClass.of(StatusBarNotification.class)
+				.after("isNonDismissable")
+				.run(param -> {
+					if(DisableOngoingNotifDismiss) {
+						param.setResult((boolean) param.getResult() || ((StatusBarNotification) param.thisObject).isOngoing());
+					}
+				});
 	}
 
 	private void applyDurations() {

@@ -1,8 +1,10 @@
 package sh.siava.pixelxpert.modpacks.utils.toolkit;
 
-import static de.robv.android.xposed.XposedBridge.hookMethod;
+import static de.robv.android.xposed.XposedHelpers.findMethodExact;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -19,29 +21,28 @@ public class ReflectedMethod {
 		return new ReflectedMethod(method);
 	}
 
-	public static ReflectedMethod ofName(ReflectedClass clazz, String exactName)
+	public static ReflectedMethod ofExactData(ReflectedClass reflectedClass, String name, Class<?>... parameterTypes)
 	{
-		return new ReflectedMethod(findMethod(clazz.getClazz(), exactName));
+		return new ReflectedMethod(findMethodExact(reflectedClass.getClazz(), name, parameterTypes));
 	}
 
-	public void runBefore(ReflectedClass.ReflectionConsumer consumer)
+	public static ReflectedMethod ofName(ReflectedClass reflectedClass, String exactName)
 	{
-		hookMethod(method, new XC_MethodHook() {
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				consumer.run(param);
-			}
-		});
+		return new ReflectedMethod(findMethod(reflectedClass.getClazz(), exactName));
 	}
 
-	public void runAfter(ReflectedClass.ReflectionConsumer consumer)
+	public Collection<? extends XC_MethodHook.Unhook> beforeThat(ReflectedClass.ReflectionConsumer consumer)
 	{
-		hookMethod(method, new XC_MethodHook() {
-			@Override
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				consumer.run(param);
-			}
-		});
+		return ReflectedClass.of(method.getClass())
+				.before(method)
+				.run(consumer);
+	}
+
+	public Set<XC_MethodHook.Unhook> afterThat(ReflectedClass.ReflectionConsumer consumer)
+	{
+		return ReflectedClass.of(method.getClass())
+				.after(method)
+				.run(consumer);
 	}
 
 	public static Method findMethod(Class<?> clazz, String namePattern)

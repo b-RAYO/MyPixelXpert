@@ -1,6 +1,5 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 import static sh.siava.pixelxpert.modpacks.XPrefs.Xprefs;
 import static sh.siava.pixelxpert.utils.ThemePackMapping.DRAWABLE_MAPPING_KEY;
 import static sh.siava.pixelxpert.utils.ThemePackMapping.TYPE_DRAWABLE;
@@ -19,7 +18,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.BuildConfig;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
-import sh.siava.pixelxpert.modpacks.utils.SystemUtils;
+import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedClass;
+import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedMethod;
 import sh.siava.pixelxpert.utils.ThemePackMapping.IDMapping;
 import sh.siava.pixelxpert.utils.ThemePackMapping.Mapping;
 import sh.siava.pixelxpert.utils.ThemePackMapping.OverlayID;
@@ -45,50 +45,41 @@ public class IconPacks extends XposedModPack {
 	private void hookAll() {
 		if(hooks.isEmpty() && mPackageLoaded && !drawableMapping.isEmpty())
 		{
-			hooks.add(findAndHookMethod(Resources.class, "getDrawable", int.class, Resources.Theme.class, new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Drawable drawable = getDrawable((int)param.args[0], (Resources.Theme) param.args[1]);
-					if(drawable != null)
-					{
-						param.setResult(drawable);
-					}
-				}
-			}));
+			hooks.addAll(ReflectedMethod.ofExactData(ReflectedClass.of(Resources.class), "getDrawable", int.class, Resources.Theme.class)
+					.beforeThat(param -> {
+						Drawable drawable = getDrawable((int)param.args[0], (Resources.Theme) param.args[1]);
+						if(drawable != null)
+						{
+							param.setResult(drawable);
+						}
+					}));
 
-			hooks.add(findAndHookMethod(Resources.class, "getDrawable", int.class, new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Drawable drawable = getDrawable((int)param.args[0], mContext.getTheme());
-					if(drawable != null)
-					{
-						param.setResult(drawable);
-					}
-				}
-			}));
+			hooks.addAll(ReflectedMethod.ofExactData(ReflectedClass.of(Resources.class), "getDrawable", int.class)
+					.beforeThat(param -> {
+						Drawable drawable = getDrawable((int)param.args[0], mContext.getTheme());
+						if(drawable != null)
+						{
+							param.setResult(drawable);
+						}
+					}));
 
-			hooks.add(findAndHookMethod(Resources.class, "getDrawableForDensity", int.class, int.class, Resources.Theme.class, new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Drawable drawable = getDrawable((int)param.args[0], (Resources.Theme) param.args[2]);
-					if(drawable != null)
-					{
-						param.setResult(drawable);
-					}
+			hooks.addAll(ReflectedMethod.ofExactData(ReflectedClass.of(Resources.class), "getDrawableForDensity", int.class, int.class, Resources.Theme.class)
+					.beforeThat(param -> {
+						Drawable drawable = getDrawable((int)param.args[0], (Resources.Theme) param.args[2]);
+						if(drawable != null)
+						{
+							param.setResult(drawable);
+						}
+					}));
 
-				}
-			}));
-
-			hooks.add(findAndHookMethod(Resources.class, "getDrawableForDensity", int.class, int.class, new XC_MethodHook() {
-				@Override
-				protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-					Drawable drawable = getDrawable((int)param.args[0],  mContext.getTheme());
-					if(drawable != null)
-					{
-						param.setResult(drawable);
-					}
-				}
-			}));
+			hooks.addAll(ReflectedMethod.ofExactData(ReflectedClass.of(Resources.class), "getDrawableForDensity", int.class, int.class)
+					.beforeThat(param -> {
+						Drawable drawable = getDrawable((int)param.args[0],  mContext.getTheme());
+						if(drawable != null)
+						{
+							param.setResult(drawable);
+						}
+					}));
 		}
 	}
 

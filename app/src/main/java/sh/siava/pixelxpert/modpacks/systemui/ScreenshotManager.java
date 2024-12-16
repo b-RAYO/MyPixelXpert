@@ -1,6 +1,5 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.findFieldIfExists;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
 import static de.robv.android.xposed.XposedHelpers.setObjectField;
@@ -20,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Pattern;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
@@ -57,16 +55,13 @@ public class ScreenshotManager extends XposedModPack {
 			CaptureArgsClass = ReflectedClass.of("android.view.SurfaceControl$DisplayCaptureArgs", lpParam.classLoader); //A13
 		}
 
-		hookAllMethods(UserManager.class, "getUserInfo", new XC_MethodHook() { //A15QPR2b1 - Forcing other profile screenshots to be treated like personal ones
-			@Override
-			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				param.args[0] = 0;
-			}
-		});
+		ReflectedClass.of(UserManager.class)
+				.before("getUserInfo")
+				.run(param -> param.args[0] = 0);
 
 		ReflectedClass ScreenshotPolicyImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotPolicyImpl", lpParam.classLoader);
 
-		if(ScreenshotPolicyImplClass != null) {
+		if(ScreenshotPolicyImplClass.getClazz() != null) {
 			ScreenshotPolicyImplClass
 					.before(Pattern.compile(".*isManagedProfile.*"))
 					.run(param -> {
@@ -85,7 +80,7 @@ public class ScreenshotManager extends XposedModPack {
 
 		boolean hookedToPlayScreenshotSoundAsync = isHookedToPlayScreenshotSoundAsync(lpParam); //A15QPR2b1
 
-		if(ScreenshotControllerClass != null && !hookedToPlayScreenshotSoundAsync) {
+		if(ScreenshotControllerClass.getClazz() != null && !hookedToPlayScreenshotSoundAsync) {
 			//A14 QPR1 and older
 			ScreenshotControllerClass
 					.afterConstruction()

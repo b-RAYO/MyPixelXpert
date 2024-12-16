@@ -1,6 +1,5 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.getBooleanField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -13,7 +12,6 @@ import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
 import android.widget.ImageView;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
@@ -112,14 +110,9 @@ public class UDFPSManager extends XposedModPack {
 					.afterConstruction()
 					.run(param -> {
 						try {
-							hookAllMethods(getObjectField(param.thisObject, "mLayoutInflaterFinishListener").getClass(),
-									"onInflateFinished",
-									new XC_MethodHook() {
-										@Override
-										protected void afterHookedMethod(MethodHookParam param1) throws Throwable {
-											removeUDFPSGraphicsLegacy(param.thisObject);
-										}
-									});
+							ReflectedClass.of(getObjectField(param.thisObject, "mLayoutInflaterFinishListener").getClass())
+									.after("onInflateFinished")
+									.run(param1 -> removeUDFPSGraphicsLegacy(param1.thisObject));
 						} catch (Throwable ignored) {
 						}//A13
 					});

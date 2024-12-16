@@ -3,7 +3,6 @@ package sh.siava.pixelxpert.modpacks.systemui;
 import static android.graphics.Color.TRANSPARENT;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.getBooleanField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -39,7 +38,6 @@ import androidx.core.content.res.ResourcesCompat;
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.Constants;
@@ -438,16 +436,15 @@ public class KeyguardMods extends XposedModPack {
 				});
 
 		//A15
-		hookAllMethods(WallpaperManager.class, "getWallpaperDimAmount", new XC_MethodHook() {
-					@Override
-					protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-						if ((KeyGuardDimAmount < 0 || KeyGuardDimAmount > 1)
-								|| param.getResult().equals(WALLPAPER_DIM_AMOUNT_DIMMED))
-							return;
+		ReflectedClass.of(WallpaperManager.class)
+				.after("getWallpaperDimAmount")
+				.run(param -> {
+					if ((KeyGuardDimAmount < 0 || KeyGuardDimAmount > 1)
+							|| param.getResult().equals(WALLPAPER_DIM_AMOUNT_DIMMED))
+						return;
 
-						//ref ColorUtils.compositeAlpha - Since KEYGUARD_SCRIM_ALPHA = .2f, we need to range the result between -70 and 255 to get the correct value when composed with 20% - we use 60 to cover float inaccuracies and never see a negative final result
-						param.setResult((325 * KeyGuardDimAmount - 60) / 255);
-					}
+					//ref ColorUtils.compositeAlpha - Since KEYGUARD_SCRIM_ALPHA = .2f, we need to range the result between -70 and 255 to get the correct value when composed with 20% - we use 60 to cover float inaccuracies and never see a negative final result
+					param.setResult((325 * KeyGuardDimAmount - 60) / 255);
 				});
 		//endregion
 
@@ -463,13 +460,11 @@ public class KeyguardMods extends XposedModPack {
 					carrierTextController = param.thisObject;
 					Object carrierTextCallback = getObjectField(carrierTextController, "mCarrierTextCallback");
 					setCarrierText();
-					hookAllMethods(carrierTextCallback.getClass(),
-							"updateCarrierInfo", new XC_MethodHook() {
-								@Override
-								protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-									if (customCarrierTextEnabled)
-										param.setResult(null);
-								}
+					ReflectedClass.of(carrierTextCallback.getClass())
+							.before("updateCarrierInfo")
+							.run(param1 -> {
+								if (customCarrierTextEnabled)
+									param1.setResult(null);
 							});
 				});
 

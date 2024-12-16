@@ -2,7 +2,6 @@ package sh.siava.pixelxpert.modpacks.systemui;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Paint.Style.FILL;
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.getIntField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -32,7 +31,6 @@ import androidx.annotation.ColorInt;
 
 import java.util.Arrays;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
@@ -237,30 +235,28 @@ public class ThemeManager_13 extends XposedModPack {
 						Object iconManager = getObjectField(param.thisObject, "iconManager");
 						Object batteryIcon = getObjectField(param.thisObject, "batteryIcon");
 						Object configurationControllerListener = getObjectField(param.thisObject, "configurationControllerListener");
-						hookAllMethods(configurationControllerListener.getClass(), "onConfigChanged", new XC_MethodHook() {
-							@SuppressLint("DiscouragedApi")
-							@Override
-							protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-								if (!lightQSHeaderEnabled) return;
+						ReflectedClass.of(configurationControllerListener.getClass())
+								.after("onConfigChanged")
+								.run(param1 -> {
+									if (!lightQSHeaderEnabled) return;
 
-								int textColor = getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
+									int textColor = getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
 
-								((TextView) mView.findViewById(mContext.getResources().getIdentifier("clock", "id", mContext.getPackageName()))).setTextColor(textColor);
-								((TextView) mView.findViewById(mContext.getResources().getIdentifier("date", "id", mContext.getPackageName()))).setTextColor(textColor);
+									((TextView) mView.findViewById(mContext.getResources().getIdentifier("clock", "id", mContext.getPackageName()))).setTextColor(textColor);
+									((TextView) mView.findViewById(mContext.getResources().getIdentifier("date", "id", mContext.getPackageName()))).setTextColor(textColor);
 
-								callMethod(iconManager, "setTint", textColor);
+									callMethod(iconManager, "setTint", textColor);
 
-								for(int i = 1; i <= 3; i ++) {
-									String id = String.format("carrier%s", i);
+									for(int i = 1; i <= 3; i ++) {
+										String id = String.format("carrier%s", i);
 
-									((TextView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mCarrierText")).setTextColor(textColor);
-									((ImageView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mMobileSignal")).setImageTintList(ColorStateList.valueOf(textColor));
-									((ImageView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mMobileRoaming")).setImageTintList(ColorStateList.valueOf(textColor));
-								}
+										((TextView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mCarrierText")).setTextColor(textColor);
+										((ImageView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mMobileSignal")).setImageTintList(ColorStateList.valueOf(textColor));
+										((ImageView) getObjectField(mView.findViewById(mContext.getResources().getIdentifier(id, "id", mContext.getPackageName())), "mMobileRoaming")).setImageTintList(ColorStateList.valueOf(textColor));
+									}
 
-								callMethod(batteryIcon, "updateColors", textColor, textColor, textColor);
-							}
-						});
+									callMethod(batteryIcon, "updateColors", textColor, textColor, textColor);
+								});
 					});
 
 			QSContainerImplClass

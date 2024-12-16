@@ -1,6 +1,5 @@
 package sh.siava.pixelxpert.modpacks.systemui;
 
-import static de.robv.android.xposed.XposedBridge.hookAllMethods;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.findFieldIfExists;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -16,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import java.util.Arrays;
 
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XPLauncher;
@@ -75,34 +73,33 @@ public class StatusbarGestures extends XposedModPack {
 
 						mGestureDetector = new GestureDetector(mContext, new LongpressListener(true));
 
-						hookAllMethods(mStatusBarViewTouchEventHandler.getClass(), "handleTouchEvent", new XC_MethodHook() {
-							@Override
-							protected void beforeHookedMethod(MethodHookParam param1) throws Throwable {
-								MotionEvent event = (MotionEvent) param1.args[0];
+						ReflectedClass.of(mStatusBarViewTouchEventHandler.getClass())
+								.before("handleTouchEvent")
+								.run(param1 -> {
+									MotionEvent event = (MotionEvent) param1.args[0];
 
-								mGestureDetector.onTouchEvent(event);
+									mGestureDetector.onTouchEvent(event);
 
-								if (!oneFingerPulldownEnabled) return;
+									if (!oneFingerPulldownEnabled) return;
 
-								int mBarState = (int) getObjectField(param.thisObject, "mBarState");
-								if (mBarState != STATUSBAR_MODE_SHADE) return;
+									int mBarState = (int) getObjectField(param.thisObject, "mBarState");
+									if (mBarState != STATUSBAR_MODE_SHADE) return;
 
-								int w = (int) callMethod(
-										getObjectField(param.thisObject, "mView"),
-										"getMeasuredWidth");
+									int w = (int) callMethod(
+											getObjectField(param.thisObject, "mView"),
+											"getMeasuredWidth");
 
-								float x = event.getX();
-								float region = w * statusbarPortion;
+									float x = event.getX();
+									float region = w * statusbarPortion;
 
-								boolean pullDownApproved = (pullDownSide == PULLDOWN_SIDE_RIGHT)
-										? w - region < x
-										: x < region;
+									boolean pullDownApproved = (pullDownSide == PULLDOWN_SIDE_RIGHT)
+											? w - region < x
+											: x < region;
 
-								if (pullDownApproved) {
-									callMethod(param.thisObject, "expandWithQs");
-								}
-							}
-						});
+									if (pullDownApproved) {
+										callMethod(param.thisObject, "expandWithQs");
+									}
+								});
 					});
 		} else {
 			mGestureDetector = new GestureDetector(mContext, new LongpressListener(true));
@@ -151,15 +148,14 @@ public class StatusbarGestures extends XposedModPack {
 							NotificationPanelViewController = param.thisObject;
 							Object mTouchHandler = getObjectField(param.thisObject, "mTouchHandler");
 							GestureDetector pullUpDetector = new GestureDetector(mContext, getPullUpListener());
-							hookAllMethods(mTouchHandler.getClass(), "onTouchEvent", new XC_MethodHook() {
-								@Override
-								protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-									if (oneFingerPullupEnabled
-											&& STATUSBAR_MODE_KEYGUARD != (int) getObjectField(NotificationPanelViewController, "mBarState")) {
-										pullUpDetector.onTouchEvent((MotionEvent) param.args[0]);
-									}
-								}
-							});
+							ReflectedClass.of(mTouchHandler.getClass())
+									.before("onTouchEvent")
+									.run(param2 -> {
+										if (oneFingerPullupEnabled
+												&& STATUSBAR_MODE_KEYGUARD != (int) getObjectField(NotificationPanelViewController, "mBarState")) {
+											pullUpDetector.onTouchEvent((MotionEvent) param2.args[0]);
+										}
+									});
 						});
 
 				String QSExpandMethodName = Arrays.stream(NotificationPanelViewControllerClass.getClazz().getMethods())
