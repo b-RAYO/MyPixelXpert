@@ -50,7 +50,7 @@
     <string name="qs_panel_category_title">磁贴面板</string>
     <string name="qs_panel_category_summary">亮度滑块，闪光灯级别等更多内容</string>
     <string name="theme_customization_category">主题</string>
-    <string name="theme_customization_summary">Customize visual style and iconography</string>
+    <string name="theme_customization_summary">自定义视觉风格和图标</string>
     <string name="pm_header">包管理器</string>
     <string name="pm_header_summary">跳过 APK 文件的安全检查</string>
     <string name="hotspot_header">热点</string>
@@ -171,6 +171,7 @@
     <string name="status_bar_height">状态高度</string>
     <string name="sb_padding_title">状态栏内边距</string>
     <string name="sb_padding_summary">最小 / 最大 等同于设备默认值</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">电池条设置</string>
     <string name="sbbIcon_header">电池图标设置</string>
     <string name="BB_enable_title">启用电池条</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">显示亮度限制</string>
     <string name="brightness_range_not_linear">这个范围不是线性的,有时一个小的差异会导致相当大的变化</string>
     <string name="separate_ring_notif_vol_title">单独调节铃声和通知音量</string>
+    <string name="show_vol_level_title">音量面板上显示百分比</string>
     <string name="so_power_longpress_torch_title">长按电源开启手电筒</string>
     <string name="so_taptaptorch_title">锁屏双击打开手电筒</string>
     <string name="so_taptaptorch_summary">锁屏时 双击+长按打开手电筒</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">锁屏功能</string>
     <string name="custom_themed_icons_title">自定义带主题的图标</string>
     <string name="px_in_settings_title">添加 PixelXpert 到设置项</string>
+    <string name="sleep_on_flat_screen_title">在平坦表面上时关闭屏幕</string>
+    <string name="sleep_on_flat_screen_tile_title">在平坦表面休眠</string>
+    <string name="flat_screen_timeout_title">在平坦表面时的屏幕超时时间</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">遵从唤醒锁</string>
     <string name="custom_themed_icons_off">自定义图标已禁用</string>
     <string name="custom_themed_icons_on">自定义图标已启用</string>
     <string name="so_vol_longpress_skip">长按音量键切歌</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">重要:你必须在 LSPosed 作用域中勾选你要禁用的app</string>
     <string name="control_flashlight_with_volume_keys">使用音量键控制手电筒亮度</string>
     <string name="milliseconds">毫秒</string>
+    <string name="duration_seconds">%d 秒</string>
     <string name="hours">小时</string>
     <string name="system_time_title">系统时间</string>
     <string name="sync_ntp_time_title">用 NTP 同步时间</string>
@@ -514,8 +521,8 @@
     <string name="skip_media_next">媒体控制 - 跳过</string>
     <string name="skip_media_prev">媒体控制 - 上一个</string>
     <!-- Icon Packs -->
-    <string name="icon_packs_title">Icon packs</string>
-    <string name="icon_pack_selection_title">Select pack</string>
+    <string name="icon_packs_title">图标包</string>
+    <string name="icon_pack_selection_title">选择图标包</string>
     <string name="icon_pack_customization_title">自定义图标</string>
     <string name="menu_more_info">更多信息</string>
     <string name="menu_show_icons">显示图标</string>

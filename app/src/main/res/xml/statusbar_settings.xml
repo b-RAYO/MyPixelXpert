@@ -32,9 +32,10 @@
 			app:fragment="sh.siava.pixelxpert.ui.fragments.SBCFragment"
 			app:iconSpaceReserved="false" />
 
-		<sh.siava.pixelxpert.ui.preferences.MaterialPreference
-			android:key="sbbb_header"
-			android:title="@string/sbbb_header"
+		<sh.siava.pixelxpert.ui.preferences.MaterialPrimarySwitchPreference
+			android:defaultValue="false"
+			android:key="BBarEnabled"
+			android:title="@string/BB_enable_title"
 			app:fragment="sh.siava.pixelxpert.ui.fragments.SBBBFragment"
 			app:iconSpaceReserved="false" />
 

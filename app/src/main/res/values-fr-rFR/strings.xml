@@ -171,6 +171,7 @@
     <string name="status_bar_height">Hauteur de la barre d’état (basculer l’écran pour appliquer)</string>
     <string name="sb_padding_title">Marges de la barre d’état</string>
     <string name="sb_padding_summary">Les valeurs minimum et maximum sont celles par défaut de l’appareil</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Préférences de la barre de batterie</string>
     <string name="sbbIcon_header">Préférences de l’icône de batterie</string>
     <string name="BB_enable_title">Active la barre de batterie</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Limites de luminosité</string>
     <string name="brightness_range_not_linear">Cet intervalle N’EST PAS linéaire : de petites variations peuvent avoir un gros impact</string>
     <string name="separate_ring_notif_vol_title">Volume individuel pour la sonnerie et la notification</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Maintenir le bouton marche/arrêt pour la lampe torche</string>
     <string name="so_taptaptorch_title">Activer le double appui sur l’écran de verrouillage pour la lampe torche</string>
     <string name="so_taptaptorch_summary">Appuyer deux fois et maintenir pour allumer la lampe torche</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Quand l’écran est éteint…</string>
     <string name="custom_themed_icons_title">Icônes personnalisés</string>
     <string name="px_in_settings_title">Ajouter PixelXpert aux paramètres</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Icônes personnalisés désactivés</string>
     <string name="custom_themed_icons_on">Icônes personnalisés activés</string>
     <string name="so_vol_longpress_skip">Maintenir les boutons du volume pour changer de chanson</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Important : les applications dans lesquelles l’effet sera actif sont celles activées dans LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Contrôlez la lampe de poche avec les boutons de volume</string>
     <string name="milliseconds">Millisecondes</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Heures</string>
     <string name="system_time_title">Heure du système</string>
     <string name="sync_ntp_time_title">Utiliser NTP pour synchroniser l\'heure</string>

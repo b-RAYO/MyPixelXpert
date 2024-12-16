@@ -171,6 +171,7 @@
     <string name="status_bar_height">Высота строки состояния (повернуть экран для применения)</string>
     <string name="sb_padding_title">Заполнение строки состояния</string>
     <string name="sb_padding_summary">Установка мин./макс. значений эквивалентна настройкам устройства по умолчанию</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Настройка панели заряда батареи</string>
     <string name="sbbIcon_header">Настройка значка батареи</string>
     <string name="BB_enable_title">Включить панель заряда батареи</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Пределы яркости дисплея</string>
     <string name="brightness_range_not_linear">Этот диапазон НЕ является линейным: иногда небольшая разница приводит к значительным изменениям.</string>
     <string name="separate_ring_notif_vol_title">Индивидуальная громкость для звонка и уведомлений</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Долгое нажатие кнопки питания для включения фонарика</string>
     <string name="so_taptaptorch_title">Двойное нажатие для включения фонарика</string>
     <string name="so_taptaptorch_summary">Двойное нажатие для быстрого включения фонарика</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Когда экран выключен…</string>
     <string name="custom_themed_icons_title">Пользовательские тематические иконки</string>
     <string name="px_in_settings_title">Добавить PixelXpert в настройки элементов</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Пользовательские значки отключены</string>
     <string name="custom_themed_icons_on">Пользовательские значки включены</string>
     <string name="so_vol_longpress_skip">Долгое нажатие клавишь громкости для переключения треков</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Важно: Вы ДОЛЖНЫ включить приложения, для которых Вы хотите отключить прокрутку, в LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Контроль фонарика кнопками громкости</string>
     <string name="milliseconds">Миллисекунды</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Часы</string>
     <string name="system_time_title">Системное время</string>
     <string name="sync_ntp_time_title">Использовать NTP сервера для синхронизации времени</string>

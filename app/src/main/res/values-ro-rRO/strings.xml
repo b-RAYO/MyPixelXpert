@@ -171,6 +171,7 @@
     <string name="status_bar_height">Înălțimea barei de stare (rotește ecranul pentru a aplica)</string>
     <string name="sb_padding_title">Umplere bară de stare</string>
     <string name="sb_padding_summary">Setarea valorilor la min/max este echivalentă cu valorile implicite ale dispozitivului</string>
+    <string name="sbbb_header_title">Bară baterie</string>
     <string name="sbbb_header">Setări bară baterie</string>
     <string name="sbbIcon_header">Setări pictogramă baterie</string>
     <string name="BB_enable_title">Activare bară baterie</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Limitele luminozității</string>
     <string name="brightness_range_not_linear">Acest interval NU este liniar: Uneori o diferență mică duce la schimbări considerabile</string>
     <string name="separate_ring_notif_vol_title">Volum individual pentru sonerie și notificare</string>
+    <string name="show_vol_level_title">Procentaj volum în panoul de volum</string>
     <string name="so_power_longpress_torch_title">Apăsare lungă pe butonul de alimentare pentru lanternă</string>
     <string name="so_taptaptorch_title">Activează atingerea dublă pentru lanternă pe ecranul de blocare</string>
     <string name="so_taptaptorch_summary">Atinge dublu și menține apăsat ecranul de blocare pentru acces rapid la lanternă</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">În timp ce ecranul este oprit…</string>
     <string name="custom_themed_icons_title">Pictograme personalizate</string>
     <string name="px_in_settings_title">Adaugă PixelXpert la elementele Setărilor</string>
+    <string name="sleep_on_flat_screen_title">Oprește ecranul pe o suprafață plană</string>
+    <string name="sleep_on_flat_screen_tile_title">Somn pe suprafață</string>
+    <string name="flat_screen_timeout_title">Durată expirare ecran pe suprafața plană</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respectă blocajele de trezire</string>
     <string name="custom_themed_icons_off">Pictograme personalizate dezactivate</string>
     <string name="custom_themed_icons_on">Pictograme personalizate activate</string>
     <string name="so_vol_longpress_skip">Apăsare lungă butoane Volum pentru a omite melodia</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Important: TREBUIE să activezi aplicațiile pentru care dorești să dezactivezi derularea elastică în LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Controlează lanterna cu butoanele de volum</string>
     <string name="milliseconds">Milisecunde</string>
+    <string name="duration_seconds">%d secunde</string>
     <string name="hours">Ore</string>
     <string name="system_time_title">Ora sistemului</string>
     <string name="sync_ntp_time_title">Utilizează NTP pentru a sincroniza ora</string>

@@ -171,6 +171,7 @@
     <string name="status_bar_height">Altura da barra de estado</string>
     <string name="sb_padding_title">Espaçamento na barra de estado</string>
     <string name="sb_padding_summary">Os valores min/máx são os padrão</string>
+    <string name="sbbb_header_title">Barra de bateria</string>
     <string name="sbbb_header">Opções da barra de bateria</string>
     <string name="sbbIcon_header">Opções do ícone da bateria</string>
     <string name="BB_enable_title">Ativar barra de bateria</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Limites do brilho do ecrã</string>
     <string name="brightness_range_not_linear">Este intervalo NÃO é linear: Por vezes, uma pequena diferença leva a mudanças consideráveis.</string>
     <string name="separate_ring_notif_vol_title">Volume individual para Toque e Notificação</string>
+    <string name="show_vol_level_title">Percentagem do volume no painel de volume</string>
     <string name="so_power_longpress_torch_title">Lanterna ao manter premido o botão ligar/desligar*</string>
     <string name="so_taptaptorch_title">Ativar toque duplo para lanterna</string>
     <string name="so_taptaptorch_summary">Toque duplo e manter premido para lanterna no ecrã de bloqueio</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Enquanto o ecrã está desligado…</string>
     <string name="custom_themed_icons_title">Ícones temáticos personalizados</string>
     <string name="px_in_settings_title">Adicione PixelXpert aos itens de configuração</string>
+    <string name="sleep_on_flat_screen_title">Desligar o ecrã numa superfície plana</string>
+    <string name="sleep_on_flat_screen_tile_title">Suspender na superfície</string>
+    <string name="flat_screen_timeout_title">Tempo limite do ecrã numa superfície plana</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respeitar bloqueios para acordar</string>
     <string name="custom_themed_icons_off">Ícones personalizados inativos</string>
     <string name="custom_themed_icons_on">Ícones personalizados ativos</string>
     <string name="so_vol_longpress_skip">Manter premido para mudar de faixa</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Nota: Requer ativar as apps, para as quais pretende desativar o efeito elástico, no gestor da LSposed</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">Milissegundos</string>
+    <string name="duration_seconds">%d Segundos</string>
     <string name="hours">Horas</string>
     <string name="system_time_title">Hora do sistema</string>
     <string name="sync_ntp_time_title">Usar NTP para sincronizar dia e hora</string>

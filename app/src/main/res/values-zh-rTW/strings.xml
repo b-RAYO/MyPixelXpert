@@ -171,6 +171,7 @@
     <string name="status_bar_height">狀態高度</string>
     <string name="sb_padding_title">狀態列內邊距</string>
     <string name="sb_padding_summary">最小/最大 等同於裝置預設值</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">電池條設定</string>
     <string name="sbbIcon_header">電池圖示設定</string>
     <string name="BB_enable_title">啟用電池條</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">顯示亮度限制</string>
     <string name="brightness_range_not_linear">這個範圍不是線性的,有時一個小的差異會導致相當大的變化</string>
     <string name="separate_ring_notif_vol_title">Individual volume for Ringer and Notification</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">長按電源開啟手電筒</string>
     <string name="so_taptaptorch_title">鎖定畫面雙擊開啟手電筒</string>
     <string name="so_taptaptorch_summary">鎖定畫面時 雙擊+長按開啟手電筒</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">鎖定畫面時</string>
     <string name="custom_themed_icons_title">自訂帶主題的圖示</string>
     <string name="px_in_settings_title">將 PixelXpert 加入設定選項</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">自訂圖示已禁用</string>
     <string name="custom_themed_icons_on">自訂圖示已啟用</string>
     <string name="so_vol_longpress_skip">長按音量鍵跳過歌曲</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">重要:你必須在 LSPosed 作用域中勾選你要禁用的應用程式</string>
     <string name="control_flashlight_with_volume_keys">使用音量按鍵控制手電筒</string>
     <string name="milliseconds">毫秒</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">小時</string>
     <string name="system_time_title">系統時間</string>
     <string name="sync_ntp_time_title">使用 NTP 同步時間 (網路時間協議)</string>

@@ -54,4 +54,5 @@ public class MiscFragment extends ControlledPreferenceFragmentCompat {
 
 		Toast.makeText(getContext(), toastResource, Toast.LENGTH_SHORT).show();
 	}
+
 }

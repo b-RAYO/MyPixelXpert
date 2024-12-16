@@ -171,6 +171,7 @@
     <string name="status_bar_height">ステータスバーの高さ (画面の回転時に適用されます)</string>
     <string name="sb_padding_title">ステータスバーのパディング</string>
     <string name="sb_padding_summary">最小または最高に設定するとデバイスの既定と同等になります</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">バッテリーバーの表示</string>
     <string name="sbbIcon_header">バッテリーアイコンの設定</string>
     <string name="BB_enable_title">バッテリーバーを有効</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">ディスプレイの明るさ制限</string>
     <string name="brightness_range_not_linear">This range is NOT linear: Sometimes a small difference leads to considerable changes</string>
     <string name="separate_ring_notif_vol_title">着信音と通知の個別音量</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">電源ボタン長押しで懐中電灯を起動</string>
     <string name="so_taptaptorch_title">ロック画面をダブルタップで懐中電灯を起動</string>
     <string name="so_taptaptorch_summary">ダブルタップと長押しで懐中電灯に素早くアクセス可能になります</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">While screen is off…</string>
     <string name="custom_themed_icons_title">カスタムテーマアイコン</string>
     <string name="px_in_settings_title">PixelXpert を設定画面に追加</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">カスタムアイコン無効</string>
     <string name="custom_themed_icons_on">カスタムアイコン有効</string>
     <string name="so_vol_longpress_skip">音量ボタン長押しで曲をスキップ</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">重要事項: LSPosedでオーバースクロールを無効化するアプリをスコープに追加をする必要があります</string>
     <string name="control_flashlight_with_volume_keys">音量ボタンでライトを制御</string>
     <string name="milliseconds">ミリ秒</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">時間</string>
     <string name="system_time_title">システム時刻</string>
     <string name="sync_ntp_time_title">NTPを使って時刻を同期する</string>

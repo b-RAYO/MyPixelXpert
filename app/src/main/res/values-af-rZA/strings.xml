@@ -171,6 +171,7 @@
     <string name="status_bar_height">Statusbalkhoogte (draai skerm om toe te pas)</string>
     <string name="sb_padding_title">Statusbalk Opvulling</string>
     <string name="sb_padding_summary">Om die waardes op min/maks te stel, is gelykstaande aan toestelverstek</string>
+    <string name="sbbb_header_title">Battery Bar</string>
     <string name="sbbb_header">Batterybalkinstellings</string>
     <string name="sbbIcon_header">Battery-ikoon-instellings</string>
     <string name="BB_enable_title">Aktiveer batterybalk</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Vertoon helderheid limiete</string>
     <string name="brightness_range_not_linear">Hierdie reeks is NIE lineêr nie: Soms lei \'n klein verskil tot aansienlike veranderinge</string>
     <string name="separate_ring_notif_vol_title">Individuele volume vir Beltoon en Kennisgewing</string>
+    <string name="show_vol_level_title">Volume percentage on volume panel</string>
     <string name="so_power_longpress_torch_title">Lang druk Power-knoppie vir fakkel</string>
     <string name="so_taptaptorch_title">Aktiveer dubbeltik vir sluitskerm fakkel</string>
     <string name="so_taptaptorch_summary">Dubbeltik en hou sluitskerm vir vinnige flitstoegang</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Terwyl skerm af is…</string>
     <string name="custom_themed_icons_title">Pasgemaakte tema-ikone</string>
     <string name="px_in_settings_title">Add PixelXpert to settings items</string>
+    <string name="sleep_on_flat_screen_title">Turn off the screen on flat surface</string>
+    <string name="sleep_on_flat_screen_tile_title">Sleep on surface</string>
+    <string name="flat_screen_timeout_title">Screen timeout on flat surface</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respect wake locks</string>
     <string name="custom_themed_icons_off">Gepasmaakte ikone gedeaktiveer</string>
     <string name="custom_themed_icons_on">Gepasmaakte ikone geaktiveer</string>
     <string name="so_vol_longpress_skip">Druk lank op Volume-knoppies om musiek oor te slaan</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Belangrik: jy MOET die programme waarvoor jy oorblaai wil deaktiveer binne LSPosed aktiveer</string>
     <string name="control_flashlight_with_volume_keys">Control flashlight with volume buttons</string>
     <string name="milliseconds">Millisekondes</string>
+    <string name="duration_seconds">%d Seconds</string>
     <string name="hours">Hours</string>
     <string name="system_time_title">System time</string>
     <string name="sync_ntp_time_title">Use NTP to sync time</string>

@@ -171,6 +171,7 @@
     <string name="status_bar_height">Anchura de barra de estado</string>
     <string name="sb_padding_title">Padding de la barra de estado</string>
     <string name="sb_padding_summary">Establecer los valores en min/max es equivalente al valor predeterminado del dispositivo</string>
+    <string name="sbbb_header_title">Barra de batería</string>
     <string name="sbbb_header">Configuración de la barra de batería</string>
     <string name="sbbIcon_header">Ajustes de icono de batería</string>
     <string name="BB_enable_title">Activar barra de batería</string>
@@ -293,6 +294,7 @@
     <string name="brightness_range_title">Límites de brillo de la pantalla</string>
     <string name="brightness_range_not_linear">Este rango NO es lineal: A veces una pequeña diferencia conduce a cambios considerables</string>
     <string name="separate_ring_notif_vol_title">Volumen individual para timbre y notificación</string>
+    <string name="show_vol_level_title">Porcentaje de volumen en el panel de volumen</string>
     <string name="so_power_longpress_torch_title">Mantenga presionado el botón de encendido para la linterna</string>
     <string name="so_taptaptorch_title">Habilitar doble toque para la linterna en pantalla de bloqueo</string>
     <string name="so_taptaptorch_summary">Toque dos veces y mantenga presionada la pantalla de bloqueo para acceder rápidamente a la linterna</string>
@@ -308,6 +310,10 @@
     <string name="doze_header">Mientras la pantalla está apagada…</string>
     <string name="custom_themed_icons_title">Iconos temáticos personalizados</string>
     <string name="px_in_settings_title">Añadir PixelXpert a los elementos de configuración</string>
+    <string name="sleep_on_flat_screen_title">Apagar la pantalla en superficie plana</string>
+    <string name="sleep_on_flat_screen_tile_title">Dormir en la superficie</string>
+    <string name="flat_screen_timeout_title">Tiempo de espera de pantalla en superficie plana</string>
+    <string name="flat_screen_timeout_respect_wakelock_title">Respetar despertares</string>
     <string name="custom_themed_icons_off">Iconos personalizados deshabilitados</string>
     <string name="custom_themed_icons_on">Iconos personalizados habilitados</string>
     <string name="so_vol_longpress_skip">Mantenga presionados los botones de volumen para saltar música</string>
@@ -322,6 +328,7 @@
     <string name="overscroll_on_summary">Importante: DEBE habilitar las aplicaciones para las que desea deshabilitar el desplazamiento excesivo dentro de LSPosed</string>
     <string name="control_flashlight_with_volume_keys">Controla la linterna con los botones de volumen</string>
     <string name="milliseconds">Milisegundos</string>
+    <string name="duration_seconds">%d Segundos</string>
     <string name="hours">Horas</string>
     <string name="system_time_title">Hora del sistema</string>
     <string name="sync_ntp_time_title">Usar NTP para sincronizar la hora</string>
