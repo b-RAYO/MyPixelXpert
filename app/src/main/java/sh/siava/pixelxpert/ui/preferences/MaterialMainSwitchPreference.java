@@ -46,7 +46,7 @@ public class MaterialMainSwitchPreference extends SwitchPreferenceCompat {
 
         if (holder.getBindingAdapterPosition() == 0) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-            layoutParams.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getContext().getResources().getDisplayMetrics());
+            layoutParams.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getContext().getResources().getDisplayMetrics());
             holder.itemView.setLayoutParams(layoutParams);
         } else {
             if (holder.getBindingAdapter() != null) {
