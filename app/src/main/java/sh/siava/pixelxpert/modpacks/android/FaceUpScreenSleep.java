@@ -19,7 +19,6 @@ import java.util.Set;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import sh.siava.pixelxpert.BuildConfig;
 import sh.siava.pixelxpert.modpacks.Constants;
 import sh.siava.pixelxpert.modpacks.XposedModPack;
 import sh.siava.pixelxpert.modpacks.utils.toolkit.ReflectedClass;
@@ -31,6 +30,7 @@ public class FaceUpScreenSleep extends XposedModPack {
 	public static final int DEFAULT_DISPLAY_GROUP = 0;
 	public static final int GO_TO_SLEEP_REASON_TIMEOUT = 2;
 	static final int WAKE_LOCK_STAY_AWAKE = 1 << 5;
+	private static final boolean FLAG_DEBUG = false;
 	long mFirstStableMillis = 0;
 	boolean mIsMoving = true;
 	private Object mPowerManagerServiceInstance;
@@ -129,7 +129,7 @@ public class FaceUpScreenSleep extends XposedModPack {
 	}
 
 	private void resetTime(String reason) {
-		if(BuildConfig.DEBUG)
+		if(FLAG_DEBUG)
 		{
 			log("resetting time for " + reason);
 		}
