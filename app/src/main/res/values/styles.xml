@@ -6,7 +6,7 @@
     </style>
 
     <style name="PrefsThemeCollapsingToolbar" parent="PreferenceThemeOverlay.v14.Material">
-        <item name="android:layout">@layout/fragment_preference_container_home</item>
+        <item name="android:layout">@layout/fragment_preference_container_expandable</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Material3.TitleLarge" />

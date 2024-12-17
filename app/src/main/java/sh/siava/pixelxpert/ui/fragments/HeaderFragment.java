@@ -37,11 +37,6 @@ public class HeaderFragment extends ControlledPreferenceFragmentCompat {
 	}
 
 	@Override
-	protected int getDefaultThemeResource() {
-		return R.style.PrefsThemeCollapsingToolbar;
-	}
-
-	@Override
 	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 		super.onCreatePreferences(savedInstanceState, rootKey);
 		initSearchableItems();
