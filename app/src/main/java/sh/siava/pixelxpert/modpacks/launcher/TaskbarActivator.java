@@ -70,6 +70,7 @@ public class TaskbarActivator extends XposedModPack {
 	private static boolean TaskbarHideAllAppsIcon = false;
 	private Object model;
 	String mTasksFieldName = null; // in case the code was obfuscated
+	boolean mTasksIsList = false;
 	private Object TaskbarModelCallbacks;
 	private int mItemsLength = 0;
 	private int mUpdateHotseatParams = 2;
@@ -292,10 +293,20 @@ public class TaskbarActivator extends XposedModPack {
 										}
 									}
 								}
+								if (mTasksFieldName == null) {
+									for (Field f : recentTaskList.get(0).getClass().getDeclaredFields()) {
+										if (f.getType().getName().contains("List")) {
+											mTasksFieldName = f.getName();
+											mTasksIsList = true;
+										}
+									}
+								}
 
 								recentTaskList.removeIf(r ->
 										(boolean) getObjectField(
-												((Object[]) getObjectField(r, mTasksFieldName))[0],
+												mTasksIsList
+												? ((List<?>) getObjectField(r, mTasksFieldName)).get(0)
+												: ((Object[]) getObjectField(r, mTasksFieldName))[0],
 												"isFocused"
 										)
 								);
@@ -318,7 +329,9 @@ public class TaskbarActivator extends XposedModPack {
 								}
 
 								for (int i = 0; i < itemInfos.length; i++) {
-									TaskInfo taskInfo = (TaskInfo) ((Object[]) getObjectField(recentTaskList.get(i), mTasksFieldName))[0];
+									TaskInfo taskInfo = mTasksIsList
+											? (TaskInfo) ((List<?>) getObjectField(recentTaskList.get(i), mTasksFieldName)).get(0)
+											: (TaskInfo) ((Object[]) getObjectField(recentTaskList.get(i), mTasksFieldName))[0];
 
 									// noinspection ,JavaReflectionMemberAccess
 									itemInfos[i] = AppInfoClass.getClazz().getConstructor(ComponentName.class, CharSequence.class, UserHandle.class, Intent.class)
@@ -353,8 +366,7 @@ public class TaskbarActivator extends XposedModPack {
 									setAdditionalInstanceField(iconView, "taskId", getAdditionalInstanceField(itemInfos[itemInfos.length - i - 1], "taskId"));
 									callMethod(iconView, "applyFromApplicationInfo", itemInfos[itemInfos.length - i - 1]);
 								}
-							} catch (Throwable ignored) {
-							}
+							} catch (Throwable ignored) {}
 						}));
 						refreshing = false;
 					}).start();
