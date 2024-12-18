@@ -21,6 +21,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Objects;
+
 import sh.siava.pixelxpert.R;
 
 public abstract class ControlledPreferenceFragmentCompat extends PreferenceFragmentCompat {
@@ -42,7 +44,7 @@ public abstract class ControlledPreferenceFragmentCompat extends PreferenceFragm
 	public abstract int getLayoutResource();
 
 	protected int getDefaultThemeResource() {
-		return R.style.PrefsThemeToolbar;
+		return R.style.PrefsThemeCollapsingToolbar;
 	}
 
 	public int getThemeResource() {
@@ -60,7 +62,7 @@ public abstract class ControlledPreferenceFragmentCompat extends PreferenceFragm
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
+		setHasOptionsMenu(!Objects.equals(getTitle(), getString(R.string.app_name)));
 		navController = NavHostFragment.findNavController(this);
 	}
 

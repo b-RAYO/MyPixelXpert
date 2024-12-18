@@ -14,10 +14,4 @@ public class SBBBFragment extends ControlledPreferenceFragmentCompat {
 	public int getLayoutResource() {
 		return R.xml.statusbar_batterybar_prefs;
 	}
-
-	@Override
-	protected int getDefaultThemeResource() {
-		return R.style.PrefsThemeCollapsingToolbar;
-	}
-
 }
