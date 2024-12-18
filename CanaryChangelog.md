@@ -1,3 +1,7 @@
+**canary-412**  
+- A15QPR2B2: Fixed recents taskbar  
+- Fixed light theme since canary 411  
+  
 **canary-411**  
 - UI updates  
   
