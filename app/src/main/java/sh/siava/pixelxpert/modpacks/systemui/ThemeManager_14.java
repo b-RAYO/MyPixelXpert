@@ -510,7 +510,7 @@ public class ThemeManager_14 extends XposedModPack {
 				.run(param -> calculateColors());
 
 		ScrimControllerClass
-				.before(Pattern.compile("applyState.*"))
+				.after(Pattern.compile("applyState.*"))
 				.run(param -> {
 					boolean mClipsQsScrim = (boolean) getObjectField(param.thisObject, "mClipsQsScrim");
 					if (mClipsQsScrim) {
