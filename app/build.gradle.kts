@@ -148,6 +148,9 @@ dependencies {
 	// Splash screen
 	implementation (libs.androidx.core.splashscreen)
 
+	// Lottie
+	implementation(libs.lottie)
+
 	implementation (libs.prdownloader)
 
 	implementation (libs.pytorch.android.lite)

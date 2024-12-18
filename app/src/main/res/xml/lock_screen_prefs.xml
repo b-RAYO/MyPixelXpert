@@ -4,6 +4,11 @@
 	xmlns:search="http://schemas.android.com/apk/sh.siava.pixelxpert.ui.preferencesearch"
 	android:visibility="visible">
 
+	<sh.siava.pixelxpert.ui.preferences.IllustrationPreference
+		android:key="lock_screen_illustration"
+		app:lottie_rawRes="@raw/lock"
+		search:ignore="true" />
+
 	<sh.siava.pixelxpert.ui.preferences.MaterialPreferenceCategory
 		android:layout="@layout/custom_preference_category"
 		android:title="@string/ls_general_options"
