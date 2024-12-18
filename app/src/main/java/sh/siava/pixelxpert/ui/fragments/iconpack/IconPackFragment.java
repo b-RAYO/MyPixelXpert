@@ -1,8 +1,11 @@
 package sh.siava.pixelxpert.ui.fragments.iconpack;
 
+import static sh.siava.pixelxpert.utils.MiscUtils.dpToPx;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,7 +86,7 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-							 @Nullable Bundle savedInstanceState) {
+	                         @Nullable Bundle savedInstanceState) {
 		binding = FragmentIconPackBinding.inflate(inflater, container, false);
 		return binding.getRoot();
 	}
@@ -109,6 +113,19 @@ public class IconPackFragment extends BaseFragment implements IconPackUtil.IconP
 			}
 		});
 		binding.resetButton.setOnClickListener(v -> resetIconPacks());
+
+		ViewGroup tabs = (ViewGroup) binding.tabLayout.getChildAt(0);
+		int tabCount = tabs.getChildCount();
+		Log.i("IconPackFragment", "tabCount: " + tabCount);
+		for (int i = 0; i < tabCount; i++) {
+			View tab = tabs.getChildAt(i);
+			LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tab.getLayoutParams();
+			if (i != 0) layoutParams.setMarginStart(dpToPx(6));
+			if (i != tabCount - 1) layoutParams.setMarginEnd(dpToPx(6));
+			tab.setLayoutParams(layoutParams);
+			tab.requestLayout();
+		}
+		binding.tabLayout.requestLayout();
 	}
 
 	@Override
