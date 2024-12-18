@@ -9,5 +9,8 @@
 	<!-- Preferences -->
 	<dimen name="preference_padding_horizontal">24dp</dimen>
 	<dimen name="preference_padding_vertical">16dp</dimen>
+	<dimen name="settingslib_illustration_width">380dp</dimen>
+	<dimen name="settingslib_illustration_height">300dp</dimen>
+
 
 </resources>
