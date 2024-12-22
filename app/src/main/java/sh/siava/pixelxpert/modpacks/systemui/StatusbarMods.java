@@ -137,6 +137,7 @@ public class StatusbarMods extends XposedModPack {
 	//endregion
 
 	//region privacy chip
+	private Object mPrivacyItemController;
 	private static boolean HidePrivacyChip = false;
 	//endregion
 
@@ -619,17 +620,11 @@ public class StatusbarMods extends XposedModPack {
 		//endregion
 
 		//region privacy chip
-		NotifyChangesToCallbackClass //A15QPR2 + A16
-				.before("run")
-				.run(param -> {
-					if (HidePrivacyChip) {
-						param.setResult(null);
-					}
-				});
-
 		PrivacyItemControllerClass
 				.afterConstruction()
 				.run(param ->
+						{
+						mPrivacyItemController = param.thisObject;
 						ReflectedClass.of(getObjectField(param.thisObject, "notifyChanges").getClass())
 								.before("run")
 								.run(param1 -> {
@@ -640,7 +635,16 @@ public class StatusbarMods extends XposedModPack {
 										} catch (Throwable ignored) {
 										}
 									}
-								}));
+								});
+						});
+
+		NotifyChangesToCallbackClass //A15QPR2 + A16
+				.before("run")
+				.run(param -> {
+					if (HidePrivacyChip) {
+						((List<?>) getObjectField(mPrivacyItemController, "callbacks")).clear();
+					}
+				});
 		//endregion
 
 		//region SB Padding
