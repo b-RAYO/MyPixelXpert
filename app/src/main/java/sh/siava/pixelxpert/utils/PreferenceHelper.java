@@ -521,10 +521,12 @@ public class PreferenceHelper {
 				if (thisPreference instanceof MaterialPrimarySwitchPreference) {
 					MaterialPrimarySwitchPreference switchPreference = (MaterialPrimarySwitchPreference) thisPreference;
 					switchPreference.setChecked(instance.mPreferences.getBoolean(switchPreference.getKey(), false));
-				}
-
-				if (thisPreference instanceof PreferenceGroup) {
+				} else if (thisPreference instanceof PreferenceGroup) {
 					setupAllPreferences((PreferenceGroup) thisPreference);
+				}
+				else
+				{
+					PreferenceHelper.setupPreference(thisPreference);
 				}
 			} catch (Throwable ignored) {
 				break;
