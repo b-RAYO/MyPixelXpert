@@ -540,6 +540,7 @@ public class StatusbarMods extends XposedModPack {
 		StatusBarIconClass = ReflectedClass.of("com.android.internal.statusbar.StatusBarIcon", lpParam.classLoader);
 		StatusBarIconHolderClass = ReflectedClass.of("com.android.systemui.statusbar.phone.StatusBarIconHolder", lpParam.classLoader);
 		SystemUIDialogClass = ReflectedClass.of("com.android.systemui.statusbar.phone.SystemUIDialog", lpParam.classLoader);
+		ReflectedClass NotifyChangesToCallbackClass = ReflectedClass.ofIfPossible("com.android.systemui.privacy.PrivacyItemController$NotifyChangesToCallback", lpParam.classLoader);
 		//endregion
 
 
@@ -618,6 +619,14 @@ public class StatusbarMods extends XposedModPack {
 		//endregion
 
 		//region privacy chip
+		NotifyChangesToCallbackClass //A15QPR2 + A16
+				.before("run")
+				.run(param -> {
+					if (HidePrivacyChip) {
+						param.setResult(null);
+					}
+				});
+
 		PrivacyItemControllerClass
 				.afterConstruction()
 				.run(param ->
