@@ -171,7 +171,7 @@
     <string name="status_bar_height">状态高度</string>
     <string name="sb_padding_title">状态栏内边距</string>
     <string name="sb_padding_summary">最小 / 最大 等同于设备默认值</string>
-    <string name="sbbb_header_title">Battery Bar</string>
+    <string name="sbbb_header_title">电量条</string>
     <string name="sbbb_header">电池条设置</string>
     <string name="sbbIcon_header">电池图标设置</string>
     <string name="BB_enable_title">启用电池条</string>

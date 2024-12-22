@@ -38,7 +38,7 @@
     <string name="crowdin_summary">ساعدنا في تَرْجَمَة خبير بيكسل إلي لغتك الخاصة</string>
     <!--Category titles-->
     <string name="lockscreen_header_title">قفل الشاشة</string>
-    <string name="lockscreen_header_summary">Change your keyguard to match your taste</string>
+    <string name="lockscreen_header_summary"></string>
     <string name="statusbar_header">شريط الحالة</string>
     <string name="statusbar_header_summary">That thin bar that shows useful data</string>
     <string name="nav_header">شريط التنقل</string>
