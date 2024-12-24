@@ -2,8 +2,6 @@ package sh.siava.pixelxpert.modpacks.systemui;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
-import static android.service.quicksettings.Tile.STATE_ACTIVE;
-import static android.service.quicksettings.Tile.STATE_UNAVAILABLE;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.getIntField;
 import static de.robv.android.xposed.XposedHelpers.getObjectField;
@@ -62,6 +60,7 @@ public class ThemeManager_14 extends XposedModPack {
 	private Object ShadeCarrierGroupController;
 	private final ArrayList<Object> ModernShadeCarrierGroupMobileViews = new ArrayList<>();
 	private static final int PM_LITE_BACKGROUND_CODE = 1;
+	private ColorStateList mDefaultLabelActiveColor, mDefaultLabelInactiveColor;
 
 	public ThemeManager_14(Context context) {
 		super(context);
@@ -465,7 +464,6 @@ public class ThemeManager_14 extends XposedModPack {
 					ImageView originalIcon = (ImageView) getObjectField(param.thisObject, "mIcon");
 					TintControlledImageView replacementIcon = new TintControlledImageView(originalIcon.getContext());
 
-					replacementIcon.setParent(param.thisObject);
 					replacementIcon.setImageDrawable(originalIcon.getDrawable());
 
 					setObjectField(param.thisObject, "mIcon", replacementIcon);
@@ -493,6 +491,9 @@ public class ThemeManager_14 extends XposedModPack {
 				.afterConstruction()
 				.run(param -> {
 					if (isDark) return;
+
+					mDefaultLabelActiveColor = ColorStateList.valueOf(getIntField(param.thisObject, "colorLabelActive"));
+					mDefaultLabelInactiveColor = ColorStateList.valueOf(getIntField(param.thisObject, "colorSecondaryLabelInactive"));
 
 					setObjectField(param.thisObject, "colorActive", colorActive);
 					setObjectField(param.thisObject, "colorInactive", colorInactive);
@@ -572,14 +573,6 @@ public class ThemeManager_14 extends XposedModPack {
 
 	}
 
-	private int getIconColorLightMode(Object icon) {
-		return switch (getIntField(icon, "mState")) {
-			case STATE_ACTIVE -> colorInactive;
-			case STATE_UNAVAILABLE -> colorFadedBlack;
-			default -> BLACK;
-		};
-	}
-
 	private void setMobileIconTint(Object ModernStatusBarViewBinding, int textColor) {
 		callMethod(ModernStatusBarViewBinding, "onIconTintChanged", textColor, textColor);
 	}
@@ -649,7 +642,6 @@ public class ThemeManager_14 extends XposedModPack {
 	@SuppressLint("AppCompatCustomView")
 	public class TintControlledImageView extends ImageView
 	{
-		private Object parent;
 		public TintControlledImageView(Context context) {
 			super(context);
 		}
@@ -664,13 +656,19 @@ public class ThemeManager_14 extends XposedModPack {
 
 		@Override public void setImageTintList(ColorStateList tintList)
 		{
-			super.setImageTintList(isDark
-					? tintList
-					: ColorStateList.valueOf(getIconColorLightMode(parent)));
+			super.setImageTintList(getIconTintLightMode(tintList));
 		}
 
-		public void setParent(Object thisObject) {
-			parent = thisObject;
+		private ColorStateList getIconTintLightMode(ColorStateList tintList) {
+			if(tintList.equals(mDefaultLabelActiveColor))
+			{
+				return ColorStateList.valueOf(colorInactive);
+			}
+			else if(tintList.equals(mDefaultLabelInactiveColor))
+			{
+				return ColorStateList.valueOf(BLACK);
+			}
+			return ColorStateList.valueOf(colorFadedBlack);
 		}
 	}
 }
