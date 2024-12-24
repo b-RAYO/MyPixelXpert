@@ -251,18 +251,17 @@ public class TaskbarActivator extends XposedModPack {
 		TaskbarViewClass
 				.after("updateHotseatItems")
 				.run(param -> {
-					try {
-						View o = (View) getObjectField(param.thisObject, "mAllAppsButtonContainer");
-						ViewGroup t = (ViewGroup) param.thisObject;
-						t.removeView(o);
+					if(TaskbarAsRecents) {
+						try {
+							View container = (View) getObjectField(param.thisObject, "mAllAppsButtonContainer");
+							ViewGroup taskbarView = (ViewGroup) param.thisObject;
+							taskbarView.removeView(container);
 
-						o = (View) getObjectField(param.thisObject, "mTaskbarDividerContainer");
-						t.removeView(o);
-
-					} catch (Throwable ignored) {
+							container = (View) getObjectField(param.thisObject, "mTaskbarDividerContainer");
+							taskbarView.removeView(container);
+						} catch (Throwable ignored) {}
 					}
 				});
-
 
 		RecentTasksListClass
 				.before("onRecentTasksChanged")
