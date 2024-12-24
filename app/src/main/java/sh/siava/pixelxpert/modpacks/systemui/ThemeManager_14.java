@@ -21,8 +21,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableWrapper;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,7 +123,6 @@ public class ThemeManager_14 extends XposedModPack {
 		ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip", lpParam.classLoader);
 		ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl", lpParam.classLoader);
 		ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController", lpParam.classLoader);
-		ReflectedClass QSLongPressPropertiesClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.tileimpl.QSLongPressProperties", lpParam.classLoader);
 
 		try { //A15 early implementation of QS Footer actions - doesn't seem to be leading to final A15 release
 			ReflectedClass FooterActionsViewBinderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.FooterActionsViewBinder", lpParam.classLoader);
@@ -455,9 +455,27 @@ public class ThemeManager_14 extends XposedModPack {
 					}
 				});
 
-		QSIconViewImplClass //general icon color setup
-				.after("updateIcon")
-				.run(param -> setIconColor(param.thisObject));
+		QSIconViewImplClass //composition makes it almost impossible to control icon color via reflection.
+				.afterConstruction()
+				.run(param -> {
+					if(isDark) return;
+
+					ViewGroup thisIconView = (ViewGroup) param.thisObject;
+
+					ImageView originalIcon = (ImageView) getObjectField(param.thisObject, "mIcon");
+					TintControlledImageView replacementIcon = new TintControlledImageView(originalIcon.getContext());
+
+					replacementIcon.setParent(param.thisObject);
+					replacementIcon.setImageDrawable(originalIcon.getDrawable());
+
+					setObjectField(param.thisObject, "mIcon", replacementIcon);
+
+					replacementIcon.setId(mContext.getResources().getIdentifier("icon", "id", mContext.getPackageName()));
+
+					int index= thisIconView.indexOfChild(originalIcon);
+					thisIconView.removeView(originalIcon);
+					thisIconView.addView(replacementIcon, index);
+				});
 
 		CentralSurfacesImplClass
 				.afterConstruction()
@@ -469,32 +487,6 @@ public class ThemeManager_14 extends XposedModPack {
 					}
 				}).start());
 
-		QSLongPressPropertiesClass //color of icon DURING longpress event
-				.afterConstruction()
-				.run(param -> {
-					if (!isDark) {
-						setObjectField(param.thisObject, "iconColor", WHITE);
-					}
-				});
-
-		QSTileViewImplClass //color of icon AFTER longpress event and animation
-				.after("init")
-				.run(param -> {
-					if (isDark) return;
-
-					Object longClickListener = getObjectField(
-							getObjectField(param.thisObject, "mListenerInfo"),
-							"mOnLongClickListener");
-
-					ReflectedClass.of(longClickListener.getClass()) //we have to dive into the VIEW's longpress listener to find out when it's triggered
-							.after("onLongClick")
-							.run(param1 ->
-									((View) param.thisObject).postDelayed(() ->
-											setIconColor(
-													getObjectField(param.thisObject,
-															"icon")),
-											ViewConfiguration.getTapTimeout() + 1000));
-				});
 
 		//setting tile colors in light theme
 		QSTileViewImplClass
@@ -580,19 +572,12 @@ public class ThemeManager_14 extends XposedModPack {
 
 	}
 
-	private void setIconColor(Object icon) {
-		if (isDark) return;
-
-		int color = switch (getIntField(icon, "mState")) {
+	private int getIconColorLightMode(Object icon) {
+		return switch (getIntField(icon, "mState")) {
 			case STATE_ACTIVE -> colorInactive;
 			case STATE_UNAVAILABLE -> colorFadedBlack;
 			default -> BLACK;
 		};
-
-		((ImageView) getObjectField(icon, "mIcon"))
-				.setImageTintList(
-						ColorStateList
-								.valueOf(color));
 	}
 
 	private void setMobileIconTint(Object ModernStatusBarViewBinding, int textColor) {
@@ -659,5 +644,33 @@ public class ThemeManager_14 extends XposedModPack {
 	@Override
 	public boolean listensTo(String packageName) {
 		return listenPackage.equals(packageName) && !XPLauncher.isChildProcess;
+	}
+
+	@SuppressLint("AppCompatCustomView")
+	public class TintControlledImageView extends ImageView
+	{
+		private Object parent;
+		public TintControlledImageView(Context context) {
+			super(context);
+		}
+
+		public TintControlledImageView(Context context, @Nullable AttributeSet attrs) {
+			super(context, attrs);
+		}
+
+		public TintControlledImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+			super(context, attrs, defStyleAttr);
+		}
+
+		@Override public void setImageTintList(ColorStateList tintList)
+		{
+			super.setImageTintList(isDark
+					? tintList
+					: ColorStateList.valueOf(getIconColorLightMode(parent)));
+		}
+
+		public void setParent(Object thisObject) {
+			parent = thisObject;
+		}
 	}
 }
