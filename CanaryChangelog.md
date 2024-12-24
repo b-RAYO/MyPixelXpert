@@ -1,3 +1,6 @@
+**canary-416**  
+- Taskbar in normal mode now shows all apps button  
+  
 **canary-415**  
 - QS Light theme: fixed icon colors during/after longpress  
   
