@@ -1,3 +1,6 @@
+**canary-414**  
+- A15QPR2 & A16: Fixed hiding privacy indicators  
+  
 **canary-413**  
 - A15QPR2 & A16: Fixed hiding privacy indicators  
 - Fixed random preferences shown on the app  
