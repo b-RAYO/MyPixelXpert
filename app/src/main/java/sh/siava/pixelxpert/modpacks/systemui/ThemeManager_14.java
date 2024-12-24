@@ -22,6 +22,7 @@ import android.graphics.drawable.DrawableWrapper;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -121,6 +122,7 @@ public class ThemeManager_14 extends XposedModPack {
 		ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip", lpParam.classLoader);
 		ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl", lpParam.classLoader);
 		ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController", lpParam.classLoader);
+		ReflectedClass QSLongPressPropertiesClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.tileimpl.QSLongPressProperties", lpParam.classLoader);
 
 		try { //A15 early implementation of QS Footer actions - doesn't seem to be leading to final A15 release
 			ReflectedClass FooterActionsViewBinderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.FooterActionsViewBinder", lpParam.classLoader);
@@ -208,12 +210,12 @@ public class ThemeManager_14 extends XposedModPack {
 								result = switch (mContext.getResources().getResourceName(code).split("/")[1]) {
 									case "underSurface",
 										 "onShadeActive",
-										 "shadeInactive" ->
-											colorInactive; //button backgrounds
+										 "shadeInactive" -> colorInactive; //button backgrounds
 									case "onShadeInactiveVariant" -> BLACK;
 									default -> result;
 								};
-							} catch (Throwable ignored) {}
+							} catch (Throwable ignored) {
+							}
 						}
 
 						if (result != 0) {
@@ -453,22 +455,9 @@ public class ThemeManager_14 extends XposedModPack {
 					}
 				});
 
-		QSIconViewImplClass
+		QSIconViewImplClass //general icon color setup
 				.after("updateIcon")
-				.run(param -> {
-					if (!isDark) {
-						int color = switch (getIntField(param.args[1], "state")) {
-							case STATE_ACTIVE -> colorInactive;
-							case STATE_UNAVAILABLE -> colorFadedBlack;
-							default -> BLACK;
-						};
-
-						((ImageView) param.args[0])
-								.setImageTintList(
-										ColorStateList
-												.valueOf(color));
-					}
-				});
+				.run(param -> setIconColor(param.thisObject));
 
 		CentralSurfacesImplClass
 				.afterConstruction()
@@ -480,6 +469,32 @@ public class ThemeManager_14 extends XposedModPack {
 					}
 				}).start());
 
+		QSLongPressPropertiesClass //color of icon DURING longpress event
+				.afterConstruction()
+				.run(param -> {
+					if (!isDark) {
+						setObjectField(param.thisObject, "iconColor", WHITE);
+					}
+				});
+
+		QSTileViewImplClass //color of icon AFTER longpress event and animation
+				.after("init")
+				.run(param -> {
+					if (isDark) return;
+
+					Object longClickListener = getObjectField(
+							getObjectField(param.thisObject, "mListenerInfo"),
+							"mOnLongClickListener");
+
+					ReflectedClass.of(longClickListener.getClass()) //we have to dive into the VIEW's longpress listener to find out when it's triggered
+							.after("onLongClick")
+							.run(param1 ->
+									((View) param.thisObject).postDelayed(() ->
+											setIconColor(
+													getObjectField(param.thisObject,
+															"icon")),
+											ViewConfiguration.getTapTimeout() + 1000));
+				});
 
 		//setting tile colors in light theme
 		QSTileViewImplClass
@@ -563,6 +578,21 @@ public class ThemeManager_14 extends XposedModPack {
 				});
 		//endregion
 
+	}
+
+	private void setIconColor(Object icon) {
+		if (isDark) return;
+
+		int color = switch (getIntField(icon, "mState")) {
+			case STATE_ACTIVE -> colorInactive;
+			case STATE_UNAVAILABLE -> colorFadedBlack;
+			default -> BLACK;
+		};
+
+		((ImageView) getObjectField(icon, "mIcon"))
+				.setImageTintList(
+						ColorStateList
+								.valueOf(color));
 	}
 
 	private void setMobileIconTint(Object ModernStatusBarViewBinding, int textColor) {
