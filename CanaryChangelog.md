@@ -1,3 +1,6 @@
+**canary-415**  
+- QS Light theme: fixed icon colors during/after longpress  
+  
 **canary-414**  
 - A15QPR2 & A16: Fixed hiding privacy indicators  
   
