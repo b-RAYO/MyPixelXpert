@@ -78,7 +78,7 @@ public class ScreenshotManager extends XposedModPack {
 					}
 				});
 
-		boolean hookedToPlayScreenshotSoundAsync = isHookedToPlayScreenshotSoundAsync(lpParam); //A15QPR2b1
+		boolean hookedToPlayScreenshotSoundAsync = isHookedToPlayScreenshotSoundAsync(); //A15QPR2b1
 
 		if(ScreenshotControllerClass.getClazz() != null && !hookedToPlayScreenshotSoundAsync) {
 			//A14 QPR1 and older
@@ -113,13 +113,18 @@ public class ScreenshotManager extends XposedModPack {
 				});
 	}
 
-	private static boolean isHookedToPlayScreenshotSoundAsync(XC_LoadPackage.LoadPackageParam lpParam) {
+	private static boolean isHookedToPlayScreenshotSoundAsync() {
 		ReflectedClass ScreenshotSoundControllerImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotSoundControllerImpl");
+
 		return !ScreenshotSoundControllerImplClass
-				.before("playScreenshotSoundAsync")
+				.beforeConstruction()
 				.run(param -> {
-					if (disableScreenshotSound) {
-						param.setResult(null);
+					if(disableScreenshotSound) {
+						for (int i = 0; i < param.args.length; i++) {
+							if (param.args[i].getClass().getName().toLowerCase().contains("dispatcher")) {
+								param.args[i] = ReflectedClass.of("kotlinx.coroutines.ExecutorCoroutineDispatcherImpl").getClazz().getConstructors()[0].newInstance(new NoExecutor());
+							}
+						}
 					}
 				}).isEmpty();
 	}
@@ -194,7 +199,6 @@ public class ScreenshotManager extends XposedModPack {
 
 		@Override
 		public void execute(Runnable runnable) {
-
 		}
 	}
 }
