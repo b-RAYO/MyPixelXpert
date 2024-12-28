@@ -12,25 +12,25 @@ import sh.siava.pixelxpert.R;
 /**
  * The Base preference with two target areas divided by a vertical divider
  */
-public class MaterialTwoTargerPreference extends MaterialPreference {
+public class MaterialTwoTargetPreference extends MaterialPreference {
 
-    public MaterialTwoTargerPreference(Context context, AttributeSet attrs,
+    public MaterialTwoTargetPreference(Context context, AttributeSet attrs,
                                        int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
-    public MaterialTwoTargerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MaterialTwoTargetPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    public MaterialTwoTargerPreference(Context context, AttributeSet attrs) {
+    public MaterialTwoTargetPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public MaterialTwoTargerPreference(Context context) {
+    public MaterialTwoTargetPreference(Context context) {
         super(context);
         init(context);
     }

@@ -7,7 +7,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -21,7 +20,7 @@ import sh.siava.pixelxpert.R;
 /**
  * A custom preference that provides a switch toggle and a clickable preference.
  */
-public class MaterialPrimarySwitchPreference extends MaterialTwoTargerPreference {
+public class MaterialPrimarySwitchPreference extends MaterialTwoTargetPreference {
 
     private MaterialSwitch mSwitch;
     private boolean mChecked;
