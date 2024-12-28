@@ -106,27 +106,27 @@ public class ThemeManager_14 extends XposedModPack {
 		if (!lightQSHeaderEnabled)
 			return; //light QS header pref update needs a systemui restart. so there's no point to load these if not enabled
 
-		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl", lpParam.classLoader);
-		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController", lpParam.classLoader);
-		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController", lpParam.classLoader);
-		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState", lpParam.classLoader);
-		ReflectedClass QSIconViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSIconViewImpl", lpParam.classLoader);
-		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl", lpParam.classLoader);
-		ReflectedClass GlobalActionsDialogLiteSinglePressActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$SinglePressAction", lpParam.classLoader);
-		ReflectedClass GlobalActionsDialogLiteEmergencyActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$EmergencyAction", lpParam.classLoader);
-		ReflectedClass GlobalActionsLayoutLiteClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsLayoutLite", lpParam.classLoader);
-		ReflectedClass QSFooterViewClass = ReflectedClass.of("com.android.systemui.qs.QSFooterView", lpParam.classLoader);
-		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView", lpParam.classLoader);
-		ReflectedClass ShadeCarrierClass = ReflectedClass.of("com.android.systemui.shade.carrier.ShadeCarrier", lpParam.classLoader);
-		ReflectedClass QSCustomizerClass = ReflectedClass.of("com.android.systemui.qs.customize.QSCustomizer", lpParam.classLoader);
-		ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip", lpParam.classLoader);
-		ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl", lpParam.classLoader);
-		ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController", lpParam.classLoader);
+		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl");
+		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController");
+		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController");
+		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState");
+		ReflectedClass QSIconViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSIconViewImpl");
+		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl");
+		ReflectedClass GlobalActionsDialogLiteSinglePressActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$SinglePressAction");
+		ReflectedClass GlobalActionsDialogLiteEmergencyActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$EmergencyAction");
+		ReflectedClass GlobalActionsLayoutLiteClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsLayoutLite");
+		ReflectedClass QSFooterViewClass = ReflectedClass.of("com.android.systemui.qs.QSFooterView");
+		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView");
+		ReflectedClass ShadeCarrierClass = ReflectedClass.of("com.android.systemui.shade.carrier.ShadeCarrier");
+		ReflectedClass QSCustomizerClass = ReflectedClass.of("com.android.systemui.qs.customize.QSCustomizer");
+		ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip");
+		ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl");
+		ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController");
 
 		try { //A15 early implementation of QS Footer actions - doesn't seem to be leading to final A15 release
-			ReflectedClass FooterActionsViewBinderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.FooterActionsViewBinder", lpParam.classLoader);
-			ReflectedClass TextButtonViewHolderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.TextButtonViewHolder", lpParam.classLoader);
-			ReflectedClass NumberButtonViewHolderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.NumberButtonViewHolder", lpParam.classLoader);
+			ReflectedClass FooterActionsViewBinderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.FooterActionsViewBinder");
+			ReflectedClass TextButtonViewHolderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.TextButtonViewHolder");
+			ReflectedClass NumberButtonViewHolderClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.binder.NumberButtonViewHolder");
 
 			NumberButtonViewHolderClass
 					.afterConstruction()
@@ -177,17 +177,17 @@ public class ThemeManager_14 extends XposedModPack {
 		}
 
 		try { //A14 Compose implementation of QS Footer actions
-//			ReflectedClass FooterActionsButtonViewModelClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.viewmodel.FooterActionsButtonViewModel", lpParam.classLoader);
-			ReflectedClass FooterActionsViewModelClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.viewmodel.FooterActionsViewModel", lpParam.classLoader);
-//			ReflectedClass FooterActionsKtClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.compose.FooterActionsKt", lpParam.classLoader);
-			ReflectedClass ThemeColorKtClass = ReflectedClass.of("com.android.compose.theme.ColorKt", lpParam.classLoader);
-			ReflectedClass ExpandableControllerImplClass = ReflectedClass.of("com.android.compose.animation.ExpandableControllerImpl", lpParam.classLoader);
+//			ReflectedClass FooterActionsButtonViewModelClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.viewmodel.FooterActionsButtonViewModel");
+			ReflectedClass FooterActionsViewModelClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.viewmodel.FooterActionsViewModel");
+//			ReflectedClass FooterActionsKtClass = ReflectedClass.of("com.android.systemui.qs.footer.ui.compose.FooterActionsKt");
+			ReflectedClass ThemeColorKtClass = ReflectedClass.of("com.android.compose.theme.ColorKt");
+			ReflectedClass ExpandableControllerImplClass = ReflectedClass.of("com.android.compose.animation.ExpandableControllerImpl");
 
 			ExpandableControllerImplClass
 					.beforeConstruction()
 					.run(param -> {
 						if (!isDark) {
-							ReflectedClass GraphicsColorKtClass = ReflectedClass.of("androidx.compose.ui.graphics.ColorKt", lpParam.classLoader);
+							ReflectedClass GraphicsColorKtClass = ReflectedClass.of("androidx.compose.ui.graphics.ColorKt");
 							param.args[1] = GraphicsColorKtClass.callStaticMethod("Color", BLACK);
 						}
 					});
@@ -218,7 +218,7 @@ public class ThemeManager_14 extends XposedModPack {
 						}
 
 						if (result != 0) {
-							ReflectedClass GraphicsColorKtClass = ReflectedClass.of("androidx.compose.ui.graphics.ColorKt", lpParam.classLoader);
+							ReflectedClass GraphicsColorKtClass = ReflectedClass.of("androidx.compose.ui.graphics.ColorKt");
 							param.setResult(GraphicsColorKtClass.callStaticMethod("Color", result));
 						}
 					});
@@ -240,8 +240,8 @@ public class ThemeManager_14 extends XposedModPack {
 								BLACK);
 
 						//we must use the classes defined in the apk. using our own will fail
-						ReflectedClass StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl", lpParam.classLoader);
-						ReflectedClass ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow", lpParam.classLoader);
+						ReflectedClass StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl");
+						ReflectedClass ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow");
 
 						Object zeroAlphaFlow = StateFlowImplClass.getClazz().getConstructor(Object.class).newInstance(0f);
 						setObjectField(param.thisObject, "backgroundAlpha", ReadonlyStateFlowClass.getClazz().getConstructors()[0].newInstance(zeroAlphaFlow));
@@ -250,8 +250,8 @@ public class ThemeManager_14 extends XposedModPack {
 		}
 
 		try { //A14 ap11 onwards - modern implementation of mobile icons
-			ReflectedClass ShadeCarrierGroupControllerClass = ReflectedClass.of("com.android.systemui.shade.carrier.ShadeCarrierGroupController", lpParam.classLoader);
-			ReflectedClass MobileIconBinderClass = ReflectedClass.of("com.android.systemui.statusbar.pipeline.mobile.ui.binder.MobileIconBinder", lpParam.classLoader);
+			ReflectedClass ShadeCarrierGroupControllerClass = ReflectedClass.of("com.android.systemui.shade.carrier.ShadeCarrierGroupController");
+			ReflectedClass MobileIconBinderClass = ReflectedClass.of("com.android.systemui.statusbar.pipeline.mobile.ui.binder.MobileIconBinder");
 
 			ShadeCarrierGroupControllerClass
 					.afterConstruction()
@@ -272,7 +272,7 @@ public class ThemeManager_14 extends XposedModPack {
 		}
 
 		if (ShadeHeaderControllerClass.getClazz() == null) {
-			ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController", lpParam.classLoader);
+			ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController");
 		}
 
 		QSCustomizerClass

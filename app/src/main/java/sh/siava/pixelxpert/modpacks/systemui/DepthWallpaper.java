@@ -70,19 +70,19 @@ public class DepthWallpaper extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass QSImplClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.QSImpl", lpParam.classLoader);
+		ReflectedClass QSImplClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.QSImpl");
 		if(QSImplClass.getClazz() == null) //Older versions of QS
 		{
-			QSImplClass = ReflectedClass.of("com.android.systemui.qs.QSFragment", lpParam.classLoader);
+			QSImplClass = ReflectedClass.of("com.android.systemui.qs.QSFragment");
 		}
 
-		ReflectedClass CanvasEngineClass = ReflectedClass.of("com.android.systemui.wallpapers.ImageWallpaper$CanvasEngine", lpParam.classLoader);
-		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl", lpParam.classLoader);
-		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController", lpParam.classLoader);
-		ReflectedClass ScrimViewClass = ReflectedClass.of("com.android.systemui.scrim.ScrimView", lpParam.classLoader);
+		ReflectedClass CanvasEngineClass = ReflectedClass.of("com.android.systemui.wallpapers.ImageWallpaper$CanvasEngine");
+		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl");
+		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController");
+		ReflectedClass ScrimViewClass = ReflectedClass.of("com.android.systemui.scrim.ScrimView");
 
 
-		ReflectedClass AodBurnInLayerClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.AodBurnInLayer", lpParam.classLoader);
+		ReflectedClass AodBurnInLayerClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.AodBurnInLayer");
 
 		//A15 compose keyguard
 		AodBurnInLayerClass

@@ -41,7 +41,7 @@ public class RingerVolSeparator extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		try {
-			DeviceConfigClass = ReflectedClass.of("android.provider.DeviceConfig", lpParam.classLoader);
+			DeviceConfigClass = ReflectedClass.of("android.provider.DeviceConfig");
 
 			DeviceConfigClass
 					.before("setProperty")

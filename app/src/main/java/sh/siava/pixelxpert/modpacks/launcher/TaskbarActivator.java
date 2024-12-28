@@ -118,18 +118,18 @@ public class TaskbarActivator extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 
-		ReflectedClass RecentTasksListClass = ReflectedClass.of("com.android.quickstep.RecentTasksList", lpParam.classLoader);
-		ReflectedClass AppInfoClass = ReflectedClass.of("com.android.launcher3.model.data.AppInfo", lpParam.classLoader);
-		ReflectedClass TaskbarViewClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarView", lpParam.classLoader);
-		ReflectedClass ItemInfoClass = ReflectedClass.of("com.android.launcher3.model.data.ItemInfo", lpParam.classLoader);
-		ReflectedClass TaskbarModelCallbacksClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarModelCallbacks", lpParam.classLoader);
-		ReflectedClass DeviceProfileClass = ReflectedClass.of("com.android.launcher3.DeviceProfile", lpParam.classLoader);
-		ReflectedClass ActivityManagerWrapperClass = ReflectedClass.of("com.android.systemui.shared.system.ActivityManagerWrapper", lpParam.classLoader);
-		ReflectedClass TaskbarActivityContextClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarActivityContext", lpParam.classLoader);
-		ReflectedClass LauncherModelClass = ReflectedClass.of("com.android.launcher3.LauncherModel", lpParam.classLoader);
-		ReflectedClass BaseDraggingActivityClass = ReflectedClass.of("com.android.launcher3.BaseDraggingActivity", lpParam.classLoader);
-		ReflectedClass DisplayControllerClass = ReflectedClass.of("com.android.launcher3.util.DisplayController", lpParam.classLoader);
-		ReflectedClass DisplayControllerInfoClass = ReflectedClass.of("com.android.launcher3.util.DisplayController$Info", lpParam.classLoader);
+		ReflectedClass RecentTasksListClass = ReflectedClass.of("com.android.quickstep.RecentTasksList");
+		ReflectedClass AppInfoClass = ReflectedClass.of("com.android.launcher3.model.data.AppInfo");
+		ReflectedClass TaskbarViewClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarView");
+		ReflectedClass ItemInfoClass = ReflectedClass.of("com.android.launcher3.model.data.ItemInfo");
+		ReflectedClass TaskbarModelCallbacksClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarModelCallbacks");
+		ReflectedClass DeviceProfileClass = ReflectedClass.of("com.android.launcher3.DeviceProfile");
+		ReflectedClass ActivityManagerWrapperClass = ReflectedClass.of("com.android.systemui.shared.system.ActivityManagerWrapper");
+		ReflectedClass TaskbarActivityContextClass = ReflectedClass.of("com.android.launcher3.taskbar.TaskbarActivityContext");
+		ReflectedClass LauncherModelClass = ReflectedClass.of("com.android.launcher3.LauncherModel");
+		ReflectedClass BaseDraggingActivityClass = ReflectedClass.of("com.android.launcher3.BaseDraggingActivity");
+		ReflectedClass DisplayControllerClass = ReflectedClass.of("com.android.launcher3.util.DisplayController");
+		ReflectedClass DisplayControllerInfoClass = ReflectedClass.of("com.android.launcher3.util.DisplayController$Info");
 		Method commitItemsToUIMethod = findMethodExact(TaskbarModelCallbacksClass.getClazz(), "commitItemsToUI");
 
 		DisplayControllerInfoClass

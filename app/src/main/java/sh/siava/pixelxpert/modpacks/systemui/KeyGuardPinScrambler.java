@@ -45,7 +45,7 @@ public class KeyGuardPinScrambler extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass KeyguardPinBasedInputViewClass = ReflectedClass.of("com.android.keyguard.KeyguardPinBasedInputView", lpParam.classLoader);
+		ReflectedClass KeyguardPinBasedInputViewClass = ReflectedClass.of("com.android.keyguard.KeyguardPinBasedInputView");
 
 		ReflectionConsumer pinShuffleHook = param -> {
 			if (!shufflePinEnabled) return;

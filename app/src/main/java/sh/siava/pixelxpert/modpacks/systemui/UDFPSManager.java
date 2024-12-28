@@ -57,18 +57,18 @@ public class UDFPSManager extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass UdfpsKeyguardViewClass = ReflectedClass.ofIfPossible("com.android.systemui.biometrics.UdfpsKeyguardViewLegacy", lpParam.classLoader); //A4B3
+		ReflectedClass UdfpsKeyguardViewClass = ReflectedClass.ofIfPossible("com.android.systemui.biometrics.UdfpsKeyguardViewLegacy"); //A4B3
 		if (UdfpsKeyguardViewClass.getClazz() == null) { //A13
-			UdfpsKeyguardViewClass = ReflectedClass.ofIfPossible("com.android.systemui.biometrics.UdfpsKeyguardView", lpParam.classLoader);
+			UdfpsKeyguardViewClass = ReflectedClass.ofIfPossible("com.android.systemui.biometrics.UdfpsKeyguardView");
 		}
 
 		if(UdfpsKeyguardViewClass.getClazz() == null) //A15 Beta 2 - Compose
 		{
-			ReflectedClass DeviceEntryIconViewClass = ReflectedClass.of("com.android.systemui.keyguard.ui.view.DeviceEntryIconView", lpParam.classLoader);
-			ReflectedClass DeviceEntryIconViewModelClass = ReflectedClass.of("com.android.systemui.keyguard.ui.viewmodel.DeviceEntryIconViewModel", lpParam.classLoader);
+			ReflectedClass DeviceEntryIconViewClass = ReflectedClass.of("com.android.systemui.keyguard.ui.view.DeviceEntryIconView");
+			ReflectedClass DeviceEntryIconViewModelClass = ReflectedClass.of("com.android.systemui.keyguard.ui.viewmodel.DeviceEntryIconViewModel");
 
-			StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl", lpParam.classLoader);
-			ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow", lpParam.classLoader);
+			StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl");
+			ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow");
 
 			DeviceEntryIconViewModelClass
 					.afterConstruction()
@@ -91,7 +91,7 @@ public class UDFPSManager extends XposedModPack {
 		}
 		else
 		{
-			ReflectedClass LockIconViewControllerClass = ReflectedClass.of("com.android.keyguard.LockIconViewController", lpParam.classLoader);
+			ReflectedClass LockIconViewControllerClass = ReflectedClass.of("com.android.keyguard.LockIconViewController");
 
 			LockIconViewControllerClass
 					.after("updateIsUdfpsEnrolled")

@@ -165,7 +165,7 @@ public class PhoneWindowManager extends XposedModPack {
 		}
 
 		try {
-			ReflectedClass PhoneWindowManagerClass = ReflectedClass.of("com.android.server.policy.PhoneWindowManager", lpParam.classLoader);
+			ReflectedClass PhoneWindowManagerClass = ReflectedClass.of("com.android.server.policy.PhoneWindowManager");
 
 
 			PhoneWindowManagerClass
@@ -197,7 +197,7 @@ public class PhoneWindowManager extends XposedModPack {
 						}).start();
 					});
 
-			ScreenshotRequestClass = ReflectedClass.ofIfPossible("com.android.internal.util.ScreenshotRequest", lpParam.classLoader); //13 QPR3
+			ScreenshotRequestClass = ReflectedClass.ofIfPossible("com.android.internal.util.ScreenshotRequest"); //13 QPR3
 
 			PhoneWindowManagerClass
 					.after("enableScreen")

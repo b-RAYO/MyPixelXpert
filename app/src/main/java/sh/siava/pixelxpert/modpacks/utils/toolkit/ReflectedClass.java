@@ -21,6 +21,8 @@ import de.robv.android.xposed.XposedHelpers;
 /** @noinspection unused*/
 public class ReflectedClass
 {
+
+	private static ClassLoader defaultClassloader = null;
 	private static final boolean FLAG_DEBUG_HOOKS = false;
 	Class<?> clazz;
 	public ReflectedClass(Class<?> clazz)
@@ -37,6 +39,17 @@ public class ReflectedClass
 		return new ReflectedClass(findClass(name, loader));
 	}
 
+	public static ReflectedClass of(String name)
+	{
+		return ReflectedClass.of(name, defaultClassloader);
+	}
+
+	public static void setDefaultClassloader(ClassLoader classloader)
+	{
+		if(defaultClassloader == null)
+			defaultClassloader = classloader;
+	}
+
 	public Class<?> getClazz()
 	{
 		return clazz;
@@ -45,6 +58,11 @@ public class ReflectedClass
 	public static ReflectedClass ofIfPossible(String name, ClassLoader loader)
 	{
 		return new ReflectedClass(findClassIfExists(name, loader));
+	}
+
+	public static ReflectedClass ofIfPossible(String name)
+	{
+		return ReflectedClass.ofIfPossible(name, defaultClassloader);
 	}
 
 	public BeforeMethodData before(Method method)

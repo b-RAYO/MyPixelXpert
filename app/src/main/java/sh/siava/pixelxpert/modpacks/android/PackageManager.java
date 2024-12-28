@@ -67,12 +67,12 @@ public class PackageManager extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		try {
-			ReflectedClass InstallPackageHelperClass = ReflectedClass.of("com.android.server.pm.InstallPackageHelper", lpParam.classLoader);
-			ReflectedClass PackageManagerServiceUtilsClass = ReflectedClass.of("com.android.server.pm.PackageManagerServiceUtils", lpParam.classLoader);
-			ReflectedClass SigningDetailsClass = ReflectedClass.of("android.content.pm.SigningDetails", lpParam.classLoader);
+			ReflectedClass InstallPackageHelperClass = ReflectedClass.of("com.android.server.pm.InstallPackageHelper");
+			ReflectedClass PackageManagerServiceUtilsClass = ReflectedClass.of("com.android.server.pm.PackageManagerServiceUtils");
+			ReflectedClass SigningDetailsClass = ReflectedClass.of("android.content.pm.SigningDetails");
 
 			try {
-				ReflectedClass ActivityManagerServiceClass = ReflectedClass.of("com.android.server.am.ActivityManagerService", lpParam.classLoader);
+				ReflectedClass ActivityManagerServiceClass = ReflectedClass.of("com.android.server.am.ActivityManagerService");
 
 				ActivityManagerServiceClass
 						.before("checkBroadcastFromSystem")

@@ -94,16 +94,16 @@ public class QSTileGrid extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl", lpParam.classLoader);
-		ReflectedClass FontSizeUtilsClass = ReflectedClass.of("com.android.systemui.FontSizeUtils", lpParam.classLoader);
-		ReflectedClass QSTileImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileImpl", lpParam.classLoader);
-		ReflectedClass QSFactoryImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSFactoryImpl", lpParam.classLoader);
-		ReflectedClass QuickQSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickQSPanelController", lpParam.classLoader);
-		ReflectedClass QuickQSPanelClass =ReflectedClass.of("com.android.systemui.qs.QuickQSPanel", lpParam.classLoader);
-		ReflectedClass TileAdapterClass = ReflectedClass.of("com.android.systemui.qs.customize.TileAdapter", lpParam.classLoader);
-		ReflectedClass SideLabelTileLayoutClass = ReflectedClass.of("com.android.systemui.qs.SideLabelTileLayout", lpParam.classLoader);
+		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl");
+		ReflectedClass FontSizeUtilsClass = ReflectedClass.of("com.android.systemui.FontSizeUtils");
+		ReflectedClass QSTileImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileImpl");
+		ReflectedClass QSFactoryImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSFactoryImpl");
+		ReflectedClass QuickQSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickQSPanelController");
+		ReflectedClass QuickQSPanelClass =ReflectedClass.of("com.android.systemui.qs.QuickQSPanel");
+		ReflectedClass TileAdapterClass = ReflectedClass.of("com.android.systemui.qs.customize.TileAdapter");
+		ReflectedClass SideLabelTileLayoutClass = ReflectedClass.of("com.android.systemui.qs.SideLabelTileLayout");
 
-		ReflectedClass TileLayoutClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.TileLayout", lpParam.classLoader);
+		ReflectedClass TileLayoutClass = ReflectedClass.ofIfPossible("com.android.systemui.qs.TileLayout");
 		if(TileLayoutClass.getClazz() == null) //new versions have merged tile layout to sidelable
 		{
 			TileLayoutClass = SideLabelTileLayoutClass;
@@ -179,7 +179,7 @@ public class QSTileGrid extends XposedModPack {
 				});
 
 		try {
-			if(findClassIfExists("com.android.systemui.qs.tiles.WifiTile", lpParam.classLoader) == null)
+			if(ReflectedClass.ofIfPossible("com.android.systemui.qs.tiles.WifiTile").getClazz() == null)
 				Xprefs
 						.edit()
 						.putBoolean("InternetTileModEnabled", false)

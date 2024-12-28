@@ -184,26 +184,26 @@ public class KeyguardMods extends XposedModPack {
 	@SuppressLint("DiscouragedApi")
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass CarrierTextControllerClass = ReflectedClass.of("com.android.keyguard.CarrierTextController", lpParam.classLoader);
-		ReflectedClass KeyguardClockSwitchClass = ReflectedClass.of("com.android.keyguard.KeyguardClockSwitch", lpParam.classLoader);
-		ReflectedClass KeyguardIndicationControllerClass = ReflectedClass.of("com.android.systemui.statusbar.KeyguardIndicationController", lpParam.classLoader);
-		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController", lpParam.classLoader);
-		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState", lpParam.classLoader);
-		ReflectedClass KeyguardStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.phone.KeyguardStatusBarView", lpParam.classLoader);
-		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl", lpParam.classLoader);
-		ReflectedClass KeyguardBottomAreaViewBinderClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder", lpParam.classLoader);
-		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController", lpParam.classLoader); //used to launch camera
-		ReflectedClass QRCodeScannerControllerClass = ReflectedClass.of("com.android.systemui.qrcodescanner.controller.QRCodeScannerController", lpParam.classLoader);
-//		ReflectedClass ActivityStarterDelegateClass = ReflectedClass.of("com.android.systemui.ActivityStarterDelegate", lpParam.classLoader);
-		ReflectedClass ZenModeControllerImplClass = ReflectedClass.of("com.android.systemui.statusbar.policy.ZenModeControllerImpl", lpParam.classLoader);
-		ReflectedClass FooterActionsInteractorImplClass = ReflectedClass.of("com.android.systemui.qs.footer.domain.interactor.FooterActionsInteractorImpl", lpParam.classLoader);
-		ReflectedClass CommandQueueClass = ReflectedClass.of("com.android.systemui.statusbar.CommandQueue", lpParam.classLoader);
-		ReflectedClass AmbientDisplayConfigurationClass = ReflectedClass.of("android.hardware.display.AmbientDisplayConfiguration", lpParam.classLoader);
-		ReflectedClass AssistManagerClass = ReflectedClass.ofIfPossible("com.android.systemui.assist.AssistManager", lpParam.classLoader);
-		ReflectedClass DefaultShortcutsSectionClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.DefaultShortcutsSection", lpParam.classLoader);
+		ReflectedClass CarrierTextControllerClass = ReflectedClass.of("com.android.keyguard.CarrierTextController");
+		ReflectedClass KeyguardClockSwitchClass = ReflectedClass.of("com.android.keyguard.KeyguardClockSwitch");
+		ReflectedClass KeyguardIndicationControllerClass = ReflectedClass.of("com.android.systemui.statusbar.KeyguardIndicationController");
+		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController");
+		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState");
+		ReflectedClass KeyguardStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.phone.KeyguardStatusBarView");
+		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl");
+		ReflectedClass KeyguardBottomAreaViewBinderClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.binder.KeyguardBottomAreaViewBinder");
+		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController"); //used to launch camera
+		ReflectedClass QRCodeScannerControllerClass = ReflectedClass.of("com.android.systemui.qrcodescanner.controller.QRCodeScannerController");
+//		ReflectedClass ActivityStarterDelegateClass = ReflectedClass.of("com.android.systemui.ActivityStarterDelegate");
+		ReflectedClass ZenModeControllerImplClass = ReflectedClass.of("com.android.systemui.statusbar.policy.ZenModeControllerImpl");
+		ReflectedClass FooterActionsInteractorImplClass = ReflectedClass.of("com.android.systemui.qs.footer.domain.interactor.FooterActionsInteractorImpl");
+		ReflectedClass CommandQueueClass = ReflectedClass.of("com.android.systemui.statusbar.CommandQueue");
+		ReflectedClass AmbientDisplayConfigurationClass = ReflectedClass.of("android.hardware.display.AmbientDisplayConfiguration");
+		ReflectedClass AssistManagerClass = ReflectedClass.ofIfPossible("com.android.systemui.assist.AssistManager");
+		ReflectedClass DefaultShortcutsSectionClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.DefaultShortcutsSection");
 		if(AssistManagerClass.getClazz() == null)
 		{
-			AssistManagerClass = ReflectedClass.of("com.google.android.systemui.assist.AssistManagerGoogle", lpParam.classLoader);
+			AssistManagerClass = ReflectedClass.of("com.google.android.systemui.assist.AssistManagerGoogle");
 		}
 
 		DefaultShortcutsSectionClass
@@ -224,7 +224,7 @@ public class KeyguardMods extends XposedModPack {
 									mContext.getPackageName())));
 				});
 
-		ReflectedClass SmartspaceSectionClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.SmartspaceSection", lpParam.classLoader);
+		ReflectedClass SmartspaceSectionClass = ReflectedClass.ofIfPossible("com.android.systemui.keyguard.ui.view.layout.sections.SmartspaceSection");
 
 		SmartspaceSectionClass
 				.after("addViews")
@@ -404,7 +404,7 @@ public class KeyguardMods extends XposedModPack {
 		ReflectionConsumer keyguardIndicatorFinder = param -> KeyguardIndicationController = param.thisObject;
 
 		try { //A14
-			ReflectedClass KeyguardIndicationControllerGoogleClass = ReflectedClass.of("com.google.android.systemui.statusbar.KeyguardIndicationControllerGoogle", lpParam.classLoader);
+			ReflectedClass KeyguardIndicationControllerGoogleClass = ReflectedClass.of("com.google.android.systemui.statusbar.KeyguardIndicationControllerGoogle");
 			KeyguardIndicationControllerGoogleClass.afterConstruction().run(keyguardIndicatorFinder);
 			KeyguardIndicationControllerGoogleClass.after("computePowerIndication").run(powerIndicationConsumer);
 		}

@@ -46,10 +46,10 @@ public class AppCloneEnabler extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 
-		ReflectedClass ClonedAppsPreferenceControllerClass = ReflectedClass.of("com.android.settings.applications.ClonedAppsPreferenceController", lpParam.classLoader);
-		ReflectedClass AppStateClonedAppsBridgeClass = ReflectedClass.of("com.android.settings.applications.AppStateClonedAppsBridge", lpParam.classLoader);
-		ReflectedClass ManageApplicationsClass = ReflectedClass.of("com.android.settings.applications.manageapplications.ManageApplications", lpParam.classLoader);
-		UtilsClass = ReflectedClass.of("com.android.settings.Utils", lpParam.classLoader);
+		ReflectedClass ClonedAppsPreferenceControllerClass = ReflectedClass.of("com.android.settings.applications.ClonedAppsPreferenceController");
+		ReflectedClass AppStateClonedAppsBridgeClass = ReflectedClass.of("com.android.settings.applications.AppStateClonedAppsBridge");
+		ReflectedClass ManageApplicationsClass = ReflectedClass.of("com.android.settings.applications.manageapplications.ManageApplications");
+		UtilsClass = ReflectedClass.of("com.android.settings.Utils");
 
 		ManageApplicationsClass
 				.after("updateOptionsMenu")
@@ -63,7 +63,7 @@ public class AppCloneEnabler extends XposedModPack {
 				});
 
 		/* Private Space
-		ReflectedClass FlagsClass = ReflectedClass.of("android.os.Flags", lpParam.classLoader);
+		ReflectedClass FlagsClass = ReflectedClass.of("android.os.Flags");
 
 		hookAllMethods(FlagsClass, "allowPrivateProfile", new XC_MethodHook() {
 			@Override
@@ -108,7 +108,7 @@ public class AppCloneEnabler extends XposedModPack {
 				});
 
 		//the way to manually clone the app
-/*		ReflectedClass CloneBackendClass = ReflectedClass.of("com.android.settings.applications.manageapplications.CloneBackend", lpParam.classLoader);
+/*		ReflectedClass CloneBackendClass = ReflectedClass.of("com.android.settings.applications.manageapplications.CloneBackend");
 
 		Object cb = callStaticMethod(CloneBackendClass, "getInstance", mContext);
 		callMethod(cb, "installCloneApp", "com.whatsapp");*/

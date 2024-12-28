@@ -140,8 +140,8 @@ public class BatteryStyleManager extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) {
 		BatteryDataProvider.registerInfoCallback(() -> refreshAllBatteryIcons(false));
 
-		ReflectedClass ThemedBatteryDrawableClass = ReflectedClass.of("com.android.settingslib.graph.ThemedBatteryDrawable", lpParam.classLoader);
-		ReflectedClass BatteryMeterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.battery.BatteryMeterView", lpParam.classLoader);
+		ReflectedClass ThemedBatteryDrawableClass = ReflectedClass.of("com.android.settingslib.graph.ThemedBatteryDrawable");
+		ReflectedClass BatteryMeterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.battery.BatteryMeterView");
 
 		ThemedBatteryDrawableClass.afterConstruction().run(param -> {
 			if (param.args[0] instanceof Context) {

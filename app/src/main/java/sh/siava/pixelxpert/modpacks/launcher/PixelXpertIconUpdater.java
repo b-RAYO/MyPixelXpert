@@ -29,8 +29,8 @@ public class PixelXpertIconUpdater extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass LauncherModelClass = ReflectedClass.of("com.android.launcher3.LauncherModel", lpParam.classLoader);
-		ReflectedClass BaseDraggingActivityClass = ReflectedClass.of("com.android.launcher3.BaseDraggingActivity", lpParam.classLoader);
+		ReflectedClass LauncherModelClass = ReflectedClass.of("com.android.launcher3.LauncherModel");
+		ReflectedClass BaseDraggingActivityClass = ReflectedClass.of("com.android.launcher3.BaseDraggingActivity");
 
 		BaseDraggingActivityClass
 				.after("onResume")

@@ -57,13 +57,13 @@ public class LauncherGestureNavbarManager extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass StashedHandleViewClass = ReflectedClass.ofIfPossible("com.android.launcher3.taskbar.StashedHandleView", lpParam.classLoader);
+		ReflectedClass StashedHandleViewClass = ReflectedClass.ofIfPossible("com.android.launcher3.taskbar.StashedHandleView");
 
 		if (StashedHandleViewClass.getClazz() == null) return; //It's an older version
 
 		mIsHooked = true;
 
-		ReflectedClass StashedHandleViewControllerClass = ReflectedClass.of("com.android.launcher3.taskbar.StashedHandleViewController", lpParam.classLoader);
+		ReflectedClass StashedHandleViewControllerClass = ReflectedClass.of("com.android.launcher3.taskbar.StashedHandleViewController");
 
 		StashedHandleViewControllerClass
 				.afterConstruction()

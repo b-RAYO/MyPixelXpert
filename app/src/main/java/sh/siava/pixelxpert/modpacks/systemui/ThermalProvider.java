@@ -45,7 +45,7 @@ public class ThermalProvider extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass PowerUIClass = ReflectedClass.of("com.android.systemui.power.PowerUI", lpParam.classLoader);
+		ReflectedClass PowerUIClass = ReflectedClass.of("com.android.systemui.power.PowerUI");
 
 		PowerUIClass
 				.after("start")

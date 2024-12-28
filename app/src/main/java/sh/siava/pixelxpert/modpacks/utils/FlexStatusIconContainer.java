@@ -73,16 +73,16 @@ public class FlexStatusIconContainer extends LinearLayout {
 		sortPlan = plan;
 	}
 
-	public FlexStatusIconContainer(Context context, ClassLoader classLoader, Object statusIconContainerInstance) {
-		this(context, null, classLoader, statusIconContainerInstance);
+	public FlexStatusIconContainer(Context context, Object statusIconContainerInstance) {
+		this(context, null, statusIconContainerInstance);
 	}
 
-	public FlexStatusIconContainer(Context context, AttributeSet attrs, ClassLoader classLoader, Object statusIconContainerInstance) {
+	public FlexStatusIconContainer(Context context, AttributeSet attrs, Object statusIconContainerInstance) {
 		super(context, attrs);
 
 //		StatusIconStateClass = ReflectedClass.of("com.android.systemui.statusbar.phone.StatusIconContainer$StatusIconState", classLoader);
 		StatusIconContainer = statusIconContainerInstance;
-		ReflectedClass ViewStateClass = ReflectedClass.of("com.android.systemui.statusbar.notification.stack.ViewState", classLoader);
+		ReflectedClass ViewStateClass = ReflectedClass.of("com.android.systemui.statusbar.notification.stack.ViewState");
 
 		if(findFieldIfExists(ViewStateClass.getClazz(), "mAlpha") == null)
 		{ // 13 QPR1

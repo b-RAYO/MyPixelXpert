@@ -67,19 +67,19 @@ public class NotificationExpander extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!listenPackage.equals(lpParam.packageName) || !notificationExpandallHookEnabled) return;
 
-		ReflectedClass NotificationStackScrollLayoutClass = ReflectedClass.of("com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout", lpParam.classLoader);
-		ReflectedClass FooterViewButtonClass = ReflectedClass.of("com.android.systemui.statusbar.notification.row.FooterViewButton", lpParam.classLoader);
-		ReflectedClass NotifCollectionClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.collection.NotifCollection", lpParam.classLoader);
-		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController", lpParam.classLoader);
+		ReflectedClass NotificationStackScrollLayoutClass = ReflectedClass.of("com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout");
+		ReflectedClass FooterViewButtonClass = ReflectedClass.of("com.android.systemui.statusbar.notification.row.FooterViewButton");
+		ReflectedClass NotifCollectionClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.collection.NotifCollection");
+		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController");
 		ReflectedClass FooterViewClass;
 
 
 		try { //14AP11
-			FooterViewClass = ReflectedClass.of("com.android.systemui.statusbar.notification.footer.ui.view.FooterView", lpParam.classLoader);
+			FooterViewClass = ReflectedClass.of("com.android.systemui.statusbar.notification.footer.ui.view.FooterView");
 		}
 		catch (Throwable ignored) //Older
 		{
-			FooterViewClass = ReflectedClass.of("com.android.systemui.statusbar.notification.row.FooterView", lpParam.classLoader);
+			FooterViewClass = ReflectedClass.of("com.android.systemui.statusbar.notification.row.FooterView");
 		}
 
 		//region default notification state

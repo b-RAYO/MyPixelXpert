@@ -63,8 +63,8 @@ public class VolumeDialog extends XposedModPack {
 	@SuppressLint("DefaultLocale")
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass VolumeDialogImplClass = ReflectedClass.of("com.android.systemui.volume.VolumeDialogImpl", lpParam.classLoader);
-		ReflectedClass AudioStreamStateClass = ReflectedClass.of("com.android.systemui.volume.panel.component.volume.slider.ui.viewmodel.AudioStreamSliderViewModel$State", lpParam.classLoader);
+		ReflectedClass VolumeDialogImplClass = ReflectedClass.of("com.android.systemui.volume.VolumeDialogImpl");
+		ReflectedClass AudioStreamStateClass = ReflectedClass.of("com.android.systemui.volume.panel.component.volume.slider.ui.viewmodel.AudioStreamSliderViewModel$State");
 
 		VolumeDialogImplClass
 				.after("rescheduleTimeoutH")

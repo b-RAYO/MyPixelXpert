@@ -135,22 +135,22 @@ public class BrightnessSlider extends XposedModPack {
 		if (!BrightnessHookEnabled || !listenPackage.equals(lpParam.packageName)) //master switch
 			return;
 
-		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController", lpParam.classLoader);
-		ReflectedClass BrightnessMirrorHandlerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessMirrorHandler", lpParam.classLoader);
-		ReflectedClass QuickQSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickQSPanelController", lpParam.classLoader);
-		ReflectedClass QSPanelControllerBaseClass = ReflectedClass.of("com.android.systemui.qs.QSPanelControllerBase", lpParam.classLoader);
-		ReflectedClass CentralSurfacesImplClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.phone.CentralSurfacesImpl", lpParam.classLoader);
-		ReflectedClass QSPanelClass = ReflectedClass.of("com.android.systemui.qs.QSPanel", lpParam.classLoader);
-		ReflectedClass BrightnessSliderControllerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderController", lpParam.classLoader);
-		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView", lpParam.classLoader);
-		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl", lpParam.classLoader);
+		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController");
+		ReflectedClass BrightnessMirrorHandlerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessMirrorHandler");
+		ReflectedClass QuickQSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickQSPanelController");
+		ReflectedClass QSPanelControllerBaseClass = ReflectedClass.of("com.android.systemui.qs.QSPanelControllerBase");
+		ReflectedClass CentralSurfacesImplClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.phone.CentralSurfacesImpl");
+		ReflectedClass QSPanelClass = ReflectedClass.of("com.android.systemui.qs.QSPanel");
+		ReflectedClass BrightnessSliderControllerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderController");
+		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView");
+		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl");
 
 		QSTileViewImplClass
 				.afterConstruction()
 				.run(param -> QSTV = param.thisObject);
 
-		DejankUtilsClass = ReflectedClass.of("com.android.systemui.DejankUtils", lpParam.classLoader);
-		BrightnessControllerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessController", lpParam.classLoader);
+		DejankUtilsClass = ReflectedClass.of("com.android.systemui.DejankUtils");
+		BrightnessControllerClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessController");
 
 		BrightnessSliderViewClass
 				.before("dispatchTouchEvent")

@@ -29,7 +29,7 @@ public class SystemScreenRecord extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		try {
-			ReflectedClass DisplayManagerServiceClass = ReflectedClass.of("com.android.server.display.DisplayManagerService", lpParam.classLoader);
+			ReflectedClass DisplayManagerServiceClass = ReflectedClass.of("com.android.server.display.DisplayManagerService");
 
 			DisplayManagerServiceClass
 					.before("canProjectSecureVideo")

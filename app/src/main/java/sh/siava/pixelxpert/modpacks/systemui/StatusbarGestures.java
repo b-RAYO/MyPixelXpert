@@ -63,7 +63,7 @@ public class StatusbarGestures extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController", lpParam.classLoader);
+		ReflectedClass NotificationPanelViewControllerClass = ReflectedClass.of("com.android.systemui.shade.NotificationPanelViewController");
 
 		if (findFieldIfExists(NotificationPanelViewControllerClass.getClazz(), "mStatusBarViewTouchEventHandler") != null) { //13 QPR1
 			NotificationPanelViewControllerClass
@@ -140,7 +140,7 @@ public class StatusbarGestures extends XposedModPack {
 					)
 					.isEmpty()) { //13 QPR3 - 14
 
-				ReflectedClass PhoneStatusBarViewControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.PhoneStatusBarViewController", lpParam.classLoader);
+				ReflectedClass PhoneStatusBarViewControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.PhoneStatusBarViewController");
 
 				NotificationPanelViewControllerClass
 						.afterConstruction()

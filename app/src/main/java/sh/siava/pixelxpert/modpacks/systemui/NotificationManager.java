@@ -43,12 +43,12 @@ public class NotificationManager extends XposedModPack {
 			applyDurations();
 		};
 
-		ReflectedClass HeadsUpManagerClass = ReflectedClass.of("com.android.systemui.statusbar.policy.HeadsUpManager", lpParam.classLoader);
+		ReflectedClass HeadsUpManagerClass = ReflectedClass.of("com.android.systemui.statusbar.policy.HeadsUpManager");
 		HeadsUpManagerClass.afterConstruction().run(headsupFinder); //interface in 14QPR2, class in older
 
 		try //A14 QPR2
 		{
-			ReflectedClass BaseHeadsUpManagerClass = ReflectedClass.of("com.android.systemui.statusbar.policy.BaseHeadsUpManager", lpParam.classLoader);
+			ReflectedClass BaseHeadsUpManagerClass = ReflectedClass.of("com.android.systemui.statusbar.policy.BaseHeadsUpManager");
 			BaseHeadsUpManagerClass.afterConstruction().run(headsupFinder);
 		}
 		catch (Throwable ignored){}

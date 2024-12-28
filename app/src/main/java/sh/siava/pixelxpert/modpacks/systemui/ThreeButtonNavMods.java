@@ -35,10 +35,10 @@ public class ThreeButtonNavMods extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass NavigationBarInflaterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.navigationbar.views.NavigationBarInflaterView", lpParam.classLoader);
+		ReflectedClass NavigationBarInflaterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.navigationbar.views.NavigationBarInflaterView");
 		if(NavigationBarInflaterViewClass.getClazz() == null)
 		{
-			NavigationBarInflaterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.navigationbar.NavigationBarInflaterView", lpParam.classLoader);
+			NavigationBarInflaterViewClass = ReflectedClass.ofIfPossible("com.android.systemui.navigationbar.NavigationBarInflaterView");
 		}
 
 		NavigationBarInflaterViewClass

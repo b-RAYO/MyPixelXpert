@@ -99,21 +99,21 @@ public class ThemeManager_13 extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl", lpParam.classLoader);
-		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController", lpParam.classLoader);
-		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController", lpParam.classLoader);
-		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState", lpParam.classLoader);
-		ReflectedClass QSIconViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSIconViewImpl", lpParam.classLoader);
-		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl", lpParam.classLoader);
-		ReflectedClass ClockClass = ReflectedClass.of("com.android.systemui.statusbar.policy.Clock", lpParam.classLoader);
-		ReflectedClass QuickStatusBarHeaderClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeader", lpParam.classLoader);
-		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView", lpParam.classLoader);
-		ReflectedClass GlobalActionsDialogLiteSinglePressActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$SinglePressAction", lpParam.classLoader);
-		ReflectedClass GlobalActionsDialogLiteEmergencyActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$EmergencyAction", lpParam.classLoader);
-		ReflectedClass GlobalActionsLayoutLiteClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsLayoutLite", lpParam.classLoader);
+		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl");
+		ReflectedClass ScrimControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimController");
+		ReflectedClass QSPanelControllerClass = ReflectedClass.of("com.android.systemui.qs.QSPanelController");
+		ReflectedClass ScrimStateEnum = ReflectedClass.of("com.android.systemui.statusbar.phone.ScrimState");
+		ReflectedClass QSIconViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSIconViewImpl");
+		ReflectedClass CentralSurfacesImplClass = ReflectedClass.of("com.android.systemui.statusbar.phone.CentralSurfacesImpl");
+		ReflectedClass ClockClass = ReflectedClass.of("com.android.systemui.statusbar.policy.Clock");
+		ReflectedClass QuickStatusBarHeaderClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeader");
+		ReflectedClass BrightnessSliderViewClass = ReflectedClass.of("com.android.systemui.settings.brightness.BrightnessSliderView");
+		ReflectedClass GlobalActionsDialogLiteSinglePressActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$SinglePressAction");
+		ReflectedClass GlobalActionsDialogLiteEmergencyActionClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsDialogLite$EmergencyAction");
+		ReflectedClass GlobalActionsLayoutLiteClass = ReflectedClass.of("com.android.systemui.globalactions.GlobalActionsLayoutLite");
 
 		try {
-			ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip", lpParam.classLoader);
+			ReflectedClass BatteryStatusChipClass = ReflectedClass.of("com.android.systemui.statusbar.BatteryStatusChip");
 
 			BatteryStatusChipClass
 					.after("updateResources")
@@ -154,9 +154,9 @@ public class ThemeManager_13 extends XposedModPack {
 				.run(param -> calculateColors());
 
 		try { //13QPR1
-			ReflectedClass QSSecurityFooterClass = ReflectedClass.of("com.android.systemui.qs.QSSecurityFooter", lpParam.classLoader);
-			ReflectedClass QSFgsManagerFooterClass = ReflectedClass.of("com.android.systemui.qs.QSFgsManagerFooter", lpParam.classLoader);
-			ReflectedClass FooterActionsControllerClass = ReflectedClass.of("com.android.systemui.qs.FooterActionsController", lpParam.classLoader);
+			ReflectedClass QSSecurityFooterClass = ReflectedClass.of("com.android.systemui.qs.QSSecurityFooter");
+			ReflectedClass QSFgsManagerFooterClass = ReflectedClass.of("com.android.systemui.qs.QSFgsManagerFooter");
+			ReflectedClass FooterActionsControllerClass = ReflectedClass.of("com.android.systemui.qs.FooterActionsController");
 
 			QSFgsManagerFooterClass
 					.afterConstruction()
@@ -220,11 +220,11 @@ public class ThemeManager_13 extends XposedModPack {
 
 		}catch (Throwable ignored){ //13QPR2&3
 			//QPR3
-			ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl", lpParam.classLoader);
-			ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController", lpParam.classLoader);
+			ReflectedClass QSContainerImplClass = ReflectedClass.of("com.android.systemui.qs.QSContainerImpl");
+			ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController");
 			if(ShadeHeaderControllerClass.getClazz() == null) //13QPR2
 			{
-				ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController", lpParam.classLoader);
+				ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController");
 			}
 
 			ShadeHeaderControllerClass

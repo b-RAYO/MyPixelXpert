@@ -49,7 +49,7 @@ public class BrightnessRange extends XposedModPack {
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		try { //framework
-			ReflectedClass DisplayPowerControllerClass = ReflectedClass.of("com.android.server.display.DisplayPowerController", lpParam.classLoader);
+			ReflectedClass DisplayPowerControllerClass = ReflectedClass.of("com.android.server.display.DisplayPowerController");
 
 			DisplayPowerControllerClass
 					.before("clampScreenBrightness")
@@ -67,7 +67,7 @@ public class BrightnessRange extends XposedModPack {
 		}
 
 		try { //SystemUI
-			ReflectedClass BrightnessInfoClass = ReflectedClass.of("android.hardware.display.BrightnessInfo", lpParam.classLoader);
+			ReflectedClass BrightnessInfoClass = ReflectedClass.of("android.hardware.display.BrightnessInfo");
 
 			BrightnessInfoClass
 					.afterConstruction()

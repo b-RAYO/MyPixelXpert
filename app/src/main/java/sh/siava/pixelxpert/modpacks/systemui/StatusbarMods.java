@@ -522,26 +522,26 @@ public class StatusbarMods extends XposedModPack {
 		mContext.registerReceiver(mAppProfileSwitchReceiver, filter, Context.RECEIVER_EXPORTED);
 
 		//region needed classes
-		ReflectedClass QSSecurityFooterUtilsClass = ReflectedClass.of("com.android.systemui.qs.QSSecurityFooterUtils", lpParam.classLoader);
-		ReflectedClass KeyguardStatusBarViewControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.KeyguardStatusBarViewController", lpParam.classLoader);
-//      ReflectedClass QuickStatusBarHeaderControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeaderController", lpParam.classLoader);
-		ReflectedClass QuickStatusBarHeaderClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeader", lpParam.classLoader);
-		ReflectedClass ClockClass = ReflectedClass.of("com.android.systemui.statusbar.policy.Clock", lpParam.classLoader);
-		ReflectedClass PhoneStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.phone.PhoneStatusBarView", lpParam.classLoader);
-		ReflectedClass NotificationIconContainerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.NotificationIconContainer", lpParam.classLoader);
-//		ReflectedClass StatusBarIconViewClass = ReflectedClass.of("com.android.systemui.statusbar.StatusBarIconView", lpParam.classLoader);
-		ReflectedClass CollapsedStatusBarFragmentClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment", lpParam.classLoader);
-		ReflectedClass PrivacyItemControllerClass = ReflectedClass.of("com.android.systemui.privacy.PrivacyItemController", lpParam.classLoader);
-//		ReflectedClass KeyguardUpdateMonitorClass = ReflectedClass.of("com.android.keyguard.KeyguardUpdateMonitor", lpParam.classLoader);
-		ReflectedClass TunerServiceImplClass = ReflectedClass.of("com.android.systemui.tuner.TunerServiceImpl", lpParam.classLoader);
-		ReflectedClass ConnectivityCallbackHandlerClass = ReflectedClass.of("com.android.systemui.statusbar.connectivity.CallbackHandler", lpParam.classLoader);
-		ReflectedClass HeadsUpStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.HeadsUpStatusBarView", lpParam.classLoader);
-		ReflectedClass NotificationIconContainerAlwaysOnDisplayViewModelClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.icon.ui.viewmodel.NotificationIconContainerAlwaysOnDisplayViewModel", lpParam.classLoader);
-		ReflectedClass NotificationIconContainerStatusBarViewModelClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.icon.ui.viewmodel.NotificationIconContainerStatusBarViewModel", lpParam.classLoader);
-		StatusBarIconClass = ReflectedClass.of("com.android.internal.statusbar.StatusBarIcon", lpParam.classLoader);
-		StatusBarIconHolderClass = ReflectedClass.of("com.android.systemui.statusbar.phone.StatusBarIconHolder", lpParam.classLoader);
-		SystemUIDialogClass = ReflectedClass.of("com.android.systemui.statusbar.phone.SystemUIDialog", lpParam.classLoader);
-		ReflectedClass NotifyChangesToCallbackClass = ReflectedClass.ofIfPossible("com.android.systemui.privacy.PrivacyItemController$NotifyChangesToCallback", lpParam.classLoader);
+		ReflectedClass QSSecurityFooterUtilsClass = ReflectedClass.of("com.android.systemui.qs.QSSecurityFooterUtils");
+		ReflectedClass KeyguardStatusBarViewControllerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.KeyguardStatusBarViewController");
+//      ReflectedClass QuickStatusBarHeaderControllerClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeaderController");
+		ReflectedClass QuickStatusBarHeaderClass = ReflectedClass.of("com.android.systemui.qs.QuickStatusBarHeader");
+		ReflectedClass ClockClass = ReflectedClass.of("com.android.systemui.statusbar.policy.Clock");
+		ReflectedClass PhoneStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.phone.PhoneStatusBarView");
+		ReflectedClass NotificationIconContainerClass = ReflectedClass.of("com.android.systemui.statusbar.phone.NotificationIconContainer");
+//		ReflectedClass StatusBarIconViewClass = ReflectedClass.of("com.android.systemui.statusbar.StatusBarIconView");
+		ReflectedClass CollapsedStatusBarFragmentClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment");
+		ReflectedClass PrivacyItemControllerClass = ReflectedClass.of("com.android.systemui.privacy.PrivacyItemController");
+//		ReflectedClass KeyguardUpdateMonitorClass = ReflectedClass.of("com.android.keyguard.KeyguardUpdateMonitor");
+		ReflectedClass TunerServiceImplClass = ReflectedClass.of("com.android.systemui.tuner.TunerServiceImpl");
+		ReflectedClass ConnectivityCallbackHandlerClass = ReflectedClass.of("com.android.systemui.statusbar.connectivity.CallbackHandler");
+		ReflectedClass HeadsUpStatusBarViewClass = ReflectedClass.of("com.android.systemui.statusbar.HeadsUpStatusBarView");
+		ReflectedClass NotificationIconContainerAlwaysOnDisplayViewModelClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.icon.ui.viewmodel.NotificationIconContainerAlwaysOnDisplayViewModel");
+		ReflectedClass NotificationIconContainerStatusBarViewModelClass = ReflectedClass.ofIfPossible("com.android.systemui.statusbar.notification.icon.ui.viewmodel.NotificationIconContainerStatusBarViewModel");
+		StatusBarIconClass = ReflectedClass.of("com.android.internal.statusbar.StatusBarIcon");
+		StatusBarIconHolderClass = ReflectedClass.of("com.android.systemui.statusbar.phone.StatusBarIconHolder");
+		SystemUIDialogClass = ReflectedClass.of("com.android.systemui.statusbar.phone.SystemUIDialog");
+		ReflectedClass NotifyChangesToCallbackClass = ReflectedClass.ofIfPossible("com.android.systemui.privacy.PrivacyItemController$NotifyChangesToCallback");
 		//endregion
 
 
@@ -759,11 +759,11 @@ public class StatusbarMods extends XposedModPack {
 
 		try {
 			//QPR3
-			ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController", lpParam.classLoader);
+			ReflectedClass ShadeHeaderControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.shade.ShadeHeaderController");
 
 			if (ShadeHeaderControllerClass.getClazz() == null) //QPR2
 			{
-				ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController", lpParam.classLoader);
+				ShadeHeaderControllerClass = ReflectedClass.of("com.android.systemui.shade.LargeScreenShadeHeaderController");
 			}
 
 			ShadeHeaderControllerClass
@@ -962,11 +962,11 @@ public class StatusbarMods extends XposedModPack {
 				});
 
 		try { //A14QPR3
-			ReflectedClass MobileIconInteractorImplClass = ReflectedClass.of("com.android.systemui.statusbar.pipeline.mobile.domain.interactor.MobileIconInteractorImpl", lpParam.classLoader);
+			ReflectedClass MobileIconInteractorImplClass = ReflectedClass.of("com.android.systemui.statusbar.pipeline.mobile.domain.interactor.MobileIconInteractorImpl");
 
 			//we must use the classes defined in the apk. using our own will fail
-			ReflectedClass StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl", lpParam.classLoader);
-			ReflectedClass ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow", lpParam.classLoader);
+			ReflectedClass StateFlowImplClass = ReflectedClass.of("kotlinx.coroutines.flow.StateFlowImpl");
+			ReflectedClass ReadonlyStateFlowClass = ReflectedClass.of("kotlinx.coroutines.flow.ReadonlyStateFlow");
 
 			MobileIconInteractorImplClass
 					.afterConstruction()

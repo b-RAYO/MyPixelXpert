@@ -47,19 +47,19 @@ public class ScreenshotManager extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!listensTo(lpParam.packageName)) return;
 
-		ReflectedClass ScreenshotControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotController", lpParam.classLoader);
+		ReflectedClass ScreenshotControllerClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotController");
 
-		ReflectedClass CaptureArgsClass = ReflectedClass.ofIfPossible("android.window.ScreenCapture.CaptureArgs", lpParam.classLoader); //A14
+		ReflectedClass CaptureArgsClass = ReflectedClass.ofIfPossible("android.window.ScreenCapture.CaptureArgs"); //A14
 		if(CaptureArgsClass.getClazz() == null)
 		{
-			CaptureArgsClass = ReflectedClass.of("android.view.SurfaceControl$DisplayCaptureArgs", lpParam.classLoader); //A13
+			CaptureArgsClass = ReflectedClass.of("android.view.SurfaceControl$DisplayCaptureArgs"); //A13
 		}
 
 		ReflectedClass.of(UserManager.class)
 				.before("getUserInfo")
 				.run(param -> param.args[0] = 0);
 
-		ReflectedClass ScreenshotPolicyImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotPolicyImpl", lpParam.classLoader);
+		ReflectedClass ScreenshotPolicyImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotPolicyImpl");
 
 		if(ScreenshotPolicyImplClass.getClazz() != null) {
 			ScreenshotPolicyImplClass
@@ -104,7 +104,7 @@ public class ScreenshotManager extends XposedModPack {
 		}
 
 		//A14 QPR3
-		ReflectedClass ScreenshotSoundProviderImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotSoundProviderImpl", lpParam.classLoader);
+		ReflectedClass ScreenshotSoundProviderImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotSoundProviderImpl");
 		ScreenshotSoundProviderImplClass
 				.before("getScreenshotSound")
 				.run(param -> {
@@ -114,7 +114,7 @@ public class ScreenshotManager extends XposedModPack {
 	}
 
 	private static boolean isHookedToPlayScreenshotSoundAsync(XC_LoadPackage.LoadPackageParam lpParam) {
-		ReflectedClass ScreenshotSoundControllerImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotSoundControllerImpl", lpParam.classLoader);
+		ReflectedClass ScreenshotSoundControllerImplClass = ReflectedClass.ofIfPossible("com.android.systemui.screenshot.ScreenshotSoundControllerImpl");
 		return !ScreenshotSoundControllerImplClass
 				.before("playScreenshotSoundAsync")
 				.run(param -> {

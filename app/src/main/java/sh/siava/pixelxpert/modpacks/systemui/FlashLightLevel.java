@@ -59,7 +59,7 @@ public class FlashLightLevel extends XposedModPack {
 		mFlashPercentageDrawable = new TilePercentageDrawable(mContext);
 		mFlashPercentageDrawable.setAlpha(64);
 
-		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl", lpParam.classLoader);
+		ReflectedClass QSTileViewImplClass = ReflectedClass.of("com.android.systemui.qs.tileimpl.QSTileViewImpl");
 
 		QSTileViewImplClass
 				.after("handleStateChanged")

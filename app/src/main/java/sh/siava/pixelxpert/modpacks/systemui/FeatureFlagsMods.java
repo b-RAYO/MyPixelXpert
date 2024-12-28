@@ -49,7 +49,7 @@ public class FeatureFlagsMods extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		if (!lpParam.packageName.equals(listenPackage)) return;
 
-/*		ReflectedClass DeviceConfigClass = ReflectedClass.of("android.provider.DeviceConfig", lpParam.classLoader);
+/*		ReflectedClass DeviceConfigClass = ReflectedClass.of("android.provider.DeviceConfig");
 
 		hookAllMethods(DeviceConfigClass, "getBoolean", new XC_MethodHook() {
 			@Override
@@ -61,7 +61,7 @@ public class FeatureFlagsMods extends XposedModPack {
 			}
 		});*/
 		//replaced with this:
-		ReflectedClass ClipboardOverlayControllerClass = ReflectedClass.of("com.android.systemui.clipboardoverlay.ClipboardOverlayController", lpParam.classLoader);
+		ReflectedClass ClipboardOverlayControllerClass = ReflectedClass.of("com.android.systemui.clipboardoverlay.ClipboardOverlayController");
 
 		ClipboardOverlayControllerClass
 				.before(Pattern.compile("setExpandedView.*"))
@@ -74,7 +74,7 @@ public class FeatureFlagsMods extends XposedModPack {
 					}
 				});
 
-		ReflectedClass.of("com.android.settingslib.mobile.MobileMappings$Config", lpParam.classLoader)
+		ReflectedClass.of("com.android.settingslib.mobile.MobileMappings$Config")
 				.after("readConfig")
 				.run(param -> {
 					if (SBLTEIcon == SIGNAL_DEFAULT) return;

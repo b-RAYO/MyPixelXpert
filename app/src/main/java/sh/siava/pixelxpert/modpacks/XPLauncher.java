@@ -78,7 +78,7 @@ public class XPLauncher implements ServiceConnection {
 
 		//If example class isn't found, user is using an older version. Don't load the module at all
 		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU && lpParam.packageName.equals(SYSTEM_UI_PACKAGE)) {
-			ReflectedClass A33R18Example = ReflectedClass.ofIfPossible("com.android.systemui.shade.NotificationPanelViewController", lpParam.classLoader);
+			ReflectedClass A33R18Example = ReflectedClass.ofIfPossible("com.android.systemui.shade.NotificationPanelViewController");
 			if (A33R18Example.getClazz() == null) {
 				log("This version isn't compatible with your ROM. Exiting...");
 				return;
@@ -86,7 +86,7 @@ public class XPLauncher implements ServiceConnection {
 		}
 
 		if (lpParam.packageName.equals(Constants.SYSTEM_FRAMEWORK_PACKAGE)) {
-			ReflectedClass PhoneWindowManagerClass = ReflectedClass.of("com.android.server.policy.PhoneWindowManager", lpParam.classLoader);
+			ReflectedClass PhoneWindowManagerClass = ReflectedClass.of("com.android.server.policy.PhoneWindowManager");
 
 			PhoneWindowManagerClass
 					.before("init")

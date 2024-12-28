@@ -91,10 +91,10 @@ public class CustomNavGestures extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass OtherActivityInputConsumerClass = ReflectedClass.of("com.android.quickstep.inputconsumers.OtherActivityInputConsumer", lpParam.classLoader); //When apps are open
-		ReflectedClass OverviewInputConsumerClass = ReflectedClass.of("com.android.quickstep.inputconsumers.OverviewInputConsumer", lpParam.classLoader); //When on Home screen and Recents
-		ReflectedClass SystemUiProxyClass = ReflectedClass.of("com.android.quickstep.SystemUiProxy", lpParam.classLoader);
-		ReflectedClass RecentTasksListClass = ReflectedClass.of("com.android.quickstep.RecentTasksList", lpParam.classLoader);
+		ReflectedClass OtherActivityInputConsumerClass = ReflectedClass.of("com.android.quickstep.inputconsumers.OtherActivityInputConsumer"); //When apps are open
+		ReflectedClass OverviewInputConsumerClass = ReflectedClass.of("com.android.quickstep.inputconsumers.OverviewInputConsumer"); //When on Home screen and Recents
+		ReflectedClass SystemUiProxyClass = ReflectedClass.of("com.android.quickstep.SystemUiProxy");
+		ReflectedClass RecentTasksListClass = ReflectedClass.of("com.android.quickstep.RecentTasksList");
 
 		Rect displayBounds = SystemUtils.WindowManager().getMaximumWindowMetrics().getBounds();
 		displayW = Math.min(displayBounds.width(), displayBounds.height());

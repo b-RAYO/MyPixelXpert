@@ -54,8 +54,8 @@ public class FaceUpScreenSleep extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass FaceDownDetectorClass = ReflectedClass.of("com.android.server.power.FaceDownDetector", lpParam.classLoader);
-		ReflectedClass PowerManagerServiceClass = ReflectedClass.of("com.android.server.power.PowerManagerService", lpParam.classLoader);
+		ReflectedClass FaceDownDetectorClass = ReflectedClass.of("com.android.server.power.FaceDownDetector");
+		ReflectedClass PowerManagerServiceClass = ReflectedClass.of("com.android.server.power.PowerManagerService");
 
 		List<Set<XC_MethodHook.Unhook>> unHooks = new ArrayList<>();
 		unHooks.add(PowerManagerServiceClass

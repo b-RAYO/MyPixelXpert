@@ -80,8 +80,8 @@ public class StatusbarSize extends XposedModPack {
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
 		try {
 			try {
-				ReflectedClass WmDisplayCutoutClass = ReflectedClass.of("com.android.server.wm.utils.WmDisplayCutout", lpParam.classLoader);
-				ReflectedClass DisplayCutoutClass = ReflectedClass.of("android.view.DisplayCutout", lpParam.classLoader);
+				ReflectedClass WmDisplayCutoutClass = ReflectedClass.of("com.android.server.wm.utils.WmDisplayCutout");
+				ReflectedClass DisplayCutoutClass = ReflectedClass.of("android.view.DisplayCutout");
 
 				Object NO_CUTOUT = getStaticObjectField(DisplayCutoutClass.getClazz(), "NO_CUTOUT");
 
@@ -126,7 +126,7 @@ public class StatusbarSize extends XposedModPack {
 			};
 
 			try {
-				ReflectedClass SystemBarUtilsClass = ReflectedClass.of("com.android.internal.policy.SystemBarUtils", lpParam.classLoader);
+				ReflectedClass SystemBarUtilsClass = ReflectedClass.of("com.android.internal.policy.SystemBarUtils");
 
 				SystemBarUtilsClass.before("getStatusBarHeight").run(resizedResultConsumer);
 				SystemBarUtilsClass.before("getStatusBarHeightForRotation").run(resizedResultConsumer);

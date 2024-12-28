@@ -39,9 +39,9 @@ public class KSUInjector extends XposedModPack {
 
 	@Override
 	public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpParam) throws Throwable {
-		ReflectedClass MainActivityClass = ReflectedClass.of("me.weishu.kernelsu.ui.MainActivity", lpParam.classLoader);
-		ReflectedClass NativesClass = ReflectedClass.of("me.weishu.kernelsu.Natives", lpParam.classLoader);
-		ReflectedClass ProfileClass = ReflectedClass.of("me.weishu.kernelsu.Natives$Profile", lpParam.classLoader);
+		ReflectedClass MainActivityClass = ReflectedClass.of("me.weishu.kernelsu.ui.MainActivity");
+		ReflectedClass NativesClass = ReflectedClass.of("me.weishu.kernelsu.Natives");
+		ReflectedClass ProfileClass = ReflectedClass.of("me.weishu.kernelsu.Natives$Profile");
 
 		MainActivityClass
 				.after("onCreate")
