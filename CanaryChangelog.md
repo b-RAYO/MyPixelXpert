@@ -1,3 +1,6 @@
+**canary-417**  
+- A15QPR1 stable: fixed disabling screenshot sound  
+  
 **canary-416**  
 - Taskbar in normal mode now shows all apps button  
   
