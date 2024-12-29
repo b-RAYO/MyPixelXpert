@@ -171,7 +171,7 @@
     <string name="status_bar_height">Durum çubuğu yüksekliği (uygulamak için ekranı döndürün)</string>
     <string name="sb_padding_title">Durum çubuğu Dolgusu</string>
     <string name="sb_padding_summary">Değerleri min/maks ayarlamak, cihaz Varsayılanına eşdeğerdir</string>
-    <string name="sbbb_header_title">Battery Bar</string>
+    <string name="sbbb_header_title">Pil Çubuğu</string>
     <string name="sbbb_header">Pil çubuğu ayarları</string>
     <string name="sbbIcon_header">Pil simgesi ayarları</string>
     <string name="BB_enable_title">Pil Çubuğunu Etkinleştir</string>
