@@ -125,7 +125,7 @@
     <string name="caution_mobile_costs">ВНИМАНИЕ! Незнание того, что вы находитесь в роуминге, может увеличить ваши расходы на мобильную связь.</string>
     <string name="volte_icon_title">Показывать значок VoLTE, если он доступен</string>
     <string name="vowifi_icon_title">Показывать значок VoWiFi, когда он доступен </string>
-    <string name="hide_privacychip_title">Скрыть индикаторы приватности\(Камера, Микрофон)</string>
+    <string name="hide_privacychip_title">Скрыть индикаторы приватности\n(Камера, Микрофон)</string>
     <!-- \n means next line-->
     <string name="sbc_position_title">Расположение часов</string>
     <string name="sbc_ampm_style">Стиль AM/PM</string>
@@ -450,7 +450,7 @@
     <string name="switch_branches">Сменить канал</string>
     <string name="reinstall_word">Переустановить</string>
     <string name="changelog_title">История изменений</string>
-    <string name="own_prefs_header">Настройки AOSPMods</string>
+    <string name="own_prefs_header">Настройки</string>
     <string name="language_title">Выберите язык</string>
     <string name="toggle_dark_apply">(Переключиться на темную тему)</string>
     <string name="gesture_nav_extra_cat">Дополнительные жесты</string>
