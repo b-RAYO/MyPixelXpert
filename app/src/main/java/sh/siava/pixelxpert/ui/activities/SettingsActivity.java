@@ -97,6 +97,8 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 				navigateTo(navController, R.id.updateFragment, bundle);
 			} else if (getIntent().getBooleanExtra("newUpdate", false)) {
 				navigateTo(navController, R.id.updateFragment);
+			} else if (getIntent().getBooleanExtra("sleeponsurface", false)) {
+				navigateTo(navController, R.id.sleepOnFlatFragment);
 			}
 		}
 
