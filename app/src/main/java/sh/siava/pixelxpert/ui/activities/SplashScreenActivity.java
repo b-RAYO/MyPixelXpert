@@ -84,14 +84,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 				if (app.mRootServiceConnected.getCount() == 0) {
 					// Start the main activity
 					Intent intent = new Intent(SplashScreenActivity.this, SettingsActivity.class);
-					if (receivedIntent != null) {
-						if (receivedIntent.hasExtra("sleeponsurface")) {
-							intent.putExtra("sleeponsurface", true);
-						}
-						ComponentName cn = receivedIntent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
-						if (cn != null && cn.toString().toLowerCase().contains("sleeponsurface")) {
-							intent.putExtra("sleeponsurface", true);
-						}
+					if (receivedIntent != null && receivedIntent.hasExtra(Intent.EXTRA_COMPONENT_NAME)) {
+						intent.putExtra(Intent.EXTRA_COMPONENT_NAME, receivedIntent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME, ComponentName.class));
 					}
 					startActivity(intent);
 					finish();

@@ -20,9 +20,9 @@ public class FakeSplashActivity extends AppCompatActivity {
 		Intent receivedIntent = getIntent();
 		Intent splashIntent = new Intent(FakeSplashActivity.this, SplashScreenActivity.class);
 		if (receivedIntent != null) {
-			ComponentName cn = receivedIntent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
-			if (cn != null && cn.toString().toLowerCase().contains("sleeponsurface")) {
-				splashIntent.putExtra("sleeponsurface", true);
+			ComponentName cn = receivedIntent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME, ComponentName.class);
+			if (cn != null) {
+				splashIntent.putExtra(Intent.EXTRA_COMPONENT_NAME, cn);
 			}
 		}
 		startActivity(splashIntent);

@@ -11,6 +11,7 @@ import static sh.siava.pixelxpert.utils.NavigationExtensionKt.navigateTo;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,6 +51,7 @@ import java.util.Objects;
 import sh.siava.pixelxpert.BuildConfig;
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.databinding.SettingsActivityBinding;
+import sh.siava.pixelxpert.service.tileServices.SleepOnSurfaceTileService;
 import sh.siava.pixelxpert.ui.fragments.HeaderFragment;
 import sh.siava.pixelxpert.ui.fragments.UpdateFragment;
 import sh.siava.pixelxpert.ui.preferences.preferencesearch.SearchPreferenceResult;
@@ -97,8 +99,15 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 				navigateTo(navController, R.id.updateFragment, bundle);
 			} else if (getIntent().getBooleanExtra("newUpdate", false)) {
 				navigateTo(navController, R.id.updateFragment);
-			} else if (getIntent().getBooleanExtra("sleeponsurface", false)) {
-				navigateTo(navController, R.id.sleepOnFlatFragment);
+			} else if (getIntent().hasExtra(Intent.EXTRA_COMPONENT_NAME)) {
+				ComponentName callerComponentName = getIntent().getParcelableExtra(Intent.EXTRA_COMPONENT_NAME, ComponentName.class);
+				if(callerComponentName != null) {
+					String callerClassName = callerComponentName.getClassName();
+					if(SleepOnSurfaceTileService.class.getName().equals(callerClassName))
+					{
+						navigateTo(navController, R.id.sleepOnFlatFragment);
+					}
+				}
 			}
 		}
 
@@ -235,6 +244,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 		return true;
 	}
 
+	/** @noinspection SameParameterValue*/
 	@NonNull
 	private SpannableString getClickableText(String message, String link) {
 		SpannableString spannableMessage = new SpannableString(message);
@@ -278,6 +288,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 		switch (requestCode) {
 			case REQUEST_IMPORT:
 				try {
+					//noinspection DataFlowIssue
 					PrefManager.importPath(prefs, getContentResolver().openInputStream(data.getData()));
 					AppUtils.Restart("systemui");
 				} catch (Exception ignored) {
@@ -285,6 +296,7 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 				break;
 			case REQUEST_EXPORT:
 				try {
+					//noinspection DataFlowIssue
 					PrefManager.exportPrefs(prefs, getContentResolver().openOutputStream(data.getData()));
 				} catch (Exception ignored) {
 				}
