@@ -1,3 +1,6 @@
+**canary-418**  
+- Fixed fingerprint icon transparency, broken since canary 41x  
+  
 **canary-417**  
 - A15QPR1 stable: fixed disabling screenshot sound  
   
