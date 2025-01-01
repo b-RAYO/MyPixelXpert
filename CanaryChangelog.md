@@ -1,3 +1,6 @@
+**canary-419**  
+- Battery Icons now support charging limits of A15 and later  
+  
 **canary-418**  
 - Fixed fingerprint icon transparency, broken since canary 41x  
   
