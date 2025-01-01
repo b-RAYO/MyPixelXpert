@@ -7,6 +7,7 @@ import static android.graphics.Paint.Style.STROKE;
 import static android.graphics.Typeface.BOLD;
 import static java.lang.Math.round;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.getCurrentLevel;
+import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isBatteryDefender;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isFastCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isPowerSaving;
@@ -25,16 +26,21 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.PathParser;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
+import sh.siava.pixelxpert.R;
+import sh.siava.pixelxpert.modpacks.ResourceManager;
 import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
 
 public class CircleBatteryDrawable extends BatteryDrawable
@@ -63,7 +69,6 @@ public class CircleBatteryDrawable extends BatteryDrawable
 	private long mLastUpdate;
 	private Path mBoltPath;
 	private float mAlphaPct;
-
 	@SuppressLint("DiscouragedApi")
 	public CircleBatteryDrawable(Context context, int frameColor)
 	{
@@ -194,7 +199,9 @@ public class CircleBatteryDrawable extends BatteryDrawable
 			canvas.drawArc(mFrame, 270f, 3.6f * getCurrentLevel(), false, mBatteryPaint);
 		}
 
-		if(!isCharging() && getCurrentLevel() < 100 && mShowPercentage)
+		if(mShowPercentage
+				&& !isCharging()
+				&& getCurrentLevel() < 100)
 		{
 			String pctText = getCurrentLevel() > CRITICAL_LEVEL ? String.valueOf(getCurrentLevel()) : WARNING_STRING;
 
@@ -202,6 +209,14 @@ public class CircleBatteryDrawable extends BatteryDrawable
 			float pctX = mDiameter * .5f;
 			float pctY = (mDiameter + textHeight) * 0.47f;
 			canvas.drawText(pctText, pctX, pctY, mTextPaint);
+		}
+		else if(isBatteryDefender())
+		{
+			Drawable defenderIcon = ResourcesCompat.getDrawable(ResourceManager.modRes, R.drawable.ic_battery_defender, mContext.getTheme());
+			//noinspection DataFlowIssue
+			defenderIcon.setBounds(new Rect(Math.round(mFrame.left + mDiameter/5f), Math.round(mFrame.top + mDiameter/5f), Math.round(mFrame.right - mDiameter/5f), Math.round(mFrame.bottom - mDiameter/5f)));
+			defenderIcon.setTint(mBoltPaint.getColor());
+			defenderIcon.draw(canvas);
 		}
 	}
 
