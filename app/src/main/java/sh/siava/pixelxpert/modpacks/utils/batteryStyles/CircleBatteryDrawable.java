@@ -201,7 +201,8 @@ public class CircleBatteryDrawable extends BatteryDrawable
 
 		if(mShowPercentage
 				&& !isCharging()
-				&& getCurrentLevel() < 100)
+				&& getCurrentLevel() < 100
+				&& !isBatteryDefender())
 		{
 			String pctText = getCurrentLevel() > CRITICAL_LEVEL ? String.valueOf(getCurrentLevel()) : WARNING_STRING;
 
