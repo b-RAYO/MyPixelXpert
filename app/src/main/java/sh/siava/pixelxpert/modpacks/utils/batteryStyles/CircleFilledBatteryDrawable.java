@@ -7,6 +7,7 @@ import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isBatter
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isFastCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isPowerSaving;
+import static sh.siava.pixelxpert.modpacks.utils.SystemUtils.isDarkMode;
 import static sh.siava.pixelxpert.modpacks.utils.toolkit.ColorUtils.getColorAttrDefaultColor;
 
 import android.animation.ValueAnimator;
@@ -16,9 +17,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
@@ -148,12 +152,27 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 		canvas.drawCircle(centerX, centerY, baseRadius, basePaint);
 		canvas.drawCircle(centerY, centerY, levelRadius, levelPaint);
 
+		int saveCount = canvas.save();
+
 		if(isBatteryDefender())
 		{
+
+			RectF iconBounds = new RectF(
+					centerX - baseRadius / 2f,
+					centerY - baseRadius / 2f,
+					centerX + baseRadius / 2f,
+					centerY + baseRadius / 2f
+			);
+			Path iconClipPath = new Path();
+			iconClipPath.addOval(iconBounds, Path.Direction.CW);
+			canvas.clipOutPath(iconClipPath);
+
+			canvas.restoreToCount(saveCount);
+
 			Drawable defenderIcon = ResourcesCompat.getDrawable(ResourceManager.modRes, R.drawable.ic_battery_defender, mContext.getTheme());
 			//noinspection DataFlowIssue
-			defenderIcon.setBounds(new Rect(Math.round(centerX - baseRadius/2.5f), Math.round(centerY - baseRadius/2.5f), Math.round(centerX + baseRadius/2.5f), Math.round(centerY + baseRadius/2.5f)));
-			defenderIcon.setTint(invertColor(levelPaint.getColor()));
+			defenderIcon.setBounds(new Rect(Math.round(centerX - baseRadius/2.3f), Math.round(centerY - baseRadius/2.3f), Math.round(centerX + baseRadius/2.3f), Math.round(centerY + baseRadius/2.3f)));
+			defenderIcon.setTint(invertColor(mFGColor));
 			defenderIcon.draw(canvas);
 		}
 	}
@@ -170,6 +189,9 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 			return;
 		} else if (isPowerSaving()) {
 			paint.setColor(mPowerSaveColor);
+			return;
+		} else if (isBatteryDefender()) {
+			paint.setColor(mBGColor);
 			return;
 		}
 

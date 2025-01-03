@@ -11,6 +11,7 @@ import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isBatter
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isFastCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isPowerSaving;
+import static sh.siava.pixelxpert.modpacks.utils.SystemUtils.isDarkMode;
 import static sh.siava.pixelxpert.modpacks.utils.toolkit.ColorUtils.getColorAttrDefaultColor;
 
 import android.animation.ValueAnimator;
@@ -42,6 +43,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.ResourceManager;
 import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
+import sh.siava.pixelxpert.modpacks.utils.SystemUtils;
 
 public class CircleBatteryDrawable extends BatteryDrawable
 {
@@ -216,7 +218,7 @@ public class CircleBatteryDrawable extends BatteryDrawable
 			Drawable defenderIcon = ResourcesCompat.getDrawable(ResourceManager.modRes, R.drawable.ic_battery_defender, mContext.getTheme());
 			//noinspection DataFlowIssue
 			defenderIcon.setBounds(new Rect(Math.round(mFrame.left + mDiameter/5f), Math.round(mFrame.top + mDiameter/5f), Math.round(mFrame.right - mDiameter/5f), Math.round(mFrame.bottom - mDiameter/5f)));
-			defenderIcon.setTint(mBoltPaint.getColor());
+			defenderIcon.setTint(isDarkMode() ? WHITE : Color.BLACK);
 			defenderIcon.draw(canvas);
 		}
 	}
@@ -235,6 +237,9 @@ public class CircleBatteryDrawable extends BatteryDrawable
 			return;
 		} else if (isCharging() && showCharging && getCurrentLevel() < 100) {
 			paint.setColor(chargingColor);
+			return;
+		} else if (isBatteryDefender()) {
+			paint.setColor(mFGColor);
 			return;
 		}
 
