@@ -6,7 +6,8 @@ import android.graphics.Paint;
 /** When setting a paint's color, alpha gets reset... naturally. So this is kind of paint that remembers its alpha and keeps it intact
  */
 public class AlphaConsistantPaint extends Paint {
-	int mAlpha = 255;
+	int mAlpha = super.getAlpha();
+	int mColor = super.getColor();
 	public AlphaConsistantPaint(int flag) {
 		super(flag);
 	}
@@ -15,16 +16,22 @@ public class AlphaConsistantPaint extends Paint {
 	public void setAlpha(int alpha)
 	{
 		mAlpha = alpha;
-
-		super.setAlpha(combinedAlpha(alpha, getAlpha()));
+		refreshColor();
 	}
 
 	@Override
 	public void setColor(int color)
 	{
-		super.setColor(color);
+		mColor = color;
+		refreshColor();
+	}
 
-		super.setAlpha(combinedAlpha(Color.alpha(color), mAlpha));
+	private void refreshColor() {
+		super.setColor(
+				Color.argb(combinedAlpha(mAlpha, Color.alpha(mColor)),
+						Color.red(mColor),
+						Color.green(mColor),
+						Color.blue(mColor)));
 	}
 
 	private int combinedAlpha(int alpha1, int alpha2)
