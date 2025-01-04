@@ -1,3 +1,6 @@
+**canary-420**  
+- Battery icons: bugfix  
+  
 **canary-419**  
 - Battery Icons now support charging limits of A15 and later  
   
