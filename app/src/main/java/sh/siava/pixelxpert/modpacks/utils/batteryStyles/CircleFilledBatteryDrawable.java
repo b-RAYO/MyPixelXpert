@@ -7,7 +7,6 @@ import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isBatter
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isFastCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isPowerSaving;
-import static sh.siava.pixelxpert.modpacks.utils.SystemUtils.isDarkMode;
 import static sh.siava.pixelxpert.modpacks.utils.toolkit.ColorUtils.getColorAttrDefaultColor;
 
 import android.animation.ValueAnimator;
@@ -17,12 +16,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Region;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
@@ -34,6 +30,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.ResourceManager;
+import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
 
 public class CircleFilledBatteryDrawable extends BatteryDrawable {
 	private static final int INTRINSIC_DIMENSION = 45;
@@ -111,11 +108,12 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 			lastUpdate = lastVarUpdate;
 			refreshShadeColors();
 		}
-		Paint basePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-		basePaint.setColor(mBGColor);
+		Paint basePaint = new AlphaConsistantPaint(Paint.ANTI_ALIAS_FLAG);
 		basePaint.setAlpha(round(80f * (mAlpha / 255f)));
 
-		Paint levelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		basePaint.setColor(mBGColor);
+
+		Paint levelPaint = new AlphaConsistantPaint(Paint.ANTI_ALIAS_FLAG);
 
 		float centerX = mDimension / 2f + mPadding.left;
 		float centerY = mDimension / 2f + mPadding.top;
@@ -152,27 +150,13 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 		canvas.drawCircle(centerX, centerY, baseRadius, basePaint);
 		canvas.drawCircle(centerY, centerY, levelRadius, levelPaint);
 
-		int saveCount = canvas.save();
-
 		if(isBatteryDefender())
 		{
-
-			RectF iconBounds = new RectF(
-					centerX - baseRadius / 2f,
-					centerY - baseRadius / 2f,
-					centerX + baseRadius / 2f,
-					centerY + baseRadius / 2f
-			);
-			Path iconClipPath = new Path();
-			iconClipPath.addOval(iconBounds, Path.Direction.CW);
-			canvas.clipOutPath(iconClipPath);
-
-			canvas.restoreToCount(saveCount);
-
 			Drawable defenderIcon = ResourcesCompat.getDrawable(ResourceManager.modRes, R.drawable.ic_battery_defender, mContext.getTheme());
 			//noinspection DataFlowIssue
-			defenderIcon.setBounds(new Rect(Math.round(centerX - baseRadius/2.3f), Math.round(centerY - baseRadius/2.3f), Math.round(centerX + baseRadius/2.3f), Math.round(centerY + baseRadius/2.3f)));
+			defenderIcon.setBounds(new Rect(Math.round(centerX - baseRadius/2.2f), Math.round(centerY - baseRadius/2.2f), Math.round(centerX + baseRadius/2.2f), Math.round(centerY + baseRadius/2.2f)));
 			defenderIcon.setTint(invertColor(mFGColor));
+			defenderIcon.setAlpha(mAlpha);
 			defenderIcon.draw(canvas);
 		}
 	}
@@ -191,7 +175,7 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 			paint.setColor(mPowerSaveColor);
 			return;
 		} else if (isBatteryDefender()) {
-			paint.setColor(mBGColor);
+			paint.setColor(singleColor);
 			return;
 		}
 
@@ -218,9 +202,7 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 
 	@Override
 	public void setAlpha(int alpha) {
-		if (mAlpha != alpha) {
-			mAlpha = alpha;
-		}
+		mAlpha = alpha;
 	}
 
 	@Override
