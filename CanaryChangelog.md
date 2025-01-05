@@ -1,3 +1,6 @@
+**canary-422**  
+- Fixed systemUI crash with certain battery icon setups  
+  
 **canary-421**  
 - improved hiding the privacy icons  
   
