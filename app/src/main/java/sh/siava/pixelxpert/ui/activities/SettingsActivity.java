@@ -43,7 +43,6 @@ import androidx.transition.Slide;
 import androidx.transition.TransitionManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.topjohnwu.superuser.Shell;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -75,7 +74,6 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 		binding = SettingsActivityBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
 
-		tryMigratePrefs();
 		createNotificationChannel();
 		setupBottomNavigationView();
 
@@ -154,24 +152,6 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
 				navController.popBackStack(R.id.ownPrefsFragment, false);
 			}
 		});
-	}
-
-	private void tryMigratePrefs() {
-		String migrateFileName = "PX_migrate.tmp";
-		@SuppressLint("SdCardPath")
-		String migrateFilePath = "/sdcard/" + migrateFileName;
-		if (!Shell.cmd(String.format("stat %s", migrateFilePath)).exec().getOut().isEmpty()) {
-			String PXPrefsPath = "/data/user_de/0/sh.siava.pixelxpert/shared_prefs/sh.siava.pixelxpert_preferences.xml";
-			Shell.cmd(String.format("mv %s %s", migrateFilePath, PXPrefsPath)).exec();
-			Shell.cmd(String.format("chmod 777 %s", PXPrefsPath)).exec(); //system will correct the permissions upon next launch. let's just give it access to do so
-
-			new MaterialAlertDialogBuilder(this, R.style.MaterialComponents_MaterialAlertDialog)
-					.setTitle(R.string.app_kill_alert_title)
-					.setMessage(R.string.reboot_alert_body)
-					.setPositiveButton(R.string.reboot_word, (dialog, which) -> AppUtils.Restart("system"))
-					.setCancelable(false)
-					.show();
-		}
 	}
 
 	@Override
