@@ -45,10 +45,9 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 	private static int[] mShadeColors = null;
 	private static float[] mShadeLevels = null;
 	private final int mPowerSaveColor;
-	private long lastUpdate = -1;
-
 	@SuppressLint("DiscouragedApi")
 	public CircleFilledBatteryDrawable(Context context) {
+		super();
 		mContext = context;
 
 		mPowerSaveColor = getColorAttrDefaultColor(context, android.R.attr.colorError);
@@ -68,30 +67,6 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 		mBGColor = frameColor;
 	}
 
-	private static void refreshShadeColors() {
-		if (batteryColors == null) return;
-
-		mShadeColors = new int[batteryLevels.size() * 2 + 2];
-
-		mShadeLevels = new float[mShadeColors.length];
-		float prev = 0;
-		for (int i = 0; i < batteryLevels.size(); i++) {
-			float rangeLength = batteryLevels.get(i) - prev;
-			mShadeLevels[2 * i] = (prev + rangeLength * .3f) / 100;
-			mShadeColors[2 * i] = batteryColors[i];
-
-			mShadeLevels[2 * i + 1] = (batteryLevels.get(i) - rangeLength * .3f) / 100;
-			mShadeColors[2 * i + 1] = batteryColors[i];
-
-			prev = batteryLevels.get(i);
-		}
-
-		mShadeLevels[mShadeLevels.length - 2] = (batteryLevels.get(batteryLevels.size() - 1) + (100 - batteryLevels.get(batteryLevels.size() - 1)) * .3f) / 100;
-		mShadeColors[mShadeColors.length - 2] = Color.GREEN;
-		mShadeLevels[mShadeLevels.length - 1] = 1f;
-		mShadeColors[mShadeColors.length - 1] = Color.GREEN;
-	}
-
 	@Override
 	public int getIntrinsicHeight() {
 		return INTRINSIC_DIMENSION;
@@ -104,10 +79,6 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 
 	@Override
 	public void draw(@NonNull Canvas canvas) {
-		if (lastUpdate != lastVarUpdate) {
-			lastUpdate = lastVarUpdate;
-			refreshShadeColors();
-		}
 		Paint basePaint = new AlphaConsistantPaint(Paint.ANTI_ALIAS_FLAG);
 		basePaint.setAlpha(round(80f * (mAlpha / 255f)));
 
@@ -248,5 +219,32 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 		int blue = 255 - Color.blue(color);
 
 		return Color.rgb(red, green, blue);
+	}
+
+	@Override
+	public void onColorsUpdated() {
+		if (batteryColors == null || batteryLevels.isEmpty()) return;
+
+		mShadeColors = new int[batteryLevels.size() * 2 + 2];
+
+		mShadeLevels = new float[mShadeColors.length];
+		float prev = 0;
+		for (int i = 0; i < batteryLevels.size(); i++) {
+			float rangeLength = batteryLevels.get(i) - prev;
+			mShadeLevels[2 * i] = (prev + rangeLength * .3f) / 100;
+			mShadeColors[2 * i] = batteryColors[i];
+
+			mShadeLevels[2 * i + 1] = (batteryLevels.get(i) - rangeLength * .3f) / 100;
+			mShadeColors[2 * i + 1] = batteryColors[i];
+
+			prev = batteryLevels.get(i);
+		}
+
+		mShadeLevels[mShadeLevels.length - 2] = (batteryLevels.get(batteryLevels.size() - 1) + (100 - batteryLevels.get(batteryLevels.size() - 1)) * .3f) / 100;
+		mShadeColors[mShadeColors.length - 2] = Color.GREEN;
+		mShadeLevels[mShadeLevels.length - 1] = 1f;
+		mShadeColors[mShadeColors.length - 1] = Color.GREEN;
+
+		invalidateSelf();
 	}
 }

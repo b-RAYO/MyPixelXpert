@@ -29,6 +29,11 @@ public class HiddenBatteryDrawable extends BatteryDrawable {
 	}
 
 	@Override
+	public void onColorsUpdated() {
+
+	}
+
+	@Override
 	public void draw(@NonNull Canvas canvas) {
 
 	}

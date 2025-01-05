@@ -42,9 +42,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.ResourceManager;
 import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
-
-public class CircleBatteryDrawable extends BatteryDrawable
-{
+public class CircleBatteryDrawable extends BatteryDrawable {
 	public static final int BATTERY_STYLE_CIRCLE = 1;
 	public static final int BATTERY_STYLE_DOTTED_CIRCLE = 2;
 	private static final String WARNING_STRING = "!";
@@ -66,7 +64,6 @@ public class CircleBatteryDrawable extends BatteryDrawable
 	private final ValueAnimator mBoltAlphaAnimator;
 	private int[] mShadeColors;
 	private float[] mShadeLevels;
-	private long mLastUpdate;
 	private Path mBoltPath;
 	private float mAlphaPct;
 	@SuppressLint("DiscouragedApi")
@@ -136,45 +133,9 @@ public class CircleBatteryDrawable extends BatteryDrawable
 		mChargingAnimationEnabled = enabled;
 	}
 
-	private void refreshShadeColors()
-	{
-		if(batteryColors == null) return;
-
-		mShadeColors = new int[batteryLevels.size() * 2 + 2];
-		mShadeLevels = new float[mShadeColors.length];
-
-		float lastPCT = 0f;
-
-		for(int i = 0; i < batteryLevels.size(); i++)
-		{
-			float rangeLength = batteryLevels.get(i) - lastPCT;
-
-			int pointer = 2 * i;
-			mShadeLevels[pointer] = (lastPCT + rangeLength * 0.3f) / 100;
-			mShadeColors[pointer] = batteryColors[i];
-
-			mShadeLevels[pointer + 1] = (batteryLevels.get(i) - rangeLength * 0.3f) / 100;
-			mShadeColors[pointer + 1] = batteryColors[i];
-			lastPCT = batteryLevels.get(i);
-
-		}
-
-		mShadeLevels[mShadeLevels.length - 2] = (batteryLevels.get(batteryLevels.size() - 1) + (100 - batteryLevels.get(batteryLevels.size() - 1) * 0.3f)) / 100;
-		mShadeColors[mShadeColors.length -2] = Color.GREEN;
-
-		mShadeLevels[mShadeLevels.length - 1] = 1f;
-		mShadeColors[mShadeColors.length- 1] = Color.GREEN;
-	}
-
 	@Override
 	public void draw(@NonNull Canvas canvas) {
 		if(getCurrentLevel() < 0 || mDiameter == 0) return;
-
-		if (mLastUpdate != lastVarUpdate)
-		{
-			mLastUpdate = lastVarUpdate;
-			refreshShadeColors();
-		}
 
 		setLevelBasedColors(mBatteryPaint, mFrame.centerX(), mFrame.centerY());
 
@@ -359,4 +320,34 @@ public class CircleBatteryDrawable extends BatteryDrawable
 		return CIRCLE_DIAMETER;
 	}
 
+	@Override
+	public void onColorsUpdated() {
+		if(batteryColors == null || batteryLevels.isEmpty()) return;
+
+		mShadeColors = new int[batteryLevels.size() * 2 + 2];
+		mShadeLevels = new float[mShadeColors.length];
+
+		float lastPCT = 0f;
+
+		for(int i = 0; i < batteryLevels.size(); i++)
+		{
+			float rangeLength = batteryLevels.get(i) - lastPCT;
+
+			int pointer = 2 * i;
+			mShadeLevels[pointer] = (lastPCT + rangeLength * 0.3f) / 100;
+			mShadeColors[pointer] = batteryColors[i];
+
+			mShadeLevels[pointer + 1] = (batteryLevels.get(i) - rangeLength * 0.3f) / 100;
+			mShadeColors[pointer + 1] = batteryColors[i];
+			lastPCT = batteryLevels.get(i);
+		}
+
+		mShadeLevels[mShadeLevels.length - 2] = (batteryLevels.get(batteryLevels.size() - 1) + (100 - batteryLevels.get(batteryLevels.size() - 1) * 0.3f)) / 100;
+		mShadeColors[mShadeColors.length -2] = Color.GREEN;
+
+		mShadeLevels[mShadeLevels.length - 1] = 1f;
+		mShadeColors[mShadeColors.length- 1] = Color.GREEN;
+
+		invalidateSelf();
+	}
 }
