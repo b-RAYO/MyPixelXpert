@@ -1,3 +1,6 @@
+**canary-421**  
+- improved hiding the privacy icons  
+  
 **canary-420**  
 - Battery icons: bugfix  
   
