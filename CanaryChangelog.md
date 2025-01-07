@@ -1,3 +1,7 @@
+**canary-424**  
+- improved dashed circle battery drawable colors  
+- Fixed in-call vibration mods  
+  
 **canary-423**  
 - QS Tile vertical layout: fixed the scroll bug  
   
