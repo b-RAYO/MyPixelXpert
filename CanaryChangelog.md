@@ -1,3 +1,6 @@
+**canary-423**  
+- QS Tile vertical layout: fixed the scroll bug  
+  
 **canary-422**  
 - Fixed systemUI crash with certain battery icon setups  
   
