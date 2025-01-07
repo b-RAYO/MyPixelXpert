@@ -67,12 +67,13 @@ public class CircleBatteryDrawable extends BatteryDrawable {
 	private float[] mShadeLevels;
 	private Path mBoltPath;
 	private float mAlphaPct;
+	private final int mMeterStyle;
 
 	@SuppressLint("DiscouragedApi")
 	public CircleBatteryDrawable(Context context, int frameColor, int meterStyle)
 	{
-		super();
 		mContext = context;
+		mMeterStyle = meterStyle;
 
 		//background
 		mFramePaint.setDither(true);
@@ -348,7 +349,7 @@ public class CircleBatteryDrawable extends BatteryDrawable {
 		mShadeLevels[mShadeLevels.length - 1] = 1f;
 		mShadeColors[mShadeColors.length- 1] = Color.GREEN;
 
-		if(DASH_PATH_EFFECT.equals(mBatteryPaint.getPathEffect())) {
+		if(mMeterStyle == BATTERY_STYLE_DOTTED_CIRCLE) {
 			for (int i = 0; i < mShadeColors.length; i++) {
 				mShadeColors[i] = setColorBoldness(mShadeColors[i], DASH_PATH_EFFECT_BOLDNESS_FACTOR);
 			}
