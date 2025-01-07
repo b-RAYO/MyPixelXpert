@@ -14,11 +14,6 @@ public class HiddenBatteryDrawable extends BatteryDrawable {
 	}
 
 	@Override
-	public void setMeterStyle(int batteryStyle) {
-
-	}
-
-	@Override
 	public void setColors(int fgColor, int bgColor, int singleToneColor) {
 
 	}

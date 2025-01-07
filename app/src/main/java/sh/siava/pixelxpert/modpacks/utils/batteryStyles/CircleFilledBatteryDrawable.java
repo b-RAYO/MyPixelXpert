@@ -30,7 +30,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.ResourceManager;
-import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
+import sh.siava.pixelxpert.modpacks.utils.AlphaAndColorBalancedPaint;
 
 public class CircleFilledBatteryDrawable extends BatteryDrawable {
 	private static final int INTRINSIC_DIMENSION = 45;
@@ -79,12 +79,12 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 
 	@Override
 	public void draw(@NonNull Canvas canvas) {
-		Paint basePaint = new AlphaConsistantPaint(Paint.ANTI_ALIAS_FLAG);
+		Paint basePaint = new AlphaAndColorBalancedPaint(Paint.ANTI_ALIAS_FLAG);
 		basePaint.setAlpha(round(80f * (mAlpha / 255f)));
 
 		basePaint.setColor(mBGColor);
 
-		Paint levelPaint = new AlphaConsistantPaint(Paint.ANTI_ALIAS_FLAG);
+		Paint levelPaint = new AlphaAndColorBalancedPaint(Paint.ANTI_ALIAS_FLAG);
 
 		float centerX = mDimension / 2f + mPadding.left;
 		float centerY = mDimension / 2f + mPadding.top;
@@ -195,10 +195,6 @@ public class CircleFilledBatteryDrawable extends BatteryDrawable {
 
 	@Override
 	public void setShowPercent(boolean showPercent) { //not applicable
-	}
-
-	@Override
-	public void setMeterStyle(int batteryStyle) { //not applicable
 	}
 
 	@Override

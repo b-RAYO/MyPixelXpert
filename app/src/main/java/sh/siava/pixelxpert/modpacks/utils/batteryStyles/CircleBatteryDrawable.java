@@ -11,7 +11,10 @@ import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isBatter
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isFastCharging;
 import static sh.siava.pixelxpert.modpacks.systemui.BatteryDataProvider.isPowerSaving;
+import static sh.siava.pixelxpert.modpacks.utils.AlphaAndColorBalancedPaint.DASH_PATH_EFFECT;
+import static sh.siava.pixelxpert.modpacks.utils.AlphaAndColorBalancedPaint.DASH_PATH_EFFECT_BOLDNESS_FACTOR;
 import static sh.siava.pixelxpert.modpacks.utils.toolkit.ColorUtils.getColorAttrDefaultColor;
+import static sh.siava.pixelxpert.modpacks.utils.toolkit.ColorUtils.setColorBoldness;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -20,11 +23,9 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
-import android.graphics.DashPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathEffect;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -41,14 +42,14 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import sh.siava.pixelxpert.R;
 import sh.siava.pixelxpert.modpacks.ResourceManager;
-import sh.siava.pixelxpert.modpacks.utils.AlphaConsistantPaint;
+import sh.siava.pixelxpert.modpacks.utils.AlphaAndColorBalancedPaint;
 public class CircleBatteryDrawable extends BatteryDrawable {
+	/** @noinspection unused*/
 	public static final int BATTERY_STYLE_CIRCLE = 1;
 	public static final int BATTERY_STYLE_DOTTED_CIRCLE = 2;
 	private static final String WARNING_STRING = "!";
 	private static final int CRITICAL_LEVEL = 5;
 	private static final int CIRCLE_DIAMETER = 45; //relative to dash effect size. Size doesn't matter as finally it gets scaled by parent
-	private static final PathEffect DASH_PATH_EFFECT = new DashPathEffect(new float[]{3f, 2f}, 0f);
 	private final Context mContext;
 	private final int mPowerSaveColor;
 	private boolean mShowPercentage = false;
@@ -56,59 +57,58 @@ public class CircleBatteryDrawable extends BatteryDrawable {
 	private int mDiameter;
 	private final RectF mFrame = new RectF();
 	private int mFGColor = WHITE;
-	private final Paint mTextPaint = new AlphaConsistantPaint(ANTI_ALIAS_FLAG);
-	private final Paint mFramePaint = new AlphaConsistantPaint(ANTI_ALIAS_FLAG);
-	private final Paint mBatteryPaint = new AlphaConsistantPaint(ANTI_ALIAS_FLAG);
-	private final Paint mWarningTextPaint = new AlphaConsistantPaint(ANTI_ALIAS_FLAG);
-	private final Paint mBoltPaint = new AlphaConsistantPaint(ANTI_ALIAS_FLAG);
+	private final Paint mTextPaint = new AlphaAndColorBalancedPaint(ANTI_ALIAS_FLAG);
+	private final Paint mFramePaint = new AlphaAndColorBalancedPaint(ANTI_ALIAS_FLAG);
+	private final Paint mBatteryPaint = new AlphaAndColorBalancedPaint(ANTI_ALIAS_FLAG);
+	private final Paint mWarningTextPaint = new AlphaAndColorBalancedPaint(ANTI_ALIAS_FLAG);
+	private final Paint mBoltPaint = new AlphaAndColorBalancedPaint(ANTI_ALIAS_FLAG);
 	private final ValueAnimator mBoltAlphaAnimator;
 	private int[] mShadeColors;
 	private float[] mShadeLevels;
 	private Path mBoltPath;
 	private float mAlphaPct;
+
 	@SuppressLint("DiscouragedApi")
-	public CircleBatteryDrawable(Context context, int frameColor)
+	public CircleBatteryDrawable(Context context, int frameColor, int meterStyle)
 	{
 		super();
 		mContext = context;
 
+		//background
 		mFramePaint.setDither(true);
 		mFramePaint.setStyle(STROKE);
+		mFramePaint.setPathEffect(meterStyle == BATTERY_STYLE_DOTTED_CIRCLE ? DASH_PATH_EFFECT : null);
 
+		//percentage
 		mTextPaint.setTypeface(Typeface.create("sans-serif-condensed", BOLD));
 		mTextPaint.setTextAlign(CENTER);
 
+		//warning text
 		mWarningTextPaint.setTypeface(Typeface.create("sans-serif", BOLD));
 		mWarningTextPaint.setTextAlign(CENTER);
 
+		//main paint
 		mBatteryPaint.setDither(true);
 		mBatteryPaint.setStyle(STROKE);
+		mBatteryPaint.setPathEffect(meterStyle == BATTERY_STYLE_DOTTED_CIRCLE ? DASH_PATH_EFFECT : null);
 
+		//power saver
 		mPowerSaveColor = getColorAttrDefaultColor(context, android.R.attr.colorError);
 
-		setColors(frameColor, frameColor, frameColor);
-
-		setMeterStyle(BATTERY_STYLE_CIRCLE);
-
+		//charging animation
 		mBoltAlphaAnimator = ValueAnimator.ofInt(255, 255, 255, 45);
-
 		mBoltAlphaAnimator.setDuration(2000);
 		mBoltAlphaAnimator.setInterpolator(new FastOutSlowInInterpolator());
 		mBoltAlphaAnimator.setRepeatMode(ValueAnimator.REVERSE);
 		mBoltAlphaAnimator.setRepeatCount(ValueAnimator.INFINITE);
-
 		mBoltAlphaAnimator.addUpdateListener(valueAnimator -> invalidateSelf());
+
+		setColors(frameColor, frameColor, frameColor);
 	}
 
 	@Override
 	public void setShowPercent(boolean showPercent) {
 		mShowPercentage = showPercent;
-	}
-
-	@Override
-	public void setMeterStyle(int batteryStyle) {
-		mFramePaint.setPathEffect(batteryStyle == BATTERY_STYLE_DOTTED_CIRCLE ? DASH_PATH_EFFECT : null);
-		mBatteryPaint.setPathEffect(batteryStyle == BATTERY_STYLE_DOTTED_CIRCLE ? DASH_PATH_EFFECT : null);
 	}
 
 	@Override
@@ -347,6 +347,12 @@ public class CircleBatteryDrawable extends BatteryDrawable {
 
 		mShadeLevels[mShadeLevels.length - 1] = 1f;
 		mShadeColors[mShadeColors.length- 1] = Color.GREEN;
+
+		if(DASH_PATH_EFFECT.equals(mBatteryPaint.getPathEffect())) {
+			for (int i = 0; i < mShadeColors.length; i++) {
+				mShadeColors[i] = setColorBoldness(mShadeColors[i], DASH_PATH_EFFECT_BOLDNESS_FACTOR);
+			}
+		}
 
 		invalidateSelf();
 	}

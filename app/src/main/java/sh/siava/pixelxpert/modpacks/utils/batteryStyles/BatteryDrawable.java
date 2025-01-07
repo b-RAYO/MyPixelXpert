@@ -12,8 +12,6 @@ public abstract class BatteryDrawable extends Drawable {
 
 	public abstract void setShowPercent(boolean showPercent);
 
-	public abstract void setMeterStyle(int batteryStyle);
-
 	public abstract void setColors(int fgColor, int bgColor, int singleToneColor);
 
 	public abstract void setChargingAnimationEnabled(boolean enabled);
