@@ -110,7 +110,7 @@ public class ModPacks {
 					modPacks.add(BrightnessRange.class);
 					modPacks.add(NotificationExpander.class);
 					modPacks.add(QSTileGrid.class);
-					modPacks.add(BrightnessSlider.class);
+					//modPacks.add(BrightnessSlider.class);
 					modPacks.add(FeatureFlagsMods.class);
 					modPacks.add(ThreeButtonNavMods.class);
 					modPacks.add(ScreenGestures.class);
