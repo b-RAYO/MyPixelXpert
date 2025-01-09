@@ -1,3 +1,5 @@
+**canary-425**  
+  
 **canary-424**  
 - improved dashed circle battery drawable colors  
 - Fixed in-call vibration mods  
