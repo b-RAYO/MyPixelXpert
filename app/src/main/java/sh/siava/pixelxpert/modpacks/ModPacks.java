@@ -112,13 +112,13 @@ public class ModPacks {
 					modPacks.add(BrightnessRange.class);
 					modPacks.add(NotificationExpander.class);
 					modPacks.add(QSTileGrid.class);
-					modPacks.add(BrightnessSlider.class);
+					//modPacks.add(BrightnessSlider.class);
 					modPacks.add(FeatureFlagsMods.class);
 					modPacks.add(ThreeButtonNavMods.class);
 					modPacks.add(ScreenGestures.class);
 					modPacks.add(MiscSettings.class);
 					modPacks.add(StatusbarGestures.class);
-					modPacks.add(KeyguardMods.class);
+					//modPacks.add(KeyguardMods.class);
 					modPacks.add(UDFPSManager.class);
 					modPacks.add(EasyUnlock.class);
 					modPacks.add(MultiStatusbarRows.class);
@@ -133,7 +133,7 @@ public class ModPacks {
 					modPacks.add(NotificationManager.class);
 					modPacks.add(VolumeTile.class);
 					modPacks.add(ScreenRecord.class);
-					modPacks.add(VolumeDialog.class);
+					//modPacks.add(VolumeDialog.class);
 					modPacks.add(DepthWallpaper.class);
 					modPacks.add(KSURootReceiver.class);
 					modPacks.add(PowerMenu.class);
