@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Source Code Download
-      run: git clone --branch canary --single-branch --recurse-submodules https://github.com/b-RAYO/PixelXpert.git .
+      run: git clone --branch canary --single-branch --recurse-submodules https://github.com/b-RAYO/MyPixelXpert.git .
       
     - name: JDK 17 Setup
       uses: actions/setup-java@v4.1.0
