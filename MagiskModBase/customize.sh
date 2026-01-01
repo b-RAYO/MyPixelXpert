@@ -141,7 +141,7 @@ assert16QPR()
 }
 
 
-assertPixelRom
+#assertPixelRom
 
 assert16QPR
 
