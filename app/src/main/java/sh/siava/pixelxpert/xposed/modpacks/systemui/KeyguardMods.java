@@ -50,7 +50,7 @@ import sh.siava.pixelxpert.xposed.utils.toolkit.ReflectionTools;
 
 @SuppressWarnings("RedundantThrows")
 //@SystemUIModPack
-public class KeyguardMods extends XposedModPack {
+public class KeyguardMods {
 	//region keyguard charging data
 	public static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
 	public static final String EXTRA_MAX_CHARGING_VOLTAGE = "max_charging_voltage";
