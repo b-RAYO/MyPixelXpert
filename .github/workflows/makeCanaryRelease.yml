@@ -3,7 +3,7 @@ name: Make Canary Release
 on:
   push:
     branches:
-      - 'canary'
+      - 'v4.3'
     paths:
       - '.github/edit2MakeNewCanary'
 
@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Source Code Download
-      run: git clone --branch canary --single-branch --recurse-submodules https://github.com/b-RAYO/MyPixelXpert.git .
+      run: git clone --branch v4.3 --single-branch --recurse-submodules https://github.com/b-RAYO/MyPixelXpert.git .
       
     - name: JDK 17 Setup
       uses: actions/setup-java@v4.1.0
